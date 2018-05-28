@@ -137,7 +137,7 @@ C++ compiler to work.
 Windows
 -------
 
-For example, the TDM gcc compiler can be obtained from this `link <http://tdm-gcc.tdragon.net/download>`_.
+For example, the TDM gcc compiler can be obtained from this [site](http://tdm-gcc.tdragon.net/download).
 After installation you can use
 
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 

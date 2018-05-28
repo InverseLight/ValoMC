@@ -102,7 +102,7 @@ The exernal executable can be used to run ValoMC e.g. on a cluster
 without MATLAB (see example: 'Generating input for the external
 executable'). The source code for the external executables are located
 in 2d/cpp/ and 3d/cpp/.  These contain Ubuntu makefiles for
-reference. For example, using a gnu compiler the single threaded
+reference. For example, using a GNU compiler the single threaded
 executable for the 2D code can be compiled with
 
 	g++ MC2D.cpp -o MC2D.a -O3
@@ -113,7 +113,7 @@ compiled with
 	g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp -O3
 		
 
-Generalization to other compilers than GNU should be straightforward.
+Generalization to other compilers than GNU ones should be straightforward.
 	
 		
 Multithread (parallel) compilation 

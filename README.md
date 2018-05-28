@@ -26,7 +26,7 @@ The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a
 
 	% Create a light source
 	%    - Set a light source from boundary elements 4 to 7 
-        %    - Photons are launched at a random angle so that all angles have a cosinic distribution 
+	%    - Photons are launched at a random angle so that all angles have a cosinic distribution 
 	vmcboundary.lightsource(4:7) = {'cosinic'};
 
 	% Give optical parameters
@@ -65,7 +65,7 @@ where ValoMC/ is the the folder from the zip archive.
 
 ```
 	cd ValoMC
-	compile_pmc_mex
+	compile_vmc_mex
 ```
 
 to compile single-threaded ValoMC mex files for MATLAB. 
@@ -98,10 +98,10 @@ Advanced installation
 Compiling the external executable
 ---------------------------------
 
-The exernal executable can be used to run ValoMC e.g. on a cluster
+The external executable can be used to run ValoMC e.g. on a cluster
 without MATLAB (see example: 'Generating input for the external
 executable'). The source code for the external executables are located
-in 2d/cpp/ and 3d/cpp/.  These contain Ubuntu makefiles for
+in 2d/cpp/ and 3d/cpp/.  These folders contain Ubuntu makefiles for
 reference. For example, using a GNU compiler the single threaded
 executable for the 2D code can be compiled with
 

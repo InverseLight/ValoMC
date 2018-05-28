@@ -1,0 +1,12 @@
+<X3D profile="Interchange" version="3.2"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+     xsd:noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.2.xsd">
+<Scene>
+  <Shape>
+    <IndexedFaceSet coordIndex="$COORDINDEX"  colorIndex="$COLORINDEX" colorPerVertex="false">
+      <Coordinate point="$VERTICES"/>
+      <Color color="$COLORS"/>
+    </IndexedFaceSet>
+  </Shape>
+</Scene>
+</X3D>

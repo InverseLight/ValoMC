@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
+ul.topnav li a:hover {color: white}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 0px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:0px solid #d6d4d4; }
+table td.lfig { padding:7px 5px; text-align:center; vertical-align:bottom; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+</style>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png" >
+<ul class="topnav">
+<font size="4">
+  <li><a class="active" href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+<div style="padding:0 16px;">
+  <h2></h2>
+  <table>
+  <tr>
+  <td width="60%" valign="top">
+  <p style="text-align:justify">
+  <div class="document" id="introduction"> <h1 class="title">Introduction</h1> <p>ValoMC is an open source Monte Carlo code that can simulate the passage of visible and near infrared range photons through matter. The implementation follows the Monte Carlo model by Prahl et al., Proc. SPIE, 5, 102-111 (1989) and follows later developments. The simulation geometry is defined using triangular or tetrahedral meshes. The model solves for boundary and volumetric data and supports various boundary conditions, types of light sources, as well as intensity modulated light. While the model is capable of simulating complex measurement geometries, attention is given to ease of use and fast problem set up with a MATLAB (TM) interface. The simulation code is written in C++ and parallelized using OpenMP.</p> </div>
+  </p>
+  </td>
+  <td>
+  <img width="450px" src="digimouse2.jpg"> <br>
+  Simulation using the <a href = "https://neuroimage.usc.edu/neuro/Digimouse"> digimouse model</a>.
+  Model data is described in B. Dogdas, D. Stout, A. Chatziioannou, RM Leahy, <i>Digimouse: A 3D Whole Body Mouse Atlas from CT and Cryosection Data</i>, Phys. Med. Bio, 52: 577-587, 2007
+  </td>
+  </tr>
+  <tr>
+  <td width="20%">
+  <div class="document" id="minimal-example">
+<h1 class="title">Minimal example</h1>
+<p>The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a rectangular region</p>
+<pre class="code matlab literal-block">
+<span class="name">xsize</span> <span class="punctuation">=</span>  <span class="literal number integer">10</span><span class="punctuation">;</span>    <span class="comment">% width of the region  [mm]</span>
+<span class="name">ysize</span> <span class="punctuation">=</span>  <span class="literal number integer">10</span><span class="punctuation">;</span>    <span class="comment">% height of the region [mm]</span>
+<span class="name">dh</span> <span class="punctuation">=</span> <span class="literal number integer">1</span><span class="punctuation">;</span>         <span class="comment">% discretisation size  [mm]</span>
+<span class="name">vmcmesh</span> <span class="punctuation">=</span> <span class="name">createRectangularMesh</span><span class="punctuation">(</span><span class="name">xsize</span><span class="punctuation">,</span> <span class="name">ysize</span><span class="punctuation">,</span> <span class="name">dh</span><span class="punctuation">);</span>
+
+<span class="comment">% Create a light source</span>
+<span class="comment">%    - Set a light source from boundary elements 4 to 7</span>
+<span class="comment">%    - Photons are launched at a random angle so that all angles have a cosinic distribution</span>
+<span class="name">vmcboundary</span><span class="punctuation">.</span><span class="name">lightsource</span><span class="punctuation">(</span><span class="literal number integer">4</span><span class="punctuation">:</span><span class="literal number integer">7</span><span class="punctuation">)</span> <span class="punctuation">=</span> <span class="punctuation">{</span><span class="literal string">'cosinic'</span><span class="punctuation">};</span>
+
+<span class="comment">% Give optical parameters</span>
+<span class="comment">%    - Constant optical parameters are set troughout the medium.</span>
+<span class="comment">%    - Alternatively, optical parameters can set be for each element using indexing</span>
+
+<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">absorption_coefficient</span> <span class="punctuation">=</span> <span class="literal number float">0.01</span><span class="punctuation">;</span>     <span class="comment">% [1/mm]</span>
+<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">scattering_coefficient</span> <span class="punctuation">=</span> <span class="literal number float">1.0</span><span class="punctuation">;</span>      <span class="comment">% [1/mm]</span>
+<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">scattering_anisotropy</span> <span class="punctuation">=</span> <span class="literal number float">0.9</span><span class="punctuation">;</span>       <span class="comment">% anisotropy parameter g [unitless]</span>
+<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">refractive_index</span> <span class="punctuation">=</span> <span class="literal number float">1.3</span><span class="punctuation">;</span>            <span class="comment">% refractive index [unitless]</span>
+
+<span class="comment">% Run the Monte Carlo simulation</span>
+<span class="name">solution</span> <span class="punctuation">=</span> <span class="name">ValoMC</span><span class="punctuation">(</span><span class="name">vmcmesh</span><span class="punctuation">,</span> <span class="name">vmcmedium</span><span class="punctuation">,</span> <span class="name">vmcboundary</span><span class="punctuation">);</span>
+
+<span class="comment">% Plot the solution using MATLAB</span>
+<span class="name">patch</span><span class="punctuation">(</span><span class="literal string">'Faces'</span><span class="punctuation">,</span><span class="name">vmcmesh</span><span class="punctuation">.</span><span class="name">H</span><span class="punctuation">,</span><span class="literal string">'Vertices'</span><span class="punctuation">,</span><span class="name">vmcmesh</span><span class="punctuation">.</span><span class="name">r</span><span class="punctuation">,</span><span class="literal string">'FaceVertexCData'</span><span class="punctuation">,</span> <span class="name">solution</span><span class="punctuation">.</span><span class="name">element_fluence</span><span class="punctuation">,</span> <span class="literal string">'FaceColor'</span><span class="punctuation">,</span> <span class="literal string">'flat'</span><span class="punctuation">,</span> <span class="literal string">'LineWidth'</span><span class="punctuation">,</span><span class="literal number float">1.5</span><span class="punctuation">);</span>
+</pre>
+</div>
+  </td>
+  <td class="lfig">
+  <img width="450px" src="minimalexample.png">
+  </td>
+  </tr>
+  <td>
+  <div class="document" id="news"> <h1 class="title">News</h1> <p>28.5.2018:  <strong>Beta-release</strong></p> <blockquote> We are releasing the beta version for test use and feedback. Please note that the functionality might still change and that the code might not be fully forward compatible with later releases.</blockquote> </div>
+  </td>
+  <td>
+  </td>
+
+  </table>
+</div>
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>

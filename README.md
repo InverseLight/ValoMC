@@ -19,8 +19,6 @@ Minimal example
 
 The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a rectangular region
 
-.. code-block:: matlab
-
 	xsize =  10;	% width of the region  [mm]
 	ysize =  10;	% height of the region [mm]
 	dh = 1;         % discretisation size  [mm]
@@ -53,24 +51,18 @@ Simple installation
 
 1. Obtain the latest source code using git
 
-.. code-block:: matlab
-
-   git clone https://github.com/InverseLight/ValoMC/
+	git clone https://github.com/InverseLight/ValoMC/
 
 2. Open MATLAB and type
 
-.. code-block:: matlab
-
-   addpath('ValoMC/')
+	addpath('ValoMC/')
 
 where ValoMC/ is the the folder from the zip archive.
 
 3. Type 
 
-.. code-block:: matlab
-
-   cd ValoMC
-   compile_pmc_mex
+	cd ValoMC
+	compile_pmc_mex
 
 to compile single-threaded ValoMC mex files for MATLAB. 
 
@@ -83,10 +75,8 @@ ValoMC.
 
 Try to run e.g. simpletest.m.
  
-.. code-block:: matlab
-
-   cd examples
-   simpletest
+	cd examples
+	simpletest
 
 If you receive error messages, it most likely means the mex compiler
 has not yet been set up in MATLAB. For instructions how to set up the mex
@@ -109,7 +99,7 @@ without MATLAB (see example: 'Generating input for the external
 executable'). The source code for the external executables are located
 in 2d/cpp/ and 3d/cpp/.  These contain Ubuntu makefiles for
 reference. For example, using a gnu compiler the single threaded
-executable can be compiled with
+executable for the 2D code can be compiled with
 
 .. code-block:: makefile
 
@@ -123,8 +113,7 @@ compiled with
 		g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp -O3
 		
 
-ValoMC has been tested only with gnu compilers, however,
-generalization to other compilers should be straightforward.
+Generalization to other compilers than GNU should be straightforward.
 	
 		
 Multithread (parallel) compilation 
@@ -153,8 +142,6 @@ Windows
 For example, the TDM gcc compiler can be obtained from this `link <http://tdm-gcc.tdragon.net/download>`_.
 After installation you can use
 
-.. code-block:: matlab
-
 		setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 		mex -setup 
 
@@ -163,10 +150,8 @@ to inform MATLAB of the location.
 Ubuntu
 ------
 
-To get gcc in ubuntu you can use
+To get gcc in Ubuntu you can use
 
-.. code-block:: sh
-		
 		sudo apt-get install g++
 		sudo apt-get install gcc
 
@@ -174,15 +159,11 @@ in shell. Depending on your MATLAB, it might be necessary to obtain an
 older version of the compiler. For example, if MATLAB supports g++ 4.9
 you can install it by
 
-.. code-block:: sh
-		
 		sudo apt-get install g++-4.9
 		sudo apt-get install gcc-4.9
    
 and use
 
 		
-.. code-block:: matlab
-
 		mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
 

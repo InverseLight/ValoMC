@@ -50,19 +50,23 @@ Simple installation
 ===================
 
 1. Obtain the latest source code using git
-
+```
 	git clone https://github.com/InverseLight/ValoMC/
+```
 
 2. Open MATLAB and type
-
+```
 	addpath('ValoMC/')
+```
 
 where ValoMC/ is the the folder from the zip archive.
 
 3. Type 
 
+```
 	cd ValoMC
 	compile_pmc_mex
+```
 
 to compile single-threaded ValoMC mex files for MATLAB. 
 

@@ -13,15 +13,6 @@ body {
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
 
-@media only screen and (min-width: 320px) and (max-width: 768px) {
-  .topnav {
-    width:100%;
-  }
-  .nav-item {
-    width:100%;
-    float:none;
-  }
-}
 
    ul.tree a {
     color: back;
@@ -89,10 +80,11 @@ ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    overflow: hidden;
     background-color: #333;
     font-size: 15px;
     text-align: center;
-    width: 600px;
+    width: 1500px;
 }
 
 ul.topnav li {float: left;
@@ -112,6 +104,10 @@ ul.topnav li a:hover {color: white}
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
 
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
 
 img.logo {max-width: 300px;}
 
@@ -130,7 +126,7 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer { padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
@@ -173,7 +169,7 @@ ul {
   </td>
   </tr>
   <tr>
-  <td width="60%">
+  <td width="20%">
   <div class="document" id="minimal-example">
 <h1 class="title">Minimal example</h1>
 <p>The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a rectangular region</p>

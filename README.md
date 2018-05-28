@@ -31,7 +31,7 @@ The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a
 
 	% Give optical parameters
 	%    - Constant optical parameters are set troughout the medium.
-        %    - Alternatively, optical parameters can set be for each element using indexing 
+	%    - Alternatively, optical parameters can set be for each element using indexing 
 
 	vmcmedium.absorption_coefficient = 0.01;     % [1/mm]
 	vmcmedium.scattering_coefficient = 1.0;      % [1/mm]
@@ -101,16 +101,12 @@ in 2d/cpp/ and 3d/cpp/.  These contain Ubuntu makefiles for
 reference. For example, using a gnu compiler the single threaded
 executable for the 2D code can be compiled with
 
-.. code-block:: makefile
-
-		g++ MC2D.cpp -o MC2D.a -O3
+	g++ MC2D.cpp -o MC2D.a -O3
 
 The multi-threaded (OpenMP) version of the external executable can be
 compiled with
 
-.. code-block:: makefile
-
-		g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp -O3
+	g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp -O3
 		
 
 Generalization to other compilers than GNU should be straightforward.
@@ -121,10 +117,8 @@ Multithread (parallel) compilation
 
 To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
-.. code-block:: matlab
-
-		mex -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-		mex -DUSE_OMP cpp/3d/MC3Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+	mex -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+	mex -DUSE_OMP cpp/3d/MC3Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
 
 Do not use OpenMP version if the MATLAB does not support the compiler used.
 See troubleshooting on how to install a specific version of GCC.
@@ -142,8 +136,8 @@ Windows
 For example, the TDM gcc compiler can be obtained from this `link <http://tdm-gcc.tdragon.net/download>`_.
 After installation you can use
 
-		setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
-		mex -setup 
+	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
+	mex -setup 
 
 to inform MATLAB of the location.
 
@@ -152,18 +146,17 @@ Ubuntu
 
 To get gcc in Ubuntu you can use
 
-		sudo apt-get install g++
-		sudo apt-get install gcc
+	sudo apt-get install g++
+	sudo apt-get install gcc
 
 in shell. Depending on your MATLAB, it might be necessary to obtain an
 older version of the compiler. For example, if MATLAB supports g++ 4.9
 you can install it by
 
-		sudo apt-get install g++-4.9
-		sudo apt-get install gcc-4.9
+	sudo apt-get install g++-4.9
+	sudo apt-get install gcc-4.9
    
 and use
-
-		
-		mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+	
+	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
 

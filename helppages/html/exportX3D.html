@@ -1,0 +1,48 @@
+
+ans =
+
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:////opt/MATLAB/R2016b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: exportX3D</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: exportX3D</td>
+            <td class="subheader-left"><a href="matlab:edit exportX3D">View code for exportX3D</a></td>
+            <td class="subheader-right"><a href="matlab:helpwin">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">exportX3D</div>
+      <div class="helptext"><pre><!--helptext --> <span class="helptopic">exportX3D</span> Export the mesh into X3D format.
+ 
+  DESCRIPTION:
+ 
+        Export the mesh to X3D format for use in e.g. 3d modeling
+        software.  The mesh has to be a three dimensional, i.e. to
+        consists of tetrahedrons. Each tetrahedron will be stored as 4
+        triangles.  The triangles will be colored according to
+        'colormap' and 'value'. The length of 'value' is equal to the
+        number of tetrahedrons
+ 
+  USAGE:
+ 
+        <span class="helptopic">exportX3D</span>('mouse.x3d', vmcmesh.r,vmcmesh.H, solution.element_fluence, @parula)
+        <span class="helptopic">exportX3D</span>('mouse.xhtml', vmcmesh.r, vmcmesh.H, solution.element_fluence, @jet)
+ 
+  INPUTS:
+ 
+        filename       - see usage example
+        vertices          - vector for node coordinates
+        mesh           - tetrahederal mesh
+        value           - value for each tetrahedron
+        colormap        - colormap function for determining the
+                          color of each triangle from 'value'</pre></div><!--after help -->
+   </body>
+</html>
+
+

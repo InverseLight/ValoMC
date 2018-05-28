@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
+ul.topnav li a:hover {color: white}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+</style>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png" min-width="100%">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a href="documentation.html">Documentation</a></li>
+  <li class="right"><a class="active" href="about.html">About</a></li>
+</font>
+</ul>
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+  <div class="document" id="information">
+<h1 class="title">Information</h1>
+<div class="section" id="authors">
+<h1>Authors</h1>
+<p>The homepage is maintained by Aleksi Leino.</p>
+<p>The MATLAB interface is written by Aleksi Leino, Aki Pulkkinen, Tanja Tarvainen.</p>
+<p>The C++ simulation code is written by Aki Pulkkinen, Aleksi Leino, Tanja Tarvainen.</p>
+</div>
+<div class="section" id="how-to-cite">
+<h1>How to cite</h1>
+<p>These details will be provided later.</p>
+</div>
+<div class="section" id="licensing-information">
+<h1>Licensing information</h1>
+<p>The ValoMC software (MATLAB and C++ source code for the software) is published under MIT-licence:</p>
+<pre class="literal-block">
+ValoMC Copyright (C) 2018 Aleksi Leino, Aki Pulkkinen and Tanja Tarvainen.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>
+<p>The software uses Mersenne-Twister random number generation code by Makoto Matsumoto and Takuji Nishimura (mt_rng.hpp):</p>
+<pre class="literal-block">
+Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+  1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  3. The names of its contributors may not be used to endorse or promote
+    products derived from this software without specific prior written
+    permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</pre>
+</div>
+</div>
+      <br>
+</div>
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>

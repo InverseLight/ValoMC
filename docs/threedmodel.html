@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Working with a realistic 3d model</h1><!--introduction--><p>This example demonstrates how the functions introduced in the previous examples can be used to simulate light propagation in a mouse. Please note that the model is not part of this work and is not distributed here. The digimouse model can be obtained from <a href="http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip">http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip</a> For information how to cite the mouse see <a href="http://neuroimage.usc.edu/neuro/Digimouse">http://neuroimage.usc.edu/neuro/Digimouse</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Build mesh</a></li><li><a href="#3">Display the surface mesh</a></li><li><a href="#4">Create a medium and a boundary for the mesh</a></li><li><a href="#5">Run the simulation</a></li><li><a href="#6">Fill the mesh region with a grid for plotting</a></li><li><a href="#7">Plot the solution</a></li></ul></div><pre class="codeinput"><span class="keyword">if</span>(exist(<span class="string">'Tesselated_Atlas.mat'</span>, <span class="string">'file'</span>) ~= 2)
+    error(<span class="string">'Could not find the mesh data file. Please unzip Tesselated_Atlas.mat from http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip to the examples folder.'</span>);
+<span class="keyword">end</span>
+
+load <span class="string">'Tesselated_Atlas.mat'</span>
+</pre><h2 id="2">Build mesh</h2><p>The model is not exactly in the format needed. The surface is given as a separate array, therefore the surface triangles are mapped to the volumetric mesh</p><pre class="codeinput">surface_coordinates = find(ismember(r,r_hull,<span class="string">'rows'</span>));  <span class="comment">% find the surface coordinates from the volumetric mesh</span>
+vmcmesh.BH = surface_coordinates(S_hull); <span class="comment">% map the surface triangles to mesh triangles</span>
+<span class="comment">% The rest of the mesh definition is in the right format</span>
+vmcmesh.r = r;
+vmcmesh.H = T;
+</pre><h2 id="3">Display the surface mesh</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 700])
+hold <span class="string">on</span>
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
+view(70,40);
+<span class="comment">% Display the heart of the mouse (see labels_4_tetrahedrons.txt)</span>
+tetramesh(vmcmesh.H(cond==3,:), vmcmesh.r);
+hold <span class="string">off</span>
+</pre><img alt="" hspace="5" src="threedmodel_01.png" vspace="5"/> <h2 id="4">Create a medium and a boundary for the mesh</h2><pre class="codeinput">vmcmedium.absorption_coefficient=0.03;
+vmcmedium.scattering_coefficient=0.3;
+vmcmedium.scattering_anisotropy=0.9;
+vmcmedium.refractive_index=1.3;
+
+vmcmedium=createMedium(vmcmesh,vmcmedium);
+vmcboundary=createBoundary(vmcmesh,vmcmedium);
+
+<span class="comment">% Find the approximate center of the heart by taking the mean of the</span>
+<span class="comment">% of the tetrahedrons that it consist of</span>
+heart_location = mean(vmcmesh.r(vmcmesh.H(cond==3,1),:));
+<span class="comment">% For illustration purposes, we set the absorbtion coefficient of the heart</span>
+<span class="comment">% 3 times bigger as the rest of the body</span>
+vmcmedium.absorption_coefficient(cond==3)=0.09;
+
+<span class="comment">% To attach a light source, find boundary elements above it</span>
+surface_above_heart = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+heart_location, <span class="keyword">...</span><span class="comment"> % obtain the surface elements from a region that starts</span>
+heart_location+[0 0 20], <span class="keyword">...</span><span class="comment"> %  at the heart location and ends above it</span>
+5); <span class="comment">% radius of the region</span>
+
+vmcboundary.lightsource(surface_above_heart) = {<span class="string">'cosinic'</span>};
+</pre><h2 id="5">Run the simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC3D...
+Computation uses 16 threads
+Computing... 
+...done
+
+Done
+</pre><h2 id="6">Fill the mesh region with a grid for plotting</h2><p>Create a grid and obtain values from the mesh to the grid</p><pre class="codeinput">mincoord = min(vmcmesh.r);
+maxcoord = max(vmcmesh.r);
+
+[gridx,gridy,gridz] = meshgrid(mincoord(1):maxcoord(1),mincoord(2):maxcoord(2),mincoord(3):maxcoord(3));
+TR = triangulation(double(vmcmesh.H),vmcmesh.r); <span class="comment">% create a matlab triangulation object from the points</span>
+locations = [gridx(:) gridy(:) gridz(:)]; <span class="comment">% form a 2D matrix from all the grid points</span>
+indices = pointLocation(TR,locations); <span class="comment">% query the indices of the tetrahedrons at grid points</span>
+indices(isnan(indices)) = 1; <span class="comment">% set the grid points that do not belong to the mesh to point at the first element</span>
+gridval = reshape(solution.element_fluence(indices),size(gridx)); <span class="comment">% get the values on the grid</span>
+</pre><h2 id="7">Plot the solution</h2><pre class="codeinput">xmin = min(gridx(:)); ymin = min(gridy(:)); zmin = min(gridz(:));
+xmax = max(gridx(:)); ymax = max(gridy(:)); zmax = max(gridz(:));
+
+figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 700])
+hold <span class="string">on</span>
+
+
+hslice = surf(linspace(xmin,xmax,100),<span class="keyword">...</span>
+         linspace(ymin,ymax,100),<span class="keyword">...</span>
+         ones(100)*(zmax-zmin)/2.0); <span class="comment">% form a slice</span>
+
+rotate(hslice,[0,1,0],90);
+xd = get(hslice,<span class="string">'XData'</span>);
+yd = get(hslice,<span class="string">'YData'</span>);
+zd = get(hslice,<span class="string">'ZData'</span>);
+delete(hslice);
+
+colormap(jet);
+h = slice(gridx,gridy,gridz,gridval,xd,yd,zd);
+h.FaceColor = <span class="string">'interp'</span>;
+h.EdgeColor = <span class="string">'none'</span>;
+h.DiffuseStrength = 0.8;
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
+zlim([zmin zmax+1]);
+view(70,40);
+xlabel(<span class="string">'x [mm]'</span>);
+ylabel(<span class="string">'y [mm]'</span>);
+zlabel(<span class="string">'z [mm]'</span>);
+c=colorbar;
+c.Label.String = <span class="string">'Fluence [W/mm^2]'</span>;
+
+[v i] = max(solution.element_fluence(:));
+</pre><img alt="" hspace="5" src="threedmodel_02.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

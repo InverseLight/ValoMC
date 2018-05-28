@@ -1,0 +1,323 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Setting boundary conditions and visualising the boundary solution: boundarytest.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="boundarytest.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Setting boundary conditions and visualising the boundary solution: boundarytest.m</h1><!--introduction--><p>This example demonstrates how to set the exterior refractive index outside the mesh and how to plot the fluence and the exitance on the boundary.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialisation</a></li><li><a href="#2">Find boundary elements on segment(s) of the boundary</a></li><li><a href="#4">Create the boundary and set boundary conditions</a></li><li><a href="#5">Set up light sources</a></li><li><a href="#6">Run the Monte Carlo simulation</a></li><li><a href="#7">Plot the solution</a></li></ul></div><h2 id="1">Initialisation</h2><pre class="codeinput">xsize =  10;    <span class="comment">% width of the region [mm]</span>
+ysize =  10;    <span class="comment">% width of the region [mm]</span>
+dh = 0.1;       <span class="comment">% discretisation size [mm]</span>
+vmcmesh = createRectangularMesh(xsize, ysize, dh); <span class="comment">% create a rectangular mesh</span>
+
+<span class="comment">% Set constant optical parameters troughout the medium</span>
+vmcmedium.absorption_coefficient = 0.15;     <span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = 0.1;      <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_anisotropy = 0.0;       <span class="comment">% scattering anisotropy parameter [unitless]</span>
+vmcmedium.refractive_index = 1.3;            <span class="comment">% refractive index [unitless]</span>
+</pre><h2 id="2">Find boundary elements on segment(s) of the boundary</h2><pre class="codeinput"><span class="comment">% The arrays define four lines, drawn in the figure below, that are used</span>
+<span class="comment">% to obtain indices of the boundary elements. The first three are used to</span>
+<span class="comment">% set up light sources. The fourth line is used to set up a region with</span>
+<span class="comment">% a custom exterior refractive index.</span>
+
+radius = xsize/2.0;
+
+line1_start = [0 5];
+line2_start = [5 0];
+line3_start = [0 -5];
+
+line1_end = [-5 2.5];
+line2_end = [-5 0];
+line3_end = [-5 -2.5];
+
+line_width = 1.0;
+
+boundary1 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line1_start, line1_end, line_width);
+boundary2 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line2_start, line2_end, line_width);
+boundary3 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line3_start, line3_end, line_width);
+boundary4 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line1_end, line1_start, line_width);
+</pre><p><img vspace="5" hspace="5" src="linesegments_boundary.png" alt=""> </p><h2 id="4">Create the boundary and set boundary conditions</h2><pre class="codeinput"><span class="comment">% 'createBoundary' forms the boundary structure of the mesh.</span>
+<span class="comment">% If the medium is given as a third argument, 'createBoundary' will build</span>
+<span class="comment">% an array 'exterior_refractive_index' with no change in the refractive index</span>
+<span class="comment">% when the photon packets encounter a boundary (i.e. a boundary condition</span>
+<span class="comment">% with a matching reafractive index).</span>
+
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+
+<span class="comment">% Set the exterior refractive index at the third boundary segment to be higher than elsewhere</span>
+vmcboundary.exterior_refractive_index(boundary4) = 1.8;
+</pre><h2 id="5">Set up light sources</h2><pre class="codeinput"><span class="comment">% Set up three light sources at the boundary to the locations</span>
+<span class="comment">% returned by 'findBoundaries'.</span>
+
+vmcboundary.lightsource(boundary1) = {<span class="string">'direct'</span>};
+vmcboundary.lightsource(boundary2) = {<span class="string">'direct'</span>};
+vmcboundary.lightsource(boundary3) = {<span class="string">'direct'</span>};
+
+<span class="comment">% Calculate and normalise a direction vector for two of the lightsources</span>
+<span class="comment">% from the lines.</span>
+dir1 = (line1_start - line1_end);
+dir2 = (line3_start - line3_end);
+dir1 = dir1/norm(dir1);
+dir2 = dir2/norm(dir2);
+
+<span class="comment">% Use the line to set the direction vectors of the lines</span>
+vmcboundary.lightsource_direction(boundary1,1) = dir1(1);
+vmcboundary.lightsource_direction(boundary1,2) = dir1(2);
+vmcboundary.lightsource_direction(boundary3,1) = dir2(1);
+vmcboundary.lightsource_direction(boundary3,2) = dir2(2);
+vmcboundary.lightsource_direction_type(boundary1) = {<span class="string">'absolute'</span>};
+vmcboundary.lightsource_direction_type(boundary3) = {<span class="string">'absolute'</span>};
+
+
+<span class="comment">% Change the irradiance</span>
+<span class="comment">%</span>
+<span class="comment">% The total strength of the lightsources is 1 W and the strength</span>
+<span class="comment">% per unit distance is a constant. The sources 1 and 3 have the same length.</span>
+<span class="comment">% In direct lightsources, all photons are launched to the same direction</span>
+<span class="comment">% so tilting the lightsource increases the photon density in the beam it</span>
+<span class="comment">% emits. To keep the fluence constant in all the beams, the irradiance of</span>
+<span class="comment">% the tilted lightsources is reduced by a factor of \vec n dot \vec s,</span>
+<span class="comment">% where \vec n is the boundary normal and \vec s is the beam direction.</span>
+
+vmcboundary.lightsource_irradiance(boundary1) = dot(dir1, [1 0]);
+vmcboundary.lightsource_irradiance(boundary2) = 1;
+vmcboundary.lightsource_irradiance(boundary3) = dot(dir2, [1 0]);
+
+<span class="comment">% Notice that now the first light source is directed towards the third</span>
+<span class="comment">% boundary segment. Due to the refractive index mismatch, a total internal</span>
+<span class="comment">% refection will occur at the boundary.</span>
+</pre><h2 id="6">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC2D using 16 threads...
+Computing... 
+...done
+
+Done
+</pre><h2 id="7">Plot the solution</h2><pre class="codeinput">hold <span class="string">on</span>;
+
+<span class="comment">% The boundary solution is given as a constant fluence and extitance values</span>
+<span class="comment">% at each boundary element.</span>
+
+<span class="comment">% To plot the boundary fluence with plot3, an average coordinate of each</span>
+<span class="comment">% boundary element is calculated</span>
+
+
+avgr = (vmcmesh.r(vmcmesh.BH(:, 1),:) + vmcmesh.r(vmcmesh.BH(:, 2),:))/2;
+h = plot3(avgr(:,1), avgr(:,2), (solution.boundary_exitance), <span class="string">'b'</span>,<span class="string">'LineWidth'</span>,1.5);
+
+<span class="comment">% Draw the fluence in each element as before</span>
+patch(<span class="string">'Faces'</span>, vmcmesh.H, <span class="string">'Vertices'</span>,vmcmesh.r, <span class="string">'FaceVertexCData'</span>, log(solution.element_fluence), <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+xlabel(<span class="string">'[mm]'</span>);
+ylabel(<span class="string">'[mm]'</span>);
+c = colorbar;                       <span class="comment">% create a colorbar</span>
+c.Label.String = <span class="string">'Fluence [J/mm^2]'</span>;
+legend(h,{<span class="string">'Boundary exitance'</span>});
+
+<span class="comment">% tilt the view</span>
+az = -54;
+el = 34;
+view([az, el]);
+zlabel(<span class="string">'Boundary value [(J/mm^2)]'</span>);
+
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="boundarytest_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Setting boundary conditions and visualising the boundary solution: boundarytest.m
+% This example demonstrates how to set the exterior refractive index
+% outside the mesh and how to plot the fluence and the exitance on the boundary.
+
+%% Initialisation
+
+xsize =  10;    % width of the region [mm]
+ysize =  10;    % width of the region [mm]
+dh = 0.1;       % discretisation size [mm]
+vmcmesh = createRectangularMesh(xsize, ysize, dh); % create a rectangular mesh
+
+% Set constant optical parameters troughout the medium
+vmcmedium.absorption_coefficient = 0.15;     % absorption coefficient [1/mm]
+vmcmedium.scattering_coefficient = 0.1;      % scattering coefficient [1/mm]
+vmcmedium.scattering_anisotropy = 0.0;       % scattering anisotropy parameter [unitless]
+vmcmedium.refractive_index = 1.3;            % refractive index [unitless]
+
+%% Find boundary elements on segment(s) of the boundary
+
+% The arrays define four lines, drawn in the figure below, that are used 
+% to obtain indices of the boundary elements. The first three are used to 
+% set up light sources. The fourth line is used to set up a region with 
+% a custom exterior refractive index. 
+
+radius = xsize/2.0;
+
+line1_start = [0 5]; 
+line2_start = [5 0]; 
+line3_start = [0 -5];
+
+line1_end = [-5 2.5];
+line2_end = [-5 0]; 
+line3_end = [-5 -2.5];
+
+line_width = 1.0; 
+
+boundary1 = findBoundaries(vmcmesh, 'direction', line1_start, line1_end, line_width);
+boundary2 = findBoundaries(vmcmesh, 'direction', line2_start, line2_end, line_width);
+boundary3 = findBoundaries(vmcmesh, 'direction', line3_start, line3_end, line_width);
+boundary4 = findBoundaries(vmcmesh, 'direction', line1_end, line1_start, line_width);
+
+%%
+% <<linesegments_boundary.png>>
+
+%% Create the boundary and set boundary conditions
+
+% 'createBoundary' forms the boundary structure of the mesh.   
+% If the medium is given as a third argument, 'createBoundary' will build 
+% an array 'exterior_refractive_index' with no change in the refractive index 
+% when the photon packets encounter a boundary (i.e. a boundary condition 
+% with a matching reafractive index).
+
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+
+% Set the exterior refractive index at the third boundary segment to be higher than elsewhere
+vmcboundary.exterior_refractive_index(boundary4) = 1.8;
+
+
+%% Set up light sources
+
+% Set up three light sources at the boundary to the locations 
+% returned by 'findBoundaries'. 
+
+vmcboundary.lightsource(boundary1) = {'direct'};
+vmcboundary.lightsource(boundary2) = {'direct'};
+vmcboundary.lightsource(boundary3) = {'direct'};
+
+% Calculate and normalise a direction vector for two of the lightsources
+% from the lines.
+dir1 = (line1_start - line1_end);
+dir2 = (line3_start - line3_end);
+dir1 = dir1/norm(dir1);
+dir2 = dir2/norm(dir2);
+
+% Use the line to set the direction vectors of the lines
+vmcboundary.lightsource_direction(boundary1,1) = dir1(1);
+vmcboundary.lightsource_direction(boundary1,2) = dir1(2);
+vmcboundary.lightsource_direction(boundary3,1) = dir2(1);
+vmcboundary.lightsource_direction(boundary3,2) = dir2(2);
+vmcboundary.lightsource_direction_type(boundary1) = {'absolute'};
+vmcboundary.lightsource_direction_type(boundary3) = {'absolute'};
+
+
+% Change the irradiance
+%
+% The total strength of the lightsources is 1 W and the strength
+% per unit distance is a constant. The sources 1 and 3 have the same length.
+% In direct lightsources, all photons are launched to the same direction 
+% so tilting the lightsource increases the photon density in the beam it 
+% emits. To keep the fluence constant in all the beams, the irradiance of 
+% the tilted lightsources is reduced by a factor of \vec n dot \vec s, 
+% where \vec n is the boundary normal and \vec s is the beam direction.
+
+vmcboundary.lightsource_irradiance(boundary1) = dot(dir1, [1 0]);
+vmcboundary.lightsource_irradiance(boundary2) = 1;
+vmcboundary.lightsource_irradiance(boundary3) = dot(dir2, [1 0]);
+
+% Notice that now the first light source is directed towards the third 
+% boundary segment. Due to the refractive index mismatch, a total internal
+% refection will occur at the boundary. 
+
+
+%% Run the Monte Carlo simulation
+
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+
+%% Plot the solution
+
+hold on;
+
+% The boundary solution is given as a constant fluence and extitance values 
+% at each boundary element. 
+
+% To plot the boundary fluence with plot3, an average coordinate of each 
+% boundary element is calculated
+
+
+avgr = (vmcmesh.r(vmcmesh.BH(:, 1),:) + vmcmesh.r(vmcmesh.BH(:, 2),:))/2;
+h = plot3(avgr(:,1), avgr(:,2), (solution.boundary_exitance), 'b','LineWidth',1.5);
+
+% Draw the fluence in each element as before
+patch('Faces', vmcmesh.H, 'Vertices',vmcmesh.r, 'FaceVertexCData', log(solution.element_fluence), 'FaceColor', 'flat', 'EdgeColor','none');
+xlabel('[mm]');
+ylabel('[mm]');
+c = colorbar;                       % create a colorbar
+c.Label.String = 'Fluence [J/mm^2]';
+legend(h,{'Boundary exitance'});
+
+% tilt the view
+az = -54;  
+el = 34;
+view([az, el]);
+zlabel('Boundary value [(J/mm^2)]');
+
+hold off
+
+
+##### SOURCE END #####
+--></body></html>

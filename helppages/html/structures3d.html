@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>structures3d.rst</title>
+<script type="text/javascript" src="file:/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML"></script>
+<style type="text/css">
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: rgb(251, 255, 0)}
+ul.topnav li a:hover {color: rgb(251, 255, 0)}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<p>A photon transport simulation is initiated with</p>
+<pre class="code matlab literal-block">
+<span class="name">solution</span> <span class="punctuation">=</span> <span class="name">ValoMC</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="name">medium</span><span class="punctuation">,</span> <span class="name">boundary</span><span class="punctuation">,</span> <span class="name">options</span><span class="punctuation">);</span>
+
+<span class="name">solution</span> <span class="punctuation">=</span> <span class="name">ValoMC</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="name">medium</span><span class="punctuation">,</span> <span class="name">boundary</span><span class="punctuation">);</span>
+</pre>
+<p>Documentation for each input structure and the output structure is
+provided here.  Most of the fields in the input structures are
+arrays. For convenience, it is also possible to give the fields as
+scalars or as incomplete arrays.  ValoMC will fill the arrays with
+the scalar value or complete them with the default values.</p>
+<div class="section" id="input-structures">
+<h1>Input structures</h1>
+<p><span class="structure">1: mesh</span></p>
+<p>The mesh structure defines the geometry of the problem.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="35%" />
+<col width="9%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Field name</td>
+<td>Description</td>
+<td>Unit</td>
+<td>Element type [array size]</td>
+</tr>
+<tr><td>r</td>
+<td>grid point coordinates</td>
+<td>mm</td>
+<td>double  [N<sub>r</sub> = number of coordinates in the system  x 3]</td>
+</tr>
+<tr><td>H</td>
+<td>indices to the grid points (tetrahedrons), i.e element topology</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>int64   [N<sub>e</sub> = number of elements in the system x 4]</td>
+</tr>
+<tr><td>BH</td>
+<td>indices to the boundary grid points (edges)</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>int64   [N<sub>b</sub> = number of edges in the system x 2]</td>
+</tr>
+<tr><td colspan="4">Optional fields</td>
+</tr>
+<tr><td>HN</td>
+<td>neighborhood topology</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>int64   [N<sub>e</sub> = number of elements in the system x 4]</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+<br />
+<strong>Geometry description</strong>
+<br />
+<br />
+A single volume element is a tetrahedron.</p>
+<p>For example, a simple cuboidal region that consists of six tetrahedrons can be built with the coordinate matrix</p>
+<div class="math">
+\begin{equation*}
+r = \left(\begin{array}{cc}1 &amp; 1 &amp; 1\\1 &amp; 2 &amp; 1\\2 &amp; 1 &amp; 1\\2 &amp; 2 &amp; 1\\1 &amp; 1 &amp; 2\\1 &amp; 2 &amp; 2\\2 &amp; 1 &amp; 2\\2 &amp; 2 &amp; 2\end{array}\right)
+\end{equation*}
+</div>
+<p>and network topology matrices</p>
+<div class="math">
+\begin{equation*}
+H = \left(\begin{array}{ccc}5 &amp; 1 &amp; 2 &amp; 3\\6 &amp; 5 &amp; 2 &amp; 3\\6 &amp; 7 &amp; 5 &amp; 3\\6 &amp; 4 &amp; 7 &amp; 3\\6 &amp; 2 &amp; 4 &amp; 3\\6 &amp; 8 &amp; 7 &amp; 4\\\end{array}\right)
+BH = \left(\begin{array}{cc}3 &amp; 1 &amp; 5\\3 &amp; 7 &amp; 5\\3 &amp; 4 &amp; 7\\3 &amp; 7 &amp; 8\\4 &amp; 8 &amp; 6\\4 &amp; 2 &amp; 6\\2 &amp; 1 &amp; 5\\5 &amp; 6 &amp; 2\\7 &amp; 5 &amp; 8\\5 &amp; 6 &amp; 8\\4 &amp;3 &amp;1\\8 &amp; 2 &amp; 4\\\end{array}\right)
+\end{equation*}
+</div>
+<p>The elements in H and BH refer to the rows in r. Each row in H refers to a single tetrahedron and each row in BH refers to a single boundary element (triangle).
+As the box boundary consists of 6 faces (12 triangles) and six tetrahedrons, there are 12 rows in BH and six rows in H.
+The first row of matrix H is illustrated in the figure below</p>
+<img alt="mesh3d.png" src="mesh3d.png" />
+<p><br />
+<br />
+<br />
+<br /></p>
+<p><span class="structure">2: medium</span></p>
+<p>This structure is used to set the properties of the the medium.
+N<sub>e</sub> is the number elements in the mesh.
+If a scalar value is given, it is applied to all elements.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="32%" />
+<col width="16%" />
+<col width="32%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Field name</td>
+<td>Description</td>
+<td>Unit</td>
+<td>Element type [array size]</td>
+</tr>
+<tr><td>refractive_index</td>
+<td><span class="math">\(n\)</span></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double [N<sub>e</sub>] or double [N<sub>e</sub> x 3]</td>
+</tr>
+<tr><td>absorption_coefficient</td>
+<td><span class="math">\(\mu_a\)</span></td>
+<td>1/mm</td>
+<td>double [N<sub>e</sub>] or double [N<sub>e</sub> x 3]</td>
+</tr>
+<tr><td>scattering_coefficient</td>
+<td><span class="math">\(\mu_s\)</span></td>
+<td>1/mm</td>
+<td>double [N<sub>e</sub>] or double [N<sub>e</sub> x 3]</td>
+</tr>
+<tr><td>scattering_anisotropy</td>
+<td><span class="math">\(g\)</span> (Henye-Greenstein phase function)</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double [N<sub>e</sub>] or double [N<sub>e</sub> x 3]</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+<br />
+For detailed description of the coefficients, see e.g. the books by [Ihshimaru] and [Wang]</p>
+<p>[Ishimaru] <em>Wave Propagation and Scattering in Random Media</em>, IEEE Press and Oxford University Press, 1997
+[Wang] <em>Biomedical Optics Principles and Imaging</em>, Wiley, 2007</p>
+<p>When three dimensional arrays are used, it is assumed that the mesh has been created with createGridMesh.
+The values then represent the values in each in grid point.</p>
+<p><br />
+<br /></p>
+<p><span class="structure">3: boundary</span></p>
+<p>This structure is used to set the properties of the boundary surrounding the medium. N<sub>b</sub> refers to the number of elements in the boundary.
+If a scalar value is given, it is applied to all elements.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="60%" />
+<col width="9%" />
+<col width="14%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Field name</td>
+<td>Description</td>
+<td>Unit</td>
+<td>Element type [array size]</td>
+</tr>
+<tr><td>lightsource</td>
+<td><dl class="first last docutils">
+<dt>Sets the light source type for each boundary element <br /></dt>
+<dd><em>'none'</em>: (default) no light source <br />
+<em>'direct'</em>: direct light   <br />
+<em>'cosinic'</em>: the directivity follows a cosine pattern <br />
+<em>'isotropic'</em>: photon packets will be launched at equal propability to all directions <br />
+<em>'pencil'</em>: pencil beam traveling perpendicular to the face normal                    <br /></dd>
+</dl>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double [N<sub>b</sub>]</td>
+</tr>
+<tr><td colspan="4"><strong>Optional fields</strong></td>
+</tr>
+<tr><td>exterior_refractive_index</td>
+<td>Sets the refractive index outside of the simulation geometry.
+This affects how the photon packets reflect when they encounter a
+boundary element.</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double
+[N<sub>b</sub> ]</td>
+</tr>
+<tr><td colspan="4"><strong>Optional fields</strong> (lightsource=&quot;direct, cosinic, isotropic&quot;)</td>
+</tr>
+<tr><td>lightsource_direction</td>
+<td>Used to give a custom direction for a light source</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double [N<sub>b</sub> x 3 ]</td>
+</tr>
+<tr><td>lightsource_direction_type</td>
+<td><dl class="first last docutils">
+<dt>Used to set the coordinate system in which the light direction is given  <br /></dt>
+<dd><em>'relative'</em>: (default) light direction is given relative to the surface
+normal, i.e. (0,1) is the same as inward pointing surface normal and (1,0) is directed
+along the edge line. <br />
+<em>'absolute'</em>: light direction is given in the position coordinate system <br /></dd>
+</dl>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>cell [N<sub>b</sub>]</td>
+</tr>
+<tr><td>lightsource_irradiance</td>
+<td>Sets the relative irradiance of the light source at each boundary element. (default=1)</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="4"><strong>Optional fields</strong> (lightsource='<em>pencil</em>')</td>
+</tr>
+<tr><td>lightsource_position</td>
+<td>The coordinate where to place the pencil beam to. Must be located within the boundary element.</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>cell [N<sub>b</sub>]</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+<br />
+<br />
+<br />
+<span class="structure">4: options</span></p>
+<p>All fields are optional.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="41%" />
+<col width="10%" />
+<col width="28%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Field name</td>
+<td>Description</td>
+<td>Unit</td>
+<td>Type</td>
+</tr>
+<tr><td>frequency</td>
+<td>(default=0) Frequency of intensity modulation</td>
+<td>[1/s]</td>
+<td>double</td>
+</tr>
+<tr><td>phase0</td>
+<td>(default=0) Phase at the lightsource for frequency modulation</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double</td>
+</tr>
+<tr><td>seed</td>
+<td>Random number generator seed
+(default={}) take seed from time</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>int64</td>
+</tr>
+<tr><td>photon_count</td>
+<td>(default=1e6) Total number of photon packets</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>int64</td>
+</tr>
+<tr><td>disable_progressbar</td>
+<td>(default=false) Set to true to disable
+progress bar</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>logical</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+<br />
+<br />
+<br /></p>
+</div>
+<div class="section" id="output-structure">
+<h1>Output structure</h1>
+<p><span class="structure">1: solution</span></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="30%" />
+<col width="9%" />
+<col width="42%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Field name</td>
+<td>Description</td>
+<td>Unit</td>
+<td>Element type [array size]</td>
+</tr>
+<tr><td>boundary_exitance</td>
+<td>Exitance at the edge of each boundary element</td>
+<td>W/mm</td>
+<td>double [N<sub>b</sub> = number of boundary elements in the system ]</td>
+</tr>
+<tr><td>element_fluence</td>
+<td>Fluence at each element</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double [N<sub>e</sub> = number of area elements in the system]</td>
+</tr>
+<tr><td>simulation_time</td>
+<td>Total simulation time</td>
+<td>seconds</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr><td colspan="4">Optional fields (options.seed=0)</td>
+</tr>
+<tr><td>seed_used</td>
+<td>The random number seed that was used</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>double</td>
+</tr>
+<tr><td colspan="4">Optional fields (multidimensional optical parameters)</td>
+</tr>
+<tr><td>grid_fluence</td>
+<td>Fluence for three dimensional optical parameters</td>
+<td>W/mm</td>
+<td>double</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="output-description">
+<h2>Output description</h2>
+<p>The fluence is normalized so that that the integral of the exitance over the boundary 1 W when no photons are absorbed in the medium (i.e. <span class="math">\(\mu_a=0\)</span>).
+This means the total power of a all light sources is in a single simulation is 1 W.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

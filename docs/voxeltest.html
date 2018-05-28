@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Working with voxel fomat</h1><!--introduction--><p>Often imaging data is provided in voxel format.  However, as ValoMC uses tetrahedrons as the basis elements, the data are not directly compatible. This example demonstrates how to move between the two formats.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Creating a rectangular 3d mesh</a></li><li><a href="#2">Visualization of the mesh</a></li><li><a href="#3">Create an anisotropic parameter distribution</a></li><li><a href="#4">Accessing elements using one dimensional indexing</a></li><li><a href="#5">Visualize the solution</a></li><li><a href="#6">Accessing elements using three dimensional indexing</a></li><li><a href="#7">Visualize the solution as a voxel map</a></li></ul></div><h2 id="1">Creating a rectangular 3d mesh</h2><p>To create a mesh that can be easily mapped to a voxel grid the function createGridMesh can be used</p><pre class="codeinput">clear <span class="string">all</span>;
+
+x_arr = -2:1:2;
+y_arr = -2:1:2;
+z_arr = -2:1:2;
+
+vmcmesh = createGridMesh(x_arr, y_arr, z_arr); <span class="comment">% function provided by ValoMC</span>
+
+nvoxels_total = length(x_arr)*length(y_arr)*length(z_arr);
+voxels_in_a_yx_slice = length(y_arr)*length(x_arr);
+</pre><h2 id="2">Visualization of the mesh</h2><p>The structure of the mesh is similar as in the 2d version (see pixeltest.m).  Each voxel consists of 6 tetrahedrons. Vectors x_arr, y_arr and z_arr contain the center of each voxel. The elements 1 to nvoxels_total contain the first tetrahedron in a voxel, nvoxels_total to 2*nvoxels_total the second and so on.  The elements are ordered in the same fashion as the coordinates in meshgrid i.e. Y ascends first, then X and finally Z.  Illustration of the element indices is given in the figure below.</p><pre class="codeinput">tetramesh(vmcmesh.H(1:voxels_in_a_yx_slice,:),vmcmesh.r, <span class="string">'FaceAlpha'</span>, <span class="keyword">...</span>
+          0.1);
+hold <span class="string">on</span>;
+xlabel(<span class="string">'x'</span>);
+ylabel(<span class="string">'y'</span>);
+zlabel(<span class="string">'z'</span>);
+
+<span class="comment">% draw the element numbers</span>
+<span class="keyword">for</span> i=1:voxels_in_a_yx_slice
+   element_center = (vmcmesh.r(vmcmesh.H(i,1),:) + vmcmesh.r(vmcmesh.H(i,2),:) <span class="keyword">...</span>
+                     + vmcmesh.r(vmcmesh.H(i,3),:) + vmcmesh.r(vmcmesh.H(i,4),:)) * 0.25;
+   text(element_center(1), element_center(2), element_center(3), num2str(i));
+<span class="keyword">end</span>
+
+view(-110,50);
+snapnow;
+hold <span class="string">off</span>;
+
+<span class="comment">% Create a finer mesh</span>
+
+x_arr = -2:0.1:2;
+y_arr = -2:0.1:2;
+z_arr = -2:0.1:2;
+
+vmcmesh = createGridMesh(x_arr, y_arr, z_arr); <span class="comment">% function provided by ValoMC</span>
+vmcmedium = createMedium(vmcmesh);
+</pre><img alt="" hspace="5" src="voxeltest_01.png" vspace="5"/> <h2 id="3">Create an anisotropic parameter distribution</h2><pre class="codeinput">[X,Y,Z] = meshgrid(x_arr,y_arr,z_arr); <span class="comment">% Matlab function</span>
+F = 1.3+cos(X*3).*cos(Y*3).*cos(Z*3)*0.2+0.2;
+slice(X, Y, Z, F, 0, 0, 0);
+xlabel(<span class="string">'x [mm]'</span>);
+ylabel(<span class="string">'y [mm]'</span>);
+zlabel(<span class="string">'z [mm]'</span>);
+c=colorbar;
+c.Label.String = <span class="string">'Refractive index'</span>;
+view(125,25);
+snapnow;
+</pre><img alt="" hspace="5" src="voxeltest_02.png" vspace="5"/> <h2 id="4">Accessing elements using one dimensional indexing</h2><p>Note that since there are six times as many tetrahedrons as there are grid cells, vmcmedium.absorption_coefficient is six times bigger than F A complete assignment can be achieved by repeating the array F six times</p><pre class="codeinput">vmcmedium.scattering_coefficient = 1.0;
+vmcmedium.absorption_coefficient = repmat(F(:),6,1); <span class="comment">% repeat six times</span>
+
+vmcmedium.scattering_anisotropy = 0.9;
+vmcmedium.refractive_index = 1;
+
+vmcboundary = createBoundary(vmcmesh, vmcmedium);   <span class="comment">% create a boundary for the mesh</span>
+
+<span class="comment">% Create a light source</span>
+lightsource = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0 0 0], [0 0 10], 1);
+vmcboundary.lightsource(lightsource) = {<span class="string">'cosinic'</span>};
+
+
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC3D...
+Computation uses 16 threads
+Computing... 
+...done
+
+Done
+</pre><h2 id="5">Visualize the solution</h2><pre class="codeinput">TR = triangulation(double(vmcmesh.H),vmcmesh.r); <span class="comment">% create a matlab</span>
+                                           <span class="comment">% triangulation object</span>
+                                           <span class="comment">% from the mesh</span>
+
+locations = [X(:) Y(:) Z(:)];              <span class="comment">% form a 2D matrix from all</span>
+                                           <span class="comment">% the grid points</span>
+
+indices = pointLocation(TR,locations);     <span class="comment">% query the indices of the</span>
+                                           <span class="comment">% tetrahedrons at grid</span>
+                                           <span class="comment">% points</span>
+
+indices(isnan(indices)) = 1;               <span class="comment">% set the grid points that</span>
+                                           <span class="comment">% do not belong to the mesh</span>
+                                           <span class="comment">% to point at the first</span>
+                                           <span class="comment">% element</span>
+
+<span class="comment">% get the values on a grid</span>
+grid_fluence = reshape(solution.element_fluence(indices),size(X));
+
+
+slice(X, Y, Z, grid_fluence, 0, 0, 0);
+xlabel(<span class="string">'x [mm]'</span>);
+ylabel(<span class="string">'y [mm]'</span>);
+zlabel(<span class="string">'z [mm]'</span>);
+
+view(125,25);
+snapnow;
+</pre><img alt="" hspace="5" src="voxeltest_03.png" vspace="5"/> <h2 id="6">Accessing elements using three dimensional indexing</h2><p>Optionally, the medium can be defined using three-dimensional indexing.  If three dimensional indexing is used, ValoMC will assume that createGridMesh has been used to create the mesh. In addition to the solution.element_fluence, ValoMC will return solution.grid_fluence, which represents the fluence in each voxel. It is calculated as a sum of the tetrahedrons in a grid cell.</p><pre class="codeinput">clear <span class="string">vmcmedium</span>;
+clear <span class="string">vmcboundary</span>;
+
+vmcmedium.scattering_coefficient = 1.0;
+vmcmedium.absorption_coefficient = F;  <span class="comment">%refractive index is now a three dimensional array</span>
+vmcmedium.scattering_anisotropy = 0.9;
+vmcmedium.refractive_index = 1;
+
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+
+lightsource = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0 0 0], [0 0 10], 1);
+vmcboundary.lightsource(lightsource) = {<span class="string">'cosinic'</span>};
+
+
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC3D...
+Computation uses 16 threads
+Computing... 
+...done
+
+Done
+</pre><h2 id="7">Visualize the solution as a voxel map</h2><p>Since 3D array was used to define the scattering coefficient, solution returned contains the field grid_fluence</p><pre class="codeinput">slice(X, Y, Z, solution.grid_fluence, 0, 0, 0);
+xlabel(<span class="string">'x [mm]'</span>);
+ylabel(<span class="string">'y [mm]'</span>);
+zlabel(<span class="string">'z [mm]'</span>);
+view(125,25);
+hold
+
+snapnow;
+</pre><pre class="codeoutput">Current plot held
+</pre><img alt="" hspace="5" src="voxeltest_04.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

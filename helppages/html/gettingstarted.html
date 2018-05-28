@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Getting started</title>
+<style type="text/css">
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: rgb(251, 255, 0)}
+ul.topnav li a:hover {color: rgb(251, 255, 0)}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="getting-started">
+<h1 class="title">Getting started</h1>
+
+<p>Once installed, using ValoMC is straightforward. To initiate a simulation, three structures must be provided to the main function
+along with one optional:</p>
+<pre class="code matlab literal-block">
+<span class="name">solution</span> <span class="punctuation">=</span> <span class="name">ValoMC</span><span class="punctuation">(</span><span class="name">vmcmesh</span><span class="punctuation">,</span> <span class="name">vmcmedium</span><span class="punctuation">,</span> <span class="name">vmcboundary</span><span class="punctuation">,</span> <span class="name">vmcoptions</span><span class="punctuation">);</span>
+</pre>
+<p class="center">Input</p>
+<p><em>vmcmesh</em></p>
+<blockquote>
+a structure that defines the simulation geometry</blockquote>
+<p><em>vmcmedium</em></p>
+<blockquote>
+a structure that defines the properties of the optical medium</blockquote>
+<p><em>vmcboundary</em></p>
+<blockquote>
+a structure that defines the boundary conditions, such as light sources etc.</blockquote>
+<p><em>vmcoptions</em> (optional)</p>
+<blockquote>
+a structure that can be used for additional settings, such as total photon packet count</blockquote>
+<p class="center">Output</p>
+<p><em>solution</em></p>
+<blockquote>
+a structure that contains the simulation results</blockquote>
+<p>These are documented in <em>2d/3d</em> -&gt; <em>Code documentation</em> -&gt; <em>List of structures</em>. The Matlab interface consists of auxiliary functions that help to set up these structures.</p>
+<p>The best way to familiarize with the code is to go through the examples found in the navigation menu.</p>
+<p>You should also be able to see the same documentation within MATLAB from the graphical user interface using button '?' -&gt; Supplementary software</p>
+</div>
+</body>
+</html>

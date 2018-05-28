@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Frequency domain calculation: frequency.m</h1><!--introduction--><p>This example demonstrates how to simulate sinusoidal irradiance-modulated light and resembles that given in the book by [Wang], p. 259. Two light sources, 180 degree out of phase, are set up at the x-axis at equal distance from the origin. Due to the symmetry of the problem, the photon packets have an opposite phase at the y axis and the photon density has a minimum.</p><p>[Wang] Biomedical Optics Principles and Imaging, Wiley, 2007</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Setup the simulation domain</a></li><li><a href="#2">Run the simulations</a></li><li><a href="#3">Plot the results</a></li></ul></div><h2 id="1">Setup the simulation domain</h2><pre class="codeinput">clear <span class="string">all</span>;
+
+xsize =  60;	<span class="comment">% width of the region [mm]</span>
+ysize =  30;	<span class="comment">% height of the region [mm]</span>
+dh = 1;         <span class="comment">% discretisation size [mm]</span>
+vmcmesh = createRectangularMesh(xsize, ysize, dh);
+
+<span class="comment">% Search positions for the light sources in the walls</span>
+lightsource1 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [-10 -15]);
+lightsource2 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [10  -15]);
+
+<span class="comment">% Obtain the indices of the opposite wall for plotting the results</span>
+opposite_wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 60], 60);
+wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 -60], 60);
+
+vmcboundary = createBoundary(vmcmesh);
+vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = 1.0;      <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_anisotropy = 0.0;       <span class="comment">% anisotropy parameter g of</span>
+                                          <span class="comment">% the Heneye-Greenstein scattering</span>
+                                          <span class="comment">% phase function [unitless]</span>
+vmcmedium.refractive_index = 1.37;           <span class="comment">% refractive index [unitless]</span>
+
+<span class="comment">% Increase the default photon count to get reasonable statistics</span>
+<span class="comment">% at the detector</span>
+options.photon_count = 1e8;
+</pre><h2 id="2">Run the simulations</h2><p>Two simulations are used to simulate two modified lightsources. The solutions are added together to form the complete solution.</p><pre class="codeinput">options.frequency = 200e6;
+options.phase0=-pi/2;
+vmcboundary.lightsource(lightsource1) = {<span class="string">'cosinic'</span>};
+vmcboundary.lightsource(lightsource2) = {<span class="string">'none'</span>}; <span class="comment">% shut down the second lightsource</span>
+solution1 = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
+options.phase0=pi/2; <span class="comment">% put the second light 180 degree out of phase</span>
+vmcboundary.lightsource(lightsource1) = {<span class="string">'none'</span>}; <span class="comment">% shut down the first lightsource</span>
+vmcboundary.lightsource(lightsource2) = {<span class="string">'cosinic'</span>};
+solution2 = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
+</pre><pre class="codeoutput">Transformed negative phase0 to positive 4.712389
+Initializing MC2D using 16 threads...
+Computing... 
+...done
+
+Done
+Initializing MC2D using 16 threads...
+Computing... 
+...done
+
+Done
+</pre><h2 id="3">Plot the results</h2><p>The results resemble that given in the book of Wang, but are not identical to it. This is due to differences in the model and boundary conditions.</p><pre class="codeinput">avgr = (vmcmesh.r(vmcmesh.BH(opposite_wall, 1),:) + vmcmesh.r(vmcmesh.BH(opposite_wall, 2),:))/2;
+figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1000 400])
+hold <span class="string">on</span>
+h(1) = plot3(avgr(:,1), avgr(:,2), abs(solution1.boundary_fluence(opposite_wall)+solution2.boundary_fluence(opposite_wall)), <span class="string">'b'</span>,<span class="string">'LineWidth'</span>,1.5);
+zlabel(<span class="string">'Amplitude'</span>);
+patch(<span class="string">'Faces'</span>, vmcmesh.H, <span class="string">'Vertices'</span>,vmcmesh.r, <span class="string">'FaceVertexCData'</span>, angle(solution1.element_fluence + solution2.element_fluence)/(2*pi)*360, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+xlabel(<span class="string">'[mm]'</span>);
+ylabel(<span class="string">'[mm]'</span>);
+c = colorbar;
+c.Label.String = <span class="string">'Phase [deg]'</span>;
+view(-34, 52)
+plot3([-10 10], [-15 -15], [0 0], <span class="string">'*'</span>);
+plot3(0, 15, 0, <span class="string">'o'</span>);
+text(-10, -15, 1e-5, <span class="string">'+Source'</span>);
+text(10, -15, 1e-5, <span class="string">'-Source'</span>);
+text(0, 0, 1e-5, <span class="string">'Null line'</span>);
+text(3, 15, 1e-5, <span class="string">'Scanning detector'</span>);
+
+hold <span class="string">off</span>
+figure
+plot(avgr(:,1), angle(solution1.boundary_fluence(opposite_wall)+solution2.boundary_fluence(opposite_wall))/(2*pi)*360);
+xlabel(<span class="string">'Detector position [mm]'</span>);
+ylabel(<span class="string">'Angle [deg]'</span>);
+</pre><img alt="" hspace="5" src="frequency_01.png" vspace="5"/> <img alt="" hspace="5" src="frequency_02.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

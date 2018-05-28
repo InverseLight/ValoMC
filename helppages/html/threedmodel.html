@@ -1,0 +1,271 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Working with a realistic 3d model</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="threedmodel.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Working with a realistic 3d model</h1><!--introduction--><p>This example demonstrates how the functions introduced in the previous examples can be used to simulate light propagation in a mouse. Please note that the model is not part of this work and is not distributed here. The digimouse model can be obtained from <a href="http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip">http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip</a> For information how to cite the mouse see <a href="http://neuroimage.usc.edu/neuro/Digimouse">http://neuroimage.usc.edu/neuro/Digimouse</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Build mesh</a></li><li><a href="#3">Display the surface mesh</a></li><li><a href="#4">Create a medium and a boundary for the mesh</a></li><li><a href="#5">Run the simulation</a></li><li><a href="#6">Fill the mesh region with a grid for plotting</a></li><li><a href="#7">Plot the solution</a></li></ul></div><pre class="codeinput"><span class="keyword">if</span>(exist(<span class="string">'Tesselated_Atlas.mat'</span>, <span class="string">'file'</span>) ~= 2)
+    error(<span class="string">'Could not find the mesh data file. Please unzip Tesselated_Atlas.mat from http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip to the examples folder.'</span>);
+<span class="keyword">end</span>
+
+load <span class="string">'Tesselated_Atlas.mat'</span>
+</pre><h2 id="2">Build mesh</h2><p>The model is not exactly in the format needed. The surface is given as a separate array, therefore the surface triangles are mapped to the volumetric mesh</p><pre class="codeinput">surface_coordinates = find(ismember(r,r_hull,<span class="string">'rows'</span>));  <span class="comment">% find the surface coordinates from the volumetric mesh</span>
+vmcmesh.BH = surface_coordinates(S_hull); <span class="comment">% map the surface triangles to mesh triangles</span>
+<span class="comment">% The rest of the mesh definition is in the right format</span>
+vmcmesh.r = r;
+vmcmesh.H = T;
+</pre><h2 id="3">Display the surface mesh</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 700])
+hold <span class="string">on</span>
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
+view(70,40);
+<span class="comment">% Display the heart of the mouse (see labels_4_tetrahedrons.txt)</span>
+tetramesh(vmcmesh.H(cond==3,:), vmcmesh.r);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="threedmodel_01.png" alt=""> <h2 id="4">Create a medium and a boundary for the mesh</h2><pre class="codeinput">vmcmedium.absorption_coefficient=0.03;
+vmcmedium.scattering_coefficient=0.3;
+vmcmedium.scattering_anisotropy=0.9;
+vmcmedium.refractive_index=1.3;
+
+vmcmedium=createMedium(vmcmesh,vmcmedium);
+vmcboundary=createBoundary(vmcmesh,vmcmedium);
+
+<span class="comment">% Find the approximate center of the heart by taking the mean of the</span>
+<span class="comment">% of the tetrahedrons that it consist of</span>
+heart_location = mean(vmcmesh.r(vmcmesh.H(cond==3,1),:));
+<span class="comment">% For illustration purposes, we set the absorbtion coefficient of the heart</span>
+<span class="comment">% 3 times bigger as the rest of the body</span>
+vmcmedium.absorption_coefficient(cond==3)=0.09;
+
+<span class="comment">% To attach a light source, find boundary elements above it</span>
+surface_above_heart = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+heart_location, <span class="keyword">...</span><span class="comment"> % obtain the surface elements from a region that starts</span>
+heart_location+[0 0 20], <span class="keyword">...</span><span class="comment"> %  at the heart location and ends above it</span>
+5); <span class="comment">% radius of the region</span>
+
+vmcboundary.lightsource(surface_above_heart) = {<span class="string">'cosinic'</span>};
+</pre><h2 id="5">Run the simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC3D...
+Computation uses 16 threads
+Computing... 
+...done
+
+Done
+</pre><h2 id="6">Fill the mesh region with a grid for plotting</h2><p>Create a grid and obtain values from the mesh to the grid</p><pre class="codeinput">mincoord = min(vmcmesh.r);
+maxcoord = max(vmcmesh.r);
+
+[gridx,gridy,gridz] = meshgrid(mincoord(1):maxcoord(1),mincoord(2):maxcoord(2),mincoord(3):maxcoord(3));
+TR = triangulation(double(vmcmesh.H),vmcmesh.r); <span class="comment">% create a matlab triangulation object from the points</span>
+locations = [gridx(:) gridy(:) gridz(:)]; <span class="comment">% form a 2D matrix from all the grid points</span>
+indices = pointLocation(TR,locations); <span class="comment">% query the indices of the tetrahedrons at grid points</span>
+indices(isnan(indices)) = 1; <span class="comment">% set the grid points that do not belong to the mesh to point at the first element</span>
+gridval = reshape(solution.element_fluence(indices),size(gridx)); <span class="comment">% get the values on the grid</span>
+</pre><h2 id="7">Plot the solution</h2><pre class="codeinput">xmin = min(gridx(:)); ymin = min(gridy(:)); zmin = min(gridz(:));
+xmax = max(gridx(:)); ymax = max(gridy(:)); zmax = max(gridz(:));
+
+figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 700])
+hold <span class="string">on</span>
+
+
+hslice = surf(linspace(xmin,xmax,100),<span class="keyword">...</span>
+         linspace(ymin,ymax,100),<span class="keyword">...</span>
+         ones(100)*(zmax-zmin)/2.0); <span class="comment">% form a slice</span>
+
+rotate(hslice,[0,1,0],90);
+xd = get(hslice,<span class="string">'XData'</span>);
+yd = get(hslice,<span class="string">'YData'</span>);
+zd = get(hslice,<span class="string">'ZData'</span>);
+delete(hslice);
+
+colormap(jet);
+h = slice(gridx,gridy,gridz,gridval,xd,yd,zd);
+h.FaceColor = <span class="string">'interp'</span>;
+h.EdgeColor = <span class="string">'none'</span>;
+h.DiffuseStrength = 0.8;
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
+zlim([zmin zmax+1]);
+view(70,40);
+xlabel(<span class="string">'x [mm]'</span>);
+ylabel(<span class="string">'y [mm]'</span>);
+zlabel(<span class="string">'z [mm]'</span>);
+c=colorbar;
+c.Label.String = <span class="string">'Fluence [W/mm^2]'</span>;
+
+[v i] = max(solution.element_fluence(:));
+</pre><img vspace="5" hspace="5" src="threedmodel_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Working with a realistic 3d model
+% This example demonstrates how the functions introduced in the previous examples
+% can be used to simulate light propagation in a mouse.
+% Please note that the model is not part of this work and is not
+% distributed here. The digimouse model can be obtained from http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip
+% For information how to cite the mouse see http://neuroimage.usc.edu/neuro/Digimouse
+%%
+if(exist('Tesselated_Atlas.mat', 'file') ~= 2)
+    error('Could not find the mesh data file. Please unzip Tesselated_Atlas.mat from http://neuroimage.usc.edu/mouse_atlas/tesselated_atlas.zip to the examples folder.');
+end
+
+load 'Tesselated_Atlas.mat'
+
+%% Build mesh
+% The model is not exactly in the format needed.
+% The surface is given as a separate array, therefore the surface triangles
+% are mapped to the volumetric mesh
+surface_coordinates = find(ismember(r,r_hull,'rows'));  % find the surface coordinates from the volumetric mesh 
+vmcmesh.BH = surface_coordinates(S_hull); % map the surface triangles to mesh triangles
+% The rest of the mesh definition is in the right format
+vmcmesh.r = r;
+vmcmesh.H = T; 
+
+%% Display the surface mesh
+figure('rend','painters','pos',[10 10 1200 700])
+hold on
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),'facecolor', 'r','FaceAlpha',0.2);
+view(70,40);
+% Display the heart of the mouse (see labels_4_tetrahedrons.txt)
+tetramesh(vmcmesh.H(cond==3,:), vmcmesh.r);
+hold off 
+
+
+%% Create a medium and a boundary for the mesh
+vmcmedium.absorption_coefficient=0.03;
+vmcmedium.scattering_coefficient=0.3;
+vmcmedium.scattering_anisotropy=0.9;
+vmcmedium.refractive_index=1.3;
+
+vmcmedium=createMedium(vmcmesh,vmcmedium);
+vmcboundary=createBoundary(vmcmesh,vmcmedium);
+
+% Find the approximate center of the heart by taking the mean of the
+% of the tetrahedrons that it consist of
+heart_location = mean(vmcmesh.r(vmcmesh.H(cond==3,1),:)); 
+% For illustration purposes, we set the absorbtion coefficient of the heart
+% 3 times bigger as the rest of the body
+vmcmedium.absorption_coefficient(cond==3)=0.09;
+
+% To attach a light source, find boundary elements above it
+surface_above_heart = findBoundaries(vmcmesh, 'direction', ...
+heart_location, ... % obtain the surface elements from a region that starts 
+heart_location+[0 0 20], ... %  at the heart location and ends above it
+5); % radius of the region
+
+vmcboundary.lightsource(surface_above_heart) = {'cosinic'};
+
+%% Run the simulation
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+
+%% Fill the mesh region with a grid for plotting
+% Create a grid and obtain values from the mesh to the grid
+mincoord = min(vmcmesh.r);
+maxcoord = max(vmcmesh.r);
+
+[gridx,gridy,gridz] = meshgrid(mincoord(1):maxcoord(1),mincoord(2):maxcoord(2),mincoord(3):maxcoord(3));
+TR = triangulation(double(vmcmesh.H),vmcmesh.r); % create a matlab triangulation object from the points
+locations = [gridx(:) gridy(:) gridz(:)]; % form a 2D matrix from all the grid points
+indices = pointLocation(TR,locations); % query the indices of the tetrahedrons at grid points
+indices(isnan(indices)) = 1; % set the grid points that do not belong to the mesh to point at the first element
+gridval = reshape(solution.element_fluence(indices),size(gridx)); % get the values on the grid
+
+%% Plot the solution 
+
+xmin = min(gridx(:)); ymin = min(gridy(:)); zmin = min(gridz(:));
+xmax = max(gridx(:)); ymax = max(gridy(:)); zmax = max(gridz(:));
+
+figure('rend','painters','pos',[10 10 1200 700])
+hold on
+
+
+hslice = surf(linspace(xmin,xmax,100),...
+         linspace(ymin,ymax,100),...
+         ones(100)*(zmax-zmin)/2.0); % form a slice
+     
+rotate(hslice,[0,1,0],90);
+xd = get(hslice,'XData');
+yd = get(hslice,'YData');
+zd = get(hslice,'ZData');
+delete(hslice);
+
+colormap(jet);
+h = slice(gridx,gridy,gridz,gridval,xd,yd,zd);
+h.FaceColor = 'interp';
+h.EdgeColor = 'none';
+h.DiffuseStrength = 0.8;
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),'facecolor', 'r','FaceAlpha',0.2);
+zlim([zmin zmax+1]);
+view(70,40);
+xlabel('x [mm]');
+ylabel('y [mm]');
+zlabel('z [mm]');
+c=colorbar;
+c.Label.String = 'Fluence [W/mm^2]';
+
+[v i] = max(solution.element_fluence(:));
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,75 @@
+
+ans =
+
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:////opt/MATLAB/R2016b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: importkWaveGrid</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: importkWaveGrid</td>
+            <td class="subheader-left"><a href="matlab:edit importkWaveGrid">View code for importkWaveGrid</a></td>
+            <td class="subheader-right"><a href="matlab:helpwin">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">importkWaveGrid</div>
+      <div class="helptext"><pre><!--helptext -->  Build a mesh from a K-Wave grid
+  
+  INPUT
+ 
+     kgrid:           K-Wave grid structure (see the documentation
+                                             for K-Wave)
+     subregion:       (optional) use only a subregion of the grid. 
+                      This is an array that represents a rectangular
+                      subregion=[minx miny maxx maxy] 
+                      where minx miny maxx maxy are grid points
+  OUTPUT
+     
+     pmcmesh:            pmcmesh -structure (see the toolbox doc)
+ 
+  INFORMATION 
+ 
+  The computational grid for photon transport is shifted by half a
+  lattice spacing for a straightforward mapping between the k-Wave
+  grid points and MC elements (two triangles, i.e. one quad in each grid
+  point)
+     
+  The relation between the grid points and the mesh coordinates is shown 
+  below:
+     
+   o-------o--------o
+   |       |        |
+   |   x   |   x    |
+   |       |        |
+   o-------o--------o
+   |       |        |
+   |   x   |   x    |
+   |       |        |
+   o-------o--------o
+ 
+   o = mesh cooridinates
+   x = grid point
+ 
+   The triangular mesh is constructed in the following fashion   
+  
+   o--b1---o--b2---o
+   | t1  . | t3  . |
+   b9  .   |   .   b4
+   | .  t2 | .  t4 |
+   o-------o-------o
+   | t5  . | t7  . |
+   b8  .   |   .   b5
+   | .  t6 | .  t8 |
+   o---b7--o---b6--o
+     
+   t_i = triangle 
+   b_i = boundary segment</pre></div><!--after help -->
+   </body>
+</html>
+
+

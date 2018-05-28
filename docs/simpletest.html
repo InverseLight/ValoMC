@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Simple example: simpletest.m</h1><!--introduction--><p>This example demonstrates how to setup a simple photon transport simulation, run it and visualise the result.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create a triangular mesh</a></li><li><a href="#2">Give optical parameters</a></li><li><a href="#3">Create a light source</a></li><li><a href="#4">Plot the solution</a></li></ul></div><h2 id="1">Create a triangular mesh</h2><p>Function createRectangularMesh, which is a convenience function provided by ValoMC, is used to setup a simple triangular mesh. The mesh is visualised in the figure below. Each element (a triangle) and boundary element (a line) in the mesh has a unique index through which they are referred to. The indices of the boundary elements are shown in the figure.</p><p><img alt="" hspace="5" src="edge.png" vspace="5"/> </p><pre class="codeinput">xsize =  10;	<span class="comment">% width of the region [mm]</span>
+ysize =  10;	<span class="comment">% height of the region [mm]</span>
+dh = 1;         <span class="comment">% discretisation size [mm]</span>
+vmcmesh = createRectangularMesh(xsize, ysize, dh);
+</pre><h2 id="2">Give optical parameters</h2><p>Constant optical parameters are set troughout the medium.</p><pre class="codeinput">vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = 1.0;      <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_anisotropy = 0.9;       <span class="comment">% anisotropy parameter g of</span>
+                                             <span class="comment">% the Heneye-Greenstein scattering</span>
+                                             <span class="comment">% phase function [unitless]</span>
+vmcmedium.refractive_index = 1.3;            <span class="comment">% refractive index [unitless]</span>
+</pre><h2 id="3">Create a light source</h2><p>Set a light source from boundary elements 4 to 7 with a cosinic angular distribution. This means photons are launched from random locations in boundary elements 4 to 7 so that the initial propagation direction with respect to the surface normal follows a cosine distribution.  In the current mesh, each boundary element is 1 mm wide, so the total width of the light source is 4 mm.  The first boundary element is at the lower left corner (see the figure above).</p><pre class="codeinput">vmcboundary.lightsource(4:7) = {<span class="string">'cosinic'</span>};
+
+<span class="comment">% Run the Monte Carlo simulation</span>
+<span class="comment">% Use the parameters that were generated to run the simulation in the mesh.</span>
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC2D using 16 threads...
+Computing... 
+...done
+
+Done
+</pre><h2 id="4">Plot the solution</h2><p>The solution is given as an array in which the values represent a constant photon fluence in each element.</p><pre class="codeinput"><span class="comment">% This array can be plotted with Matlab's built-in function patch</span>
+
+patch(<span class="string">'Faces'</span>,vmcmesh.H,<span class="string">'Vertices'</span>,vmcmesh.r,<span class="string">'FaceVertexCData'</span>, solution.element_fluence, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'LineWidth'</span>,1.5);
+
+hold <span class="string">on</span>;
+
+xlabel(<span class="string">'[mm]'</span>);
+ylabel(<span class="string">'[mm]'</span>);
+c = colorbar;                       <span class="comment">% create a colorbar</span>
+c.Label.String = <span class="string">'Fluence [W/mm^2]'</span>;
+hold <span class="string">off</span>
+</pre><img alt="" hspace="5" src="simpletest_01.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

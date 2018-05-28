@@ -1,0 +1,241 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Generating input for the external executable: generatingc.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="generatingc.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Generating input for the external executable: generatingc.m</h1><!--introduction--><p>Calculations with complex geometries are convenient to perform using the external executable that is compiled from C++ code (see installation instructions).  This example shows how the initial conditions can be set up using Matlab and stored to a text file for a parallelized calculation on a computer cluster, for example.  The code is identical to the Netgen example, but the computation is done using the external executable.</p><p><b>For this example to work the external executables must be compiled.</b>  <b>See the homepage/installation for instructions how to compile the external executales</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Perform simulation initialization as in the Netgen example</a></li><li><a href="#3">Save the Monte Carlo simulation input</a></li><li><a href="#4">Run the external executable</a></li><li><a href="#5">Load the simulation output using importValoMC</a></li></ul></div><pre class="codeinput">clear <span class="string">all</span>;
+</pre><h2 id="2">Perform simulation initialization as in the Netgen example</h2><p>Import the NetGen file Netgen meshes can be imported using 'importNetGenMesh'. In addition to the mesh structure, it returns the regions in the vol file as cell arrays. Each row in these arrays contains a vector that holds the indices of a region (in the medium or in the boundary). Netgen files may also contain names for the regions. These are returned in 'region_names' and 'boundary_names' and can be used to find the correct indices for each region (see 'Set optical parameters and light sources').</p><pre class="codeinput">[vmcmesh regions region_names boundaries vmcboundary_names] = importNetGenMesh(<span class="string">'square_with_two_circles.vol'</span>);
+
+<span class="comment">% Set optical parameters and light sources</span>
+<span class="comment">% The return values can be used to assign optical coefficients,</span>
+<span class="comment">% lightsources and other conditions.</span>
+
+indices_for_background = cell2mat(regions(1));
+indices_for_circles = cell2mat(regions(2));
+indices_for_outer_boundary = [cell2mat(boundaries(2)); cell2mat(boundaries(1))];
+
+vmcmesh.BH = vmcmesh.BH(indices_for_outer_boundary,:);
+indices_for_lightsource=1:size(cell2mat(boundaries(2)),1);
+
+<span class="comment">% In Matlab 2016b and later it is possible to find indices using</span>
+<span class="comment">%</span>
+<span class="comment">% indices_for_lightsource = cell2mat(boundaries(find(contains(boundary_names,'lightsource'))));</span>
+<span class="comment">% indices_for_circles = cell2mat(regions(find(contains(region_names,'circles'))));</span>
+<span class="comment">%</span>
+<span class="comment">% i.e. strings can be used to extract regions.</span>
+
+vmcmedium.absorption_coefficient(indices_for_background) = 0.01;   <span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient(indices_for_background) = 1.3;    <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_anisotropy(indices_for_background) = 0.9;     <span class="comment">% scattering anisotropy parameter [unitless]</span>
+vmcmedium.refractive_index(indices_for_background) = 1.3;          <span class="comment">% refractive index [unitless]</span>
+
+vmcmedium.absorption_coefficient(indices_for_circles) = 0.09;
+vmcmedium.scattering_coefficient(indices_for_circles) = 1.3;
+vmcmedium.scattering_anisotropy(indices_for_circles) = 0.5;
+vmcmedium.refractive_index(indices_for_circles) = 1.5;
+
+vmcboundary.lightsource(indices_for_lightsource) = {<span class="string">'cosinic'</span>};    <span class="comment">% cosine directed light profile</span>
+
+vmcoptions.photon_count = 2e6; <span class="comment">% set the desired photon count</span>
+</pre><h2 id="3">Save the Monte Carlo simulation input</h2><pre class="codeinput"><span class="comment">% Export the input file 'netgen_test_input.txt'</span>
+exportValoMC(<span class="string">'netgen_test_input.txt'</span>,vmcmesh, vmcmedium, vmcboundary, vmcoptions);
+</pre><h2 id="4">Run the external executable</h2><p>The input file is used to launch an external executable using the ! operator in Matlab. Note that the calculation could be done on a computing cluster aswell and no Matlab is needed.</p><pre class="codeinput"><span class="comment">% This assumes the c++ code has been compiled.</span>
+<span class="comment">% In Windows, MC2D.a should be replaced with MC2D.exe</span>
+
+<span class="syscmd">!./MC2D.a netgen_test_input.txt netgen_test_output.txt</span>
+</pre><pre class="codeoutput">-----ValoMC-2D-----
+---Version v1.0b --
+---Revision  282---
+--OpenMP version --
+-------------------
+
+Using 32 threads
+Loading problem netgen_test_input.txt
+Loaded:
+         H   (21855 x 3)
+        BH   (405 x 2)
+         r   (11131 x 2)
+    BCType   (405)
+       BCn   (405)
+ BCLNormal   (405 x 2)
+       mua   (21855)
+       mus   (21855)
+         g   (21855)
+         n   (21855)
+Constants:
+         f        (0.000000e+00)
+         phase0   (0.000000e+00)
+Initializing MC2D
+Computing...
+  0.800000 %  2.200000 %  3.700000 %  6.450000 %  9.200000 %  11.600000 %  13.450000 %  16.050000 %  18.800000 %  20.200000 %  21.950000 %  23.750000 %  25.150000 %  26.600000 %  28.100000 %  29.500000 %  31.050000 %  32.500000 %  33.900000 %  36.150000 %  38.150000 %  40.050000 %  42.550000 %  44.500000 %  45.900000 %  48.750000 %  50.100000 %  52.700000 %  54.300000 %  55.750000 %  57.350000 %  58.800000 %  60.250000 %  61.550000 %  63.200000 %  64.700000 %  66.250000 %  67.650000 %  69.350000 %  70.950000 %  72.500000 %  74.050000 %  75.650000 %  77.200000 %  78.750000 %  80.350000 %  81.750000 %  83.350000 %  85.150000 %  87.350000 %  89.050000 %  91.100000 %  92.400000 %  93.500000 %  94.400000 %  95.150000 %  95.800000 %  96.300000 %  96.850000 %  97.300000 %  97.650000 %  98.000000 %  100.000000 %Saving problem netgen_test_output.txt
+Computation took 6 seconds
+</pre><h2 id="5">Load the simulation output using importValoMC</h2><p>importValoMC can be used to retrieve the problem definition and the simulation output from the external executable</p><pre class="codeinput">[vmcmesh, vmcmedium, vmcboundary, options, solution] = importValoMC(<span class="string">'netgen_test_input.txt'</span>, <span class="string">'netgen_test_output.txt'</span>);
+
+<span class="comment">% Plot the solution</span>
+
+hold <span class="string">on</span>;
+patch(<span class="string">'Faces'</span>,vmcmesh.H,<span class="string">'Vertices'</span>,vmcmesh.r,<span class="string">'FaceVertexCData'</span>, solution.element_fluence, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'EdgeColor'</span>, <span class="string">'none'</span>);
+xlabel(<span class="string">'[mm]'</span>);
+ylabel(<span class="string">'[mm]'</span>);
+c = colorbar;
+title(<span class="string">'Fluence [W/mm^2]'</span>);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="generatingc_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Generating input for the external executable: generatingc.m
+%
+% Calculations with complex geometries are convenient to perform
+% using the external executable that is compiled from C++ code
+% (see installation instructions).  This example shows how the
+% initial conditions can be set up using Matlab and stored to a text file
+% for a parallelized calculation on a computer cluster, for example.  The code is
+% identical to the Netgen example, but the computation is done using
+% the external executable.
+%
+% *For this example to work the external executables must be compiled.*
+%  *See the homepage/installation for instructions how to compile the external executales*
+
+%%
+
+clear all;
+
+%% Perform simulation initialization as in the Netgen example
+% Import the NetGen file
+% Netgen meshes can be imported using 'importNetGenMesh'. In addition
+% to the mesh structure, it returns the regions in the vol file as
+% cell arrays. Each row in these arrays contains a vector that holds the
+% indices of a region (in the medium or in the boundary). Netgen files
+% may also contain names for the regions. These are returned in
+% 'region_names' and 'boundary_names' and can be used to find the
+% correct indices for each region (see 'Set optical parameters and light sources').
+
+[vmcmesh regions region_names boundaries vmcboundary_names] = importNetGenMesh('square_with_two_circles.vol');
+
+% Set optical parameters and light sources
+% The return values can be used to assign optical coefficients, 
+% lightsources and other conditions.
+
+indices_for_background = cell2mat(regions(1));
+indices_for_circles = cell2mat(regions(2));
+indices_for_outer_boundary = [cell2mat(boundaries(2)); cell2mat(boundaries(1))];
+
+vmcmesh.BH = vmcmesh.BH(indices_for_outer_boundary,:); 
+indices_for_lightsource=1:size(cell2mat(boundaries(2)),1);
+
+% In Matlab 2016b and later it is possible to find indices using
+%
+% indices_for_lightsource = cell2mat(boundaries(find(contains(boundary_names,'lightsource'))));
+% indices_for_circles = cell2mat(regions(find(contains(region_names,'circles'))));
+%
+% i.e. strings can be used to extract regions.
+
+vmcmedium.absorption_coefficient(indices_for_background) = 0.01;   % absorption coefficient [1/mm]
+vmcmedium.scattering_coefficient(indices_for_background) = 1.3;    % scattering coefficient [1/mm]
+vmcmedium.scattering_anisotropy(indices_for_background) = 0.9;     % scattering anisotropy parameter [unitless]
+vmcmedium.refractive_index(indices_for_background) = 1.3;          % refractive index [unitless]
+
+vmcmedium.absorption_coefficient(indices_for_circles) = 0.09;
+vmcmedium.scattering_coefficient(indices_for_circles) = 1.3;
+vmcmedium.scattering_anisotropy(indices_for_circles) = 0.5;
+vmcmedium.refractive_index(indices_for_circles) = 1.5;
+
+vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};    % cosine directed light profile
+
+vmcoptions.photon_count = 2e6; % set the desired photon count
+
+%% Save the Monte Carlo simulation input
+
+% Export the input file 'netgen_test_input.txt'
+exportValoMC('netgen_test_input.txt',vmcmesh, vmcmedium, vmcboundary, vmcoptions);
+
+%% Run the external executable
+% The input file is used to launch an external executable using the ! 
+% operator in Matlab. Note that the calculation could be done on a computing 
+% cluster aswell and no Matlab is needed.
+
+% This assumes the c++ code has been compiled.
+% In Windows, MC2D.a should be replaced with MC2D.exe
+
+!./MC2D.a netgen_test_input.txt netgen_test_output.txt
+
+%% Load the simulation output using importValoMC
+% importValoMC can be used to retrieve the problem definition and 
+% the simulation output from the external executable
+[vmcmesh, vmcmedium, vmcboundary, options, solution] = importValoMC('netgen_test_input.txt', 'netgen_test_output.txt');
+
+% Plot the solution
+
+hold on;
+patch('Faces',vmcmesh.H,'Vertices',vmcmesh.r,'FaceVertexCData', solution.element_fluence, 'FaceColor', 'flat', 'EdgeColor', 'none');
+xlabel('[mm]');
+ylabel('[mm]');
+c = colorbar;                       
+title('Fluence [W/mm^2]');
+hold off
+
+
+##### SOURCE END #####
+--></body></html>

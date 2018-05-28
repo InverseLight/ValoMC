@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>installation.rst</title>
+<style type="text/css">
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: rgb(251, 255, 0)}
+ul.topnav li a:hover {color: rgb(251, 255, 0)}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#simple-installation" id="id1">Simple installation</a></li>
+<li><a class="reference internal" href="#advanced-installation" id="id2">Advanced installation</a><ul>
+<li><a class="reference internal" href="#compiling-the-external-executable" id="id3">Compiling the external executable</a></li>
+<li><a class="reference internal" href="#multithread-parallel-compilation" id="id4">Multithread (parallel) compilation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#troubleshooting" id="id5">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#windows" id="id6">Windows</a></li>
+<li><a class="reference internal" href="#ubuntu" id="id7">Ubuntu</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="simple-installation">
+<h1><a class="toc-backref" href="#id1">Simple installation</a></h1>
+<ol class="arabic simple">
+<li>Unzip the archive</li>
+<li>Open MATLAB and type</li>
+</ol>
+<pre class="code matlab literal-block">
+<span class="name">addpath</span><span class="punctuation">(</span><span class="literal string">'ValoMC/'</span><span class="punctuation">)</span>
+</pre>
+<p>where ValoMC/ is the the folder from the zip archive.</p>
+<ol class="arabic simple" start="3">
+<li>Type</li>
+</ol>
+<pre class="code matlab literal-block">
+<span class="name">cd</span> <span class="name">ValoMC</span>
+<span class="name">compile_vmc_mex</span>
+</pre>
+<p>to compile single-threaded ValoMC mex files for MATLAB.</p>
+<p>You can now run the examples in the examples/ -folder.
+The next time you use ValoMC, the mex files will be already
+compiled and you simply need to repeat step 2 to continue using
+ValoMC.</p>
+<ol class="arabic simple" start="4">
+<li>Test the installation</li>
+</ol>
+<p>Try to run e.g. simpletest.m.</p>
+<pre class="code matlab literal-block">
+<span class="name">cd</span> <span class="name">examples</span>
+<span class="name">simpletest</span>
+</pre>
+<p>If you receive error messages, it most likely means the mex compiler
+has not yet been set up in MATLAB. For instructions how to set up the mex
+compiler, please refer to MATLAB manual and 'troubleshooting' below.</p>
+<p>Messages along the lines 'libstdc++.so.6: version GLIBCXX_3.4.21 not found'
+most likely means that MATLAB does not support the compiler version.
+For instructions how to compile the mex files with a specific gcc
+version, see 'troubleshooting'</p>
+</div>
+<div class="section" id="advanced-installation">
+<h1><a class="toc-backref" href="#id2">Advanced installation</a></h1>
+<div class="section" id="compiling-the-external-executable">
+<h2><a class="toc-backref" href="#id3">Compiling the external executable</a></h2>
+<p>The external executable can be used to run ValoMC e.g. on a cluster
+without MATLAB (see example: 'Generating input for the external
+executable'). The source code for the external executables are located
+in 2d/cpp/ and 3d/cpp/.  These folders contain Ubuntu makefiles for
+reference. For example, using a gnu compiler the single threaded
+executable can be compiled with</p>
+<pre class="code makefile literal-block">
+<span class="error">g++</span> <span class="error">MC2D.cpp</span> <span class="error">-o</span> <span class="error">MC2D.a</span> <span class="error">-O3</span>
+</pre>
+<p>The multi-threaded (OpenMP) version of the external executable can be
+compiled with</p>
+<pre class="code makefile literal-block">
+<span class="error">g++</span> <span class="error">MC2D.cpp</span> <span class="error">-o</span> <span class="error">MC2D.a</span> <span class="error">-O3</span> <span class="error">-DUSE_OMP</span> <span class="error">-fopenmp</span> <span class="error">-O3</span>
+</pre>
+<p>ValoMC has been tested only with gnu compilers, however,
+generalization to other compilers should be straightforward.</p>
+</div>
+<div class="section" id="multithread-parallel-compilation">
+<h2><a class="toc-backref" href="#id4">Multithread (parallel) compilation</a></h2>
+<p>To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):</p>
+<pre class="code matlab literal-block">
+<span class="name">mex</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot; <span class="name">LDFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot;
+<span class="name">mex</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot; <span class="name">LDFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot;
+</pre>
+<p>Do not use OpenMP version if the MATLAB does not support the compiler used.
+See troubleshooting on how to install a specific version of GCC.</p>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h1><a class="toc-backref" href="#id5">Troubleshooting</a></h1>
+<p>To install ValoMC, MATLAB mex system must be set up. It needs to have an external
+C++ compiler to work.</p>
+<div class="section" id="windows">
+<h2><a class="toc-backref" href="#id6">Windows</a></h2>
+<p>For example, the TDM gcc compiler can be obtained from this <a class="reference external" href="http://tdm-gcc.tdragon.net/download">link</a>.
+After installation you can use</p>
+<pre class="code matlab literal-block">
+<span class="name">setenv</span><span class="punctuation">(</span><span class="literal string">'MW_MINGW64_LOC'</span><span class="punctuation">,</span><span class="literal string">'C:\TDM-GCC-64'</span><span class="punctuation">);</span>
+<span class="name">mex</span> <span class="operator">-</span><span class="name">setup</span>
+</pre>
+<p>to inform MATLAB of the location.</p>
+</div>
+<div class="section" id="ubuntu">
+<h2><a class="toc-backref" href="#id7">Ubuntu</a></h2>
+<p>To get gcc in ubuntu you can use</p>
+<pre class="code sh literal-block">
+sudo apt-get install g++
+sudo apt-get install gcc
+</pre>
+<p>in shell. Depending on your MATLAB, it might be necessary to obtain an
+older version of the compiler. For example, if MATLAB supports g++ 4.9
+you can install it by</p>
+<pre class="code sh literal-block">
+sudo apt-get install g++-4.9
+sudo apt-get install gcc-4.9
+</pre>
+<p>and use</p>
+<pre class="code matlab literal-block">
+<span class="name">mex</span>  <span class="operator">-</span><span class="name">v</span> <span class="name">GCC</span><span class="punctuation">=</span><span class="literal string">'/usr/bin/gcc-4.9'</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot; <span class="name">LDFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot;
+<span class="name">mex</span>  <span class="operator">-</span><span class="name">v</span> <span class="name">GCC</span><span class="punctuation">=</span><span class="literal string">'/usr/bin/gcc-4.9'</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot; <span class="name">LDFLAGS</span><span class="punctuation">=</span>&quot;<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>&quot;
+</pre>
+<p>to instruct MATLAB to use this compiler when compiling ValoMC.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+ans =
+
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:////opt/MATLAB/R2016b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: createBoundary</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: createBoundary</td>
+            <td class="subheader-left"><a href="matlab:edit createBoundary">View code for createBoundary</a></td>
+            <td class="subheader-right"><a href="matlab:helpwin">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">createBoundary</div>
+      <div class="helptext"><pre><!--helptext -->  This function is used to construct a complete 'pmcboundary' -structure for a given geometry
+ 
+  pmcboundary_out = <span class="helptopic">createBoundary</span>(pmcmesh, pmcboundary_in)
+ 
+  INPUT
+ 
+   pmcmesh:        mesh structure (see documentation/structure reference)
+ 
+  OPTIONAL INPUT
+ 
+   pmcboundary_in:	existing pmcboundary structure (see documentation/structure reference)
+                where the array size does not match the number of boundaries in
+                the mesh.
+  OUTPUT
+ 
+   pmcboundary_out: pmcboundary structure for a given mesh. If 'pmcboundary_in' was
+                 given as a input, the values for the arrays in
+                 'pmcboundary_out' are obtained by repeating 'pmcboundary_in'. If no
+                 'pmcboundary_in' was given, the function returns a structure with
+                  only 'lightsource' field. This is the minimum that is needed to
+                  run the PhotonMC2D. The array size matches the number of boundaries
+                  in mesh.</pre></div><!--after help -->
+   </body>
+</html>
+
+

@@ -1,0 +1,51 @@
+
+ans =
+
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:////opt/MATLAB/R2016b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: importNetGenMesh</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: importNetGenMesh</td>
+            <td class="subheader-left"><a href="matlab:edit importNetGenMesh">View code for importNetGenMesh</a></td>
+            <td class="subheader-right"><a href="matlab:helpwin">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">importNetGenMesh</div>
+      <div class="helptext"><pre><!--helptext -->  Import a NetGen mesh
+ 
+  function [mesh regions region_names boundaries boundary_names] = <span class="helptopic">importNetGenMesh</span>(filename_vol)
+ 
+  INPUT
+ 
+   filename:            filename of a file that is in Netgen's native 'vol' -format
+ 
+  OUTPUT
+ 
+   mesh:		mesh structure (see the documentation for the structures in the toolbox doc)
+   regions: 		the regions in the vol file as cell arrays. Each element contains a vector
+                        that holds the indices of a region in the 'medium' structure.
+   region_names:        names of the regions as a cell array. Indexing is the same as in 'regions',
+                        i.e. region_names(i) is the name of the region indicated by regions(i)
+   boundaries: 		same as regions, but for boundaries
+   boundary_names:	same as region_names, but for boundaries
+ 
+ 
+   EXAMPLE:
+ 
+  [mesh regions region_names boundaries boundary_names] = <span class="helptopic">importNetGenMesh</span>('mymesh.vol');
+  indices_for_background = cell2mat(regions(1));
+  indices_for_circles = cell2mat(regions(2));
+  indices_for_lightsource = cell2mat(boundaries(2));
+  pmcmedium.refractive_index(indices_for_circles)=1.6;
+  pmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};</pre></div><!--after help -->
+   </body>
+</html>
+
+

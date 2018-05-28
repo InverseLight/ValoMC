@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Simulating the photoacoustic effect using k-Wave: kwavetest.m</h1><!--introduction--><p>This example demonstrates simulation of a pressure field generated through the absorption of an externally introduced light pulse. The light propagation is simulated using PhotonMC and the propagation and detection of pressure wavefield is simulated using k-Wave, see <a href="http://www.k-wave.org/documentation/k-wave_initial_value_problems.php">http://www.k-wave.org/documentation/k-wave_initial_value_problems.php</a>. The example also shows how the computation grid of k-Wave and mesh of PhotonMC can be made compatible. Note that k-Wave uses SI units (e.g. [m]) and PhotonMC works in millimetre-scale (e.g. [mm]).</p><p>k-Wave is an open source acoustics toolbox for MATLAB and C++ developed by Bradley Treeby and Ben Cox (University College London) and Jiri Jaros (Brno University of Technology). The software is designed for time domain acoustic and ultrasound simulations in complex and tissue-realistic media.</p><p>k-Wave homepage: <a href="http://www.k-wave.org/">http://www.k-wave.org/</a>. B. E. Treeby and B. T. Cox: "k-Wave: MATLAB toolbox for the simulation and reconstruction of photoacoustic wave-fields", Journal of Biomedical Optics, 15(2):021314, 2010.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">k-Wave initialisation</a></li><li><a href="#2">Create a PhotonMC mesh</a></li><li><a href="#3">Define optical coefficients</a></li><li><a href="#4">Create a light source</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Compute the initial pressure from the photon fluence</a></li><li><a href="#7">Define the k-Wave sensor mask</a></li><li><a href="#8">Move the perfectly matched layer (PML) outside of the computation domain and run the acoustic simulation</a></li><li><a href="#9">Plot the solution</a></li></ul></div><h2 id="1">k-Wave initialisation</h2><p>The initialisation is done as normal in k-Wave. Care must be taken at the initialization PhotonMC, to make a matching computational simulation area for (see PhotonMC initialization) the photon simulation.</p><pre class="codeinput">clear <span class="string">all</span>;
+
+<span class="comment">% Create the k-Wave grid</span>
+Nx = 150;           <span class="comment">% number of grid points in the x (row) direction</span>
+Ny = 150;           <span class="comment">% number of grid points in the y (column) direction</span>
+dx = 0.1e-3;        <span class="comment">% grid point spacing in the x direction [m]</span>
+dy = 0.1e-3;        <span class="comment">% grid point spacing in the y direction [m]</span>
+kgrid = makeGrid(Nx, dx, Ny, dy);
+
+<span class="comment">% Create two internal structures using makeDisk</span>
+discs = makeDisc(Nx, Ny, 55, 55, 5) + makeDisc(Nx, Ny, 75, 85, 10);
+
+
+<span class="comment">% Define the acoustic properties</span>
+disc_indices = find(discs==1);
+
+medium.sound_speed = 1500*ones(Nx, Ny);    <span class="comment">% [m/s]</span>
+medium.sound_speed(disc_indices) = 1800;     <span class="comment">% [m/s]</span>
+
+medium.density = 1000*ones(Nx, Ny);        <span class="comment">% [kg/m^3]</span>
+medium.density(:,Ny/2:end) = 1400;
+</pre><pre class="codeoutput error">Undefined function 'makeGrid' for input arguments of type 'double'.
+
+Error in kwavetest (line 36)
+kgrid = makeGrid(Nx, dx, Ny, dy);
+</pre><h2 id="2">Create a PhotonMC mesh</h2><p>PhotonMC uses triangles and tetrahedrons as the basis shape, whereas in k-Wave pixels and voxels are used. createGridMesh can be used to create a straightforward mapping between the triangles and pixels. <b>Note that K-Wave uses matrices in the format matrix(X,Y), whereas</b> <b>MATLAB t(c.f. meshgrid) and PhotonMC uses matrix(Y,X)</b> Therefore x and y should be swapped when moving between PhotonMC arrays and k-Wave arrays</p><pre class="codeinput">pmcmesh = createGridMesh(kgrid.y_vec*1e3, kgrid.x_vec*1e3); <span class="comment">% [m to mm]</span>
+</pre><h2 id="3">Define optical coefficients</h2><p>For users accustomed to k-Wave, the optical coefficients can be set in similar fashion as in k-Wave, i.e. using multidimensional arrays. If one of the arrays defining the medium is given as multidimensional array to PhotonMC, the code will assume that the mesh was created using 'createGridMesh' and the output fluence will also given as a two dimensional array in solution.grid_fluence. See the example 'Working with pixel and  voxel data' on how to achieve similar assignments using one dimensional indexing.</p><pre class="codeinput">pmcmedium.scattering_coefficient = 0.01*ones(Nx, Ny);
+pmcmedium.absorption_coefficient = 0.001*ones(Nx, Ny);
+discs = makeDisc(Nx, Ny, 55, 55, 5) + makeDisc(Nx, Ny, 75, 85, 10);
+<span class="comment">% Define the acoustic properties</span>
+disc_indices = find(discs==1);
+
+pmcmedium.absorption_coefficient(disc_indices) = 0.01;
+pmcmedium.scattering_anisotropy = 0.9;           <span class="comment">% scattering anisotropy parameter [unitless]</span>
+pmcmedium.refractive_index = 1.0*ones(Nx, Ny);
+pmcmedium.refractive_index(:,Ny/2:end) = 1.4;    <span class="comment">% refractive index [unitless]</span>
+
+<span class="comment">% Define the Gruneisen parameter describing photoacoustic efficiency</span>
+pmcmedium.gruneisen_parameter = 0.02*ones(Nx, Ny);      <span class="comment">% [unitless]</span>
+</pre><h2 id="4">Create a light source</h2><pre class="codeinput"><span class="comment">% Set a light source with a width of 2 mm and cosinic directional profile</span>
+<span class="comment">% at the bottom of the computation domain</span>
+boundary_with_lightsource = findBoundaries(pmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+                                        [0 0], <span class="keyword">...</span>
+                                        [-1 0], <span class="keyword">...</span>
+                                        2);
+
+pmcboundary.lightsource(boundary_with_lightsource) = {<span class="string">'cosinic'</span>};
+</pre><h2 id="5">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = PhotonMC2D(pmcmesh, pmcmedium, pmcboundary);
+</pre><h2 id="6">Compute the initial pressure from the photon fluence</h2><pre class="codeinput"><span class="comment">% Note that since the medium was defined as two dimensional arrays,</span>
+<span class="comment">% the output is also given as a two-dimensional array.</span>
+
+<span class="comment">% Compute the absorbed optical energy density</span>
+<span class="comment">% 1e3 converts [J/mm^2] to [J/m^2]</span>
+pmcmedium.absorbed_energy = pmcmedium.absorption_coefficient .* solution.grid_fluence*1e3; <span class="comment">% [J/m3]</span>
+
+<span class="comment">% Compute the initial pressure distribution</span>
+source.p0 = pmcmedium.gruneisen_parameter .* pmcmedium.absorbed_energy;  <span class="comment">% [Pa]</span>
+</pre><h2 id="7">Define the k-Wave sensor mask</h2><pre class="codeinput"><span class="comment">% Define a circular sensor</span>
+sensor_radius = 4e-3;       <span class="comment">% [m]</span>
+num_sensor_points = 50;     <span class="comment">% number of sensor points</span>
+
+sensor.mask = makeCartCircle(sensor_radius, num_sensor_points);
+</pre><h2 id="8">Move the perfectly matched layer (PML) outside of the computation domain and run the acoustic simulation</h2><p>The PML is a layer that absorbs waves for simulating free regions and is normally contained within the computation  region of k-Wave. For a more straightforward mapping between the computation region of k-Wave and PhotonMC, the PML is moved outside of the computation region.</p><pre class="codeinput">sensor_data = kspaceFirstOrder2D(kgrid, medium, source, sensor, <span class="string">'PMLInside'</span>, false);
+</pre><h2 id="9">Plot the solution</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
+
+<span class="comment">% plot the initial pressure and sensor distribution</span>
+subplot(1,2,1)
+hold <span class="string">on</span>
+
+<span class="comment">% We have to swap x and y again</span>
+imagesc(kgrid.y_vec*1e3, kgrid.x_vec*1e3, pmcmedium.absorbed_energy, [min(pmcmedium.absorbed_energy(:)) <span class="keyword">...</span>
+        max(pmcmedium.absorbed_energy(:))]);
+
+xlabel(<span class="string">'y-position [mm]'</span>);
+ylabel(<span class="string">'x-position [mm]'</span>);
+colormap <span class="string">default</span>;
+
+c = colorbar;  <span class="comment">% create a colorbar</span>
+axis <span class="string">image</span>;
+title(<span class="string">'Absorbed energy [J/m3]'</span>);
+hold <span class="string">off</span>
+
+subplot(1,2,2)
+
+imagesc(kgrid.x_vec*1e3, kgrid.y_vec*1e3, transpose(source.p0 + <span class="keyword">...</span>
+        cart2grid(kgrid, sensor.mask)), [min(source.p0(:)) <span class="keyword">...</span>
+        max(source.p0(:))]);
+
+
+colormap(getColorMap);
+xlabel(<span class="string">'x-position [mm]'</span>);
+ylabel(<span class="string">'y-position [mm]'</span>);
+c = colorbar;  <span class="comment">% create a colorbar</span>
+axis <span class="string">image</span>;
+title(<span class="string">'Initial pressure [Pa]'</span>);
+hold <span class="string">off</span>
+
+<span class="comment">% plot the simulated sensor data</span>
+figure;
+imagesc(sensor_data,  [min(sensor_data(:)) max(sensor_data(:))]);
+colormap(getColorMap);
+ylabel(<span class="string">'Sensor Position'</span>);
+xlabel(<span class="string">'Time Step'</span>);
+c = colorbar;  <span class="comment">% create a colorbar</span>
+colorbar;
+title(<span class="string">'Sensor data'</span>);
+</pre><p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

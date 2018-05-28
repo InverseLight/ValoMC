@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="content"><h1>Directing light sources: directingls.m</h1><!--introduction--><p>This example demonstrates how to give custom directions to the light sources and how to use different built-in directivity patterns.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Set up the mesh and the medium</a></li><li><a href="#2">Find boundary elements on segment(s) of the boundary</a></li><li><a href="#4">Use different built-in light directivity patterns</a></li><li><a href="#5">Directing the light sources</a></li><li><a href="#6">Run the Monte Carlo simulation</a></li><li><a href="#7">Plot the solution</a></li></ul></div><h2 id="1">Set up the mesh and the medium</h2><pre class="codeinput"><span class="comment">% A circular region with optical parameters is set up.</span>
+
+<span class="comment">% Create a rectangular mesh</span>
+xsize =  10;    <span class="comment">% width of the region [mm]</span>
+ysize =  10;    <span class="comment">% width of the region [mm]</span>
+dh = 0.1;       <span class="comment">% discretisation size [mm]</span>
+vmcmesh = createRectangularMesh(xsize, ysize, dh);
+
+<span class="comment">% Set constant background coefficients</span>
+vmcmedium.absorption_coefficient = 0.03;     <span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = 0.3;      <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_anisotropy = 0.9;       <span class="comment">% scattering anisotropy parameter [unitless]</span>
+vmcmedium.refractive_index = 1.3;            <span class="comment">% refractive index [unitless]</span>
+
+<span class="comment">% Create arrays of the coefficients</span>
+vmcmedium = createMedium(vmcmesh, vmcmedium);
+
+<span class="comment">% Create a rectangle and find the elements inside</span>
+rectangle_width = 1.9;
+rectangle_height = 1.9;
+rectangle_position=[-2.5 2.5];
+
+elements_of_the_rectangle = findElements(vmcmesh, <span class="string">'rectangle'</span>, <span class="keyword">...</span>
+                                         rectangle_position, <span class="keyword">...</span>
+                                         rectangle_width, <span class="keyword">...</span>
+                                         rectangle_height);
+
+<span class="comment">% Set coefficients of the rectangle</span>
+vmcmedium.absorption_coefficient(elements_of_the_rectangle) = 0.0;
+vmcmedium.scattering_anisotropy(elements_of_the_rectangle) = 0.0;
+vmcmedium.refractive_index(elements_of_the_rectangle) = 1.1;
+</pre><h2 id="2">Find boundary elements on segment(s) of the boundary</h2><pre class="codeinput"><span class="comment">% 'createBoundary' forms the boundary structure of the mesh</span>
+vmcboundary = createBoundary(vmcmesh);
+</pre><p>Function 'findBoundaries' is used to find boundary elements. The lines are demonstrated in the figure below.</p><p><img alt="" hspace="5" src="linesegments.png" vspace="5"/> </p><pre class="codeinput">line1_start = rectangle_position;
+line2_start = [0 0];
+line3_start = [0 0];
+line4_start = [0 0];
+
+line1_end = [-xsize/2 0];
+line2_end = [0 -xsize/2];
+line3_end = [xsize/2 0];
+line4_end = [0 xsize/2];
+
+rectangle_diameter = sqrt(rectangle_width^2+rectangle_height^2);
+
+line_width=rectangle_diameter;
+
+lightsource1_boundaryelements = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+                                               line1_start, <span class="keyword">...</span>
+                                               line1_end,  <span class="keyword">...</span>
+                                               line_width);
+lightsource2_boundaryelements = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+                                               line2_start, <span class="keyword">...</span>
+                                               line2_end,  <span class="keyword">...</span>
+                                               line_width);
+lightsource3_boundaryelements = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+                                               line3_start, <span class="keyword">...</span>
+                                               line3_end,  <span class="keyword">...</span>
+                                               line_width);
+lightsource4_boundaryelements = findBoundaries(vmcmesh, <span class="string">'direction'</span>, <span class="keyword">...</span>
+                                               line4_start, <span class="keyword">...</span>
+                                               line4_end,  <span class="keyword">...</span>
+                                               line_width);
+</pre><h2 id="4">Use different built-in light directivity patterns</h2><pre class="codeinput"><span class="comment">% The return value of 'findBoundaries' constains the indices of the</span>
+<span class="comment">% boundary elements found within the line segments.</span>
+<span class="comment">% Four distinct light sources are created.</span>
+
+<span class="comment">% an inward directed light source</span>
+vmcboundary.lightsource(lightsource1_boundaryelements) = {<span class="string">'gaussian'</span>};
+vmcboundary.lightsource_gaussian_sigma(lightsource1_boundaryelements) = 0.1;
+
+
+<span class="comment">% a light source with a cosine shape directivity profile</span>
+vmcboundary.lightsource(lightsource2_boundaryelements) = {<span class="string">'cosinic'</span>};
+vmcboundary.lightsource_direction(lightsource2_boundaryelements,1) = -1;
+vmcboundary.lightsource_direction(lightsource2_boundaryelements,2) = 1;
+vmcboundary.lightsource_direction_type(lightsource2_boundaryelements) = {<span class="string">'relative'</span>};
+
+
+vmcboundary.lightsource(lightsource3_boundaryelements) = {<span class="string">'direct'</span>};
+<span class="comment">% a light source with an equal irradiance to all (inward) directions</span>
+vmcboundary.lightsource(lightsource4_boundaryelements) = {<span class="string">'isotropic'</span>};
+</pre><h2 id="5">Directing the light sources</h2><pre class="codeinput"><span class="comment">% The difference between 'absolute' and 'relative' direction type</span>
+<span class="comment">% is demonstrated below.</span>
+
+<span class="comment">% Here the 'absolute' direction type is used. This means that the direction is</span>
+<span class="comment">% given in the position coordinates. To direct the light source</span>
+<span class="comment">% towards the rectangle, the vector that was used to obtain line</span>
+<span class="comment">% segments from the boundary is reversed (see the figure above) and</span>
+<span class="comment">% used as a direction</span>
+
+vmcboundary.lightsource_direction_type(lightsource1_boundaryelements) = {<span class="string">'absolute'</span>};
+absolute_direction = line1_start-line1_end;
+vmcboundary.lightsource_direction(lightsource1_boundaryelements,1) = absolute_direction(1);
+vmcboundary.lightsource_direction(lightsource1_boundaryelements,2) = absolute_direction(2);
+
+<span class="comment">% The 'relative' direction type is used here. The third light source is tilted</span>
+<span class="comment">% by angle alpha relative to the normal. The angle is calculated from</span>
+<span class="comment">% simple geometric considerations to direct it towards the rectangle</span>
+
+vmcboundary.lightsource_direction_type(lightsource3_boundaryelements) = {<span class="string">'relative'</span>};
+
+<span class="comment">% lightsource 3 is located at line3_end. The angle to tilt it so</span>
+<span class="comment">% that it is directed towards the rectangle is calculated using a vector</span>
+<span class="comment">% that goes from the lightsource to the rectangle</span>
+
+lightsource_to_rectangle =  rectangle_position - line3_end;
+alpha = tan(lightsource_to_rectangle(2)/lightsource_to_rectangle(1));
+
+vmcboundary.lightsource_direction(lightsource3_boundaryelements,1) = sin(alpha);
+vmcboundary.lightsource_direction(lightsource3_boundaryelements,2) = cos(alpha);
+</pre><h2 id="6">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">Initializing MC2D using 16 threads...
+Computing... 
+...done
+
+Done
+</pre><h2 id="7">Plot the solution</h2><pre class="codeinput">hold <span class="string">on</span>;
+patch(<span class="string">'Faces'</span>,vmcmesh.H,<span class="string">'Vertices'</span>,vmcmesh.r,<span class="string">'FaceVertexCData'</span>, solution.element_fluence, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>,<span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+xlabel(<span class="string">'[mm]'</span>);
+ylabel(<span class="string">'[mm]'</span>);
+c = colorbar;                       <span class="comment">% create a colorbar</span>
+c.Label.String = <span class="string">'Fluence [J/mm^2]'</span>;
+hold <span class="string">off</span>
+</pre><img alt="" hspace="5" src="directingls_01.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

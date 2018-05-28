@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+li::before {
+  color: green; /* or whatever color you prefer */
+}
+
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+  li {
+     list-style-type: square;
+   }
+
+
+  ol li {
+     list-style-type: decimal;
+   }
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
+ul.topnav li a:hover {color: white}
+
+ul.topnav li a.active {background-color: rgb(44, 173, 46);}
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+img.logo {max-width: 300px;}
+
+pre, code { font-size:12px; background:#eeeeee; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+ul {
+    list-style-type: circle;
+}
+</style>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png" min-width="100%">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a class="active" href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+<div style="padding:0 16px;">
+  <h2></h2>
+  <div class="document">
+<div class="section" id="download">
+<h1>Download</h1>
+<div class="section" id="stable-versions">
+<h2>Stable versions</h2>
+<p>These will be provided later.</p>
+</div>
+<div class="section" id="pre-release-versions">
+<h2>Pre-release versions</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%"></col>
+<col width="33%"></col>
+<col width="37%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Version</strong></th>
+<th class="head">Release date</th>
+<th class="head">Download link</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1.0 beta</td>
+<td>27.1.2018</td>
+<td>ValoMC_1.0b.zip</td>
+</tr>
+</tbody>
+</table>
+<p>After download, please follow the <a class="reference external" href="installation.html">installation instructions</a> to get started.</p>
+</div>
+</div>
+<div class="section" id="supported-platforms">
+<h1>Supported platforms</h1>
+<p>ValoMC has been tested on the following platforms</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%"></col>
+<col width="28%"></col>
+<col width="34%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Operating system</strong></th>
+<th class="head">MATLAB version</th>
+<th class="head">Compiler version</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Windows 10</td>
+<td>2017a</td>
+<td>Visual Studio 2017</td>
+</tr>
+<tr><td>Windows 10</td>
+<td>2016a</td>
+<td>TDM-GCC  5.1.0</td>
+</tr>
+<tr><td>Ubuntu 16.04</td>
+<td>2016a</td>
+<td>GCC 4.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+	margin-top: 1cm;
+	margin-left: 4cm;
+	margin-right: 4cm;
+	padding: 0;
+        font-size: 15px;
+        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 5px;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 10px;
+   }
+
+
+a {
+    color: black;
+}
+
+   ul.tree li {
+     margin: 5px;
+     padding: 0 12px;
+     line-height: 20px;
+     color: #369;
+   }
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 15px;
+    text-align: center;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 27px;
+    text-decoration: none;
+}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 16px;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div style="width: 100%;">
+    <div style="width: 300px; float: left;">
+<br> 
+<li><a>Documentation</a></li>
+<ul class="tree">
+<li><a href="gettingstarted.html">Getting started</a></li>
+<li><a>2D</a></li>
+<ul class="tree">
+<li><a href="simpletest.html">Simple example</a></li>
+<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
+<li><a href="directingls.html">Directing light sources</a></li>
+<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
+<li><a href="frequency.html">Frequency domain calculation</a></li>
+<li><a href="netgentest.html">Working with NetGen</a></li>
+<li><a href="generatingc.html">Generating input for the external executable</a></li>
+<li><a href="pixeltest.html">Working with pixel format data</a></li>
+<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures.html">List of structures</a></li>
+<li><a href="findingelements.html">Finding elements</a></li>
+<li><a href="findingboundaries.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a>3D</a></li>
+<ul class="tree">
+<li><a href="voxeltest.html">Working with voxel format data</a></li>
+<li><a href="netgentest3d.html">Working with NetGen</a></li>
+<li><a href="threedmodel.html">Digimouse example</a></li>
+<li><a>Code documentation</a></li>
+<ul class="tree">
+<li><a href="structures3d.html">List of structures</a></li>
+<li><a href="findingelements3d.html">Finding elements</a></li>
+<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
+</ul></ul>
+<li><a href="literature.html">Literature</a></li>
+<li><a href="functionreference.html">Alphabetical function listing</a></li>
+</ul>
+    </div>
+    <div style="margin-left: 350px; padding: 5px;"> 
+<div class="document">
+<p>Boundaries can be found from the mesh using the function 'findBoundaries'. It has the following syntax</p>
+<pre class="code matlab literal-block">
+<span class="name">boundaries</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="name">querystring</span><span class="punctuation">,</span> <span class="name">optional</span> <span class="name">arguments</span><span class="punctuation">);</span>
+</pre>
+<p>The return value is a vector. The vector holds the indices of boundaries (a triangle segment).</p>
+<pre class="code matlab literal-block">
+<span class="name">circle</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="literal string">'direction'</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name">line_startx</span> <span class="name">line_starty</span> <span class="name">line_startz</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="name">line_endx</span> <span class="name">line_endy</span> <span class="name">line_endz</span><span class="punctuation">])</span>
+</pre>
+<p>Now circle contains the the indices of the triangles of a circular region in the boundary.
+The circle is defined by a cylinder that intersects the boundary. The cylinder
+is defined by a line given as parameter.</p>
+<p>A detailed documentation of the optional arguments and the query strings are given below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%"></col>
+<col width="50%"></col>
+<col width="12%"></col>
+<col width="22%"></col>
+<col width="11%"></col>
+</colgroup>
+<tbody valign="top">
+<tr><td>Query string</td>
+<td>Description</td>
+<td>Arguments</td>
+<td>Argument description</td>
+<td>Row length</td>
+</tr>
+<tr><td rowspan="5">'direction'</td>
+<td rowspan="5">Finds elements that are contained in a region defined by a cross sectional shape and a line that intesects it in the middle. The line starts from origin and goes to waypoint.</td>
+<td>origin</td>
+<td>Origin point of the line</td>
+<td>3</td>
+</tr>
+<tr><td>waypoint</td>
+<td>Direction vector of the line</td>
+<td>3</td>
+</tr>
+<tr><td>radius</td>
+<td>Width of the line segment</td>
+<td>1</td>
+</tr>
+<tr><td>shape: circle (default), box, arbitrary</td>
+<td>Cross-sectional shape of the region</td>
+<td> </td>
+</tr>
+<tr><td>points (optional)</td>
+<td>If an arbitrary shape is defined, this specifies its coordinates</td>
+<td> </td>
+</tr>
+<tr><td rowspan="2">'halfspace</td>
+<td rowspan="2">Returns the elements within a halfspace spanned by a location vector and a plane normal</td>
+<td>location</td>
+<td>Location of the center of the plane (point that the plane intersects)</td>
+<td>3</td>
+</tr>
+<tr><td>normal</td>
+<td>Normal of the plane. Elements in the direction of normal will be selected.</td>
+<td>3</td>
+</tr>
+<tr><td>'inverse</td>
+<td>Inverses the selection</td>
+<td>selection</td>
+<td>Array that contains the indices of the boundary that is selected</td>
+<td>number of elements in the selection</td>
+</tr>
+<tr><td>'location</td>
+<td>Finds a boundary nearest to a user specified location</td>
+<td>location</td>
+<td>The location</td>
+<td>number of points specified</td>
+</tr>
+<tr><td rowspan="4">'sphericalregion'</td>
+<td rowspan="4">Finds a boundary that is contained within a subspace defined by a segment of the unit sphere</td>
+<td>starttheta</td>
+<td>Starting polar angle</td>
+<td>1</td>
+</tr>
+<tr><td>startphi</td>
+<td>Starting azimuthal angle</td>
+<td>1</td>
+</tr>
+<tr><td>endtheta</td>
+<td>Ending polar angle</td>
+<td>1</td>
+</tr>
+<tr><td>endphi</td>
+<td>Ending azimuthal angle</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+</div>
+</font>
+
+  </div>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Mon May 28 23:36:22 EEST 2018 by aleksle</p></footer> </body> </html>
+

@@ -2,6 +2,7 @@
 <html>
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
         margin-top: 50px;
@@ -85,6 +86,7 @@ ul.topnav {
     text-align: center;
     width: 80vw;
     min-width: 1200px;
+
 }
 
 ul.topnav li {float: left;
@@ -129,85 +131,91 @@ span.syscmd { color:#B28C00 }
 .footer a:visited { color:#878787; }
 
 
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 0px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:0px solid #d6d4d4; }
-table td.lfig { padding:7px 5px; text-align:center; vertical-align:bottom; border:0px solid #d6d4d4; }
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
 ul {
     list-style-type: circle;
 }
 </style>
 </head>
 <body> 
-<img class="logo" src="ValoMC_logo.png" >
+<img class="logo" src="ValoMC_logo.png" min-width="100%">
 <ul class="topnav">
 <font size="4">
-  <li><a class="active" href="index.html">Home</a></li>
-  <li><a href="download.html">Download</a></li>
+  <li><a href="index.html">Home</a></li>
+  <li><a class="active" href="download.html">Download</a></li>
   <li><a href="features.html">Features</a></li>
   <li><a href="installation.html">Installation</a></li>
   <li><a href="documentation.html">Documentation</a></li>
   <li class="right"><a href="about.html">About</a></li>
 </font>
 </ul>
-<div style="padding:0 16px;">
+<div style="padding:0 16px;" width="80vw">
   <h2></h2>
-  <table>
-  <tr>
-  <td width="60%" valign="top">
-  <p style="text-align:justify">
-  <div class="document" id="introduction"> <h1 class="title">Introduction</h1> <p>ValoMC is an open source Monte Carlo code that can simulate the passage of visible and near infrared range photons through matter. The implementation follows the Monte Carlo model by Prahl et al., Proc. SPIE, 5, 102-111 (1989) and follows later developments. The simulation geometry is defined using triangular or tetrahedral meshes. The model solves for boundary and volumetric data and supports various boundary conditions, types of light sources, as well as intensity modulated light. While the model is capable of simulating complex measurement geometries, attention is given to ease of use and fast problem set up with a MATLAB (TM) interface. The simulation code is written in C++ and parallelized using OpenMP.</p> </div>
-  </p>
-  </td>
-  <td>
-  <img width="450px" src="digimouse2.jpg"> <br>
-  Simulation using the <a href = "https://neuroimage.usc.edu/neuro/Digimouse"> digimouse model</a>.
-  Model data is described in B. Dogdas, D. Stout, A. Chatziioannou, RM Leahy, <i>Digimouse: A 3D Whole Body Mouse Atlas from CT and Cryosection Data</i>, Phys. Med. Bio, 52: 577-587, 2007
-  </td>
-  </tr>
-  <tr>
-  <td width="20%">
-  <div class="document" id="minimal-example">
-<h1 class="title">Minimal example</h1>
-<p>The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a rectangular region</p>
-<pre class="code matlab literal-block">
-<span class="name">xsize</span> <span class="punctuation">=</span>  <span class="literal number integer">10</span><span class="punctuation">;</span>    <span class="comment">% width of the region  [mm]</span>
-<span class="name">ysize</span> <span class="punctuation">=</span>  <span class="literal number integer">10</span><span class="punctuation">;</span>    <span class="comment">% height of the region [mm]</span>
-<span class="name">dh</span> <span class="punctuation">=</span> <span class="literal number integer">1</span><span class="punctuation">;</span>         <span class="comment">% discretisation size  [mm]</span>
-<span class="name">vmcmesh</span> <span class="punctuation">=</span> <span class="name">createRectangularMesh</span><span class="punctuation">(</span><span class="name">xsize</span><span class="punctuation">,</span> <span class="name">ysize</span><span class="punctuation">,</span> <span class="name">dh</span><span class="punctuation">);</span>
-
-<span class="comment">% Create a light source</span>
-<span class="comment">%    - Set a light source from boundary elements 4 to 7</span>
-<span class="comment">%    - Photons are launched at a random angle so that all angles have a cosinic distribution</span>
-<span class="name">vmcboundary</span><span class="punctuation">.</span><span class="name">lightsource</span><span class="punctuation">(</span><span class="literal number integer">4</span><span class="punctuation">:</span><span class="literal number integer">7</span><span class="punctuation">)</span> <span class="punctuation">=</span> <span class="punctuation">{</span><span class="literal string">'cosinic'</span><span class="punctuation">};</span>
-
-<span class="comment">% Give optical parameters</span>
-<span class="comment">%    - Constant optical parameters are set troughout the medium.</span>
-<span class="comment">%    - Alternatively, optical parameters can set be for each element using indexing</span>
-
-<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">absorption_coefficient</span> <span class="punctuation">=</span> <span class="literal number float">0.01</span><span class="punctuation">;</span>     <span class="comment">% [1/mm]</span>
-<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">scattering_coefficient</span> <span class="punctuation">=</span> <span class="literal number float">1.0</span><span class="punctuation">;</span>      <span class="comment">% [1/mm]</span>
-<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">scattering_anisotropy</span> <span class="punctuation">=</span> <span class="literal number float">0.9</span><span class="punctuation">;</span>       <span class="comment">% anisotropy parameter g [unitless]</span>
-<span class="name">vmcmedium</span><span class="punctuation">.</span><span class="name">refractive_index</span> <span class="punctuation">=</span> <span class="literal number float">1.3</span><span class="punctuation">;</span>            <span class="comment">% refractive index [unitless]</span>
-
-<span class="comment">% Run the Monte Carlo simulation</span>
-<span class="name">solution</span> <span class="punctuation">=</span> <span class="name">ValoMC</span><span class="punctuation">(</span><span class="name">vmcmesh</span><span class="punctuation">,</span> <span class="name">vmcmedium</span><span class="punctuation">,</span> <span class="name">vmcboundary</span><span class="punctuation">);</span>
-
-<span class="comment">% Plot the solution using MATLAB</span>
-<span class="name">patch</span><span class="punctuation">(</span><span class="literal string">'Faces'</span><span class="punctuation">,</span><span class="name">vmcmesh</span><span class="punctuation">.</span><span class="name">H</span><span class="punctuation">,</span><span class="literal string">'Vertices'</span><span class="punctuation">,</span><span class="name">vmcmesh</span><span class="punctuation">.</span><span class="name">r</span><span class="punctuation">,</span><span class="literal string">'FaceVertexCData'</span><span class="punctuation">,</span> <span class="name">solution</span><span class="punctuation">.</span><span class="name">element_fluence</span><span class="punctuation">,</span> <span class="literal string">'FaceColor'</span><span class="punctuation">,</span> <span class="literal string">'flat'</span><span class="punctuation">,</span> <span class="literal string">'LineWidth'</span><span class="punctuation">,</span><span class="literal number float">1.5</span><span class="punctuation">);</span>
-</pre>
+  <div class="document">
+<div class="section" id="download">
+<h1>Download</h1>
+<div class="section" id="stable-versions">
+<h2>Stable versions</h2>
+<p>These will be provided later.</p>
 </div>
-  </td>
-  <td class="lfig">
-  <img width="450px" src="minimalexample.png">
-  </td>
-  </tr>
-  <td>
-  <div class="document" id="news"> <h1 class="title">News</h1> <p>28.5.2018:  <strong>Beta-release</strong></p> <blockquote> We are releasing the beta version for test use and feedback. Please note that the functionality might still change and that the code might not be fully forward compatible with later releases.</blockquote> </div>
-  </td>
-  <td>
-  </td>
-
-  </table>
+<div class="section" id="pre-release-versions">
+<h2>Pre-release versions</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%"></col>
+<col width="16%"></col>
+<col width="68%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Version</strong></th>
+<th class="head">Release date</th>
+<th class="head">Download link</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1.0 beta</td>
+<td>27.1.2018</td>
+<td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/v1.0b.zip">https://github.com/InverseLight/ValoMC/archive/v1.0b.zip</a></td>
+</tr>
+</tbody>
+</table>
+<p>After download, please follow the <a class="reference external" href="installation.html">installation instructions</a> to get started.</p>
+</div>
+</div>
+<div class="section" id="supported-platforms">
+<h1>Supported platforms</h1>
+<p>ValoMC has been tested on the following platforms</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%"></col>
+<col width="28%"></col>
+<col width="34%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Operating system</strong></th>
+<th class="head">MATLAB version</th>
+<th class="head">Compiler version</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Windows 10</td>
+<td>2017a</td>
+<td>Visual Studio 2017</td>
+</tr>
+<tr><td>Windows 10</td>
+<td>2016a</td>
+<td>TDM-GCC  5.1.0</td>
+</tr>
+<tr><td>Ubuntu 16.04</td>
+<td>2016a</td>
+<td>GCC 4.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <br>
-<br> </div><footer> <hr> <p>Last updated: Tue May 29 10:14:38 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Tue May 29 10:27:31 EEST 2018 by aleksle</p></footer> </body> </html>

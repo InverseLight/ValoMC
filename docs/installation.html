@@ -1,42 +1,18 @@
 <!DOCTYPE html>
+ <meta charset="UTF-8"> 
 <html>
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
-        margin-top: 50px;
-        margin-left: 200px;
-        margin-right: 200px;
+        margin-top: 5vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
 	padding: 0;
         font-size: 15px;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
-
-
-   ul.tree a {
-    color: back;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-   }
-   ul.tree a:hover {
-    background: lightgray;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-   }
-
-   li {
-     list-style-type: square;
-     background:  repeat-y;
-     padding: 0;
-   }
-
-li::before {
-  color: green; 
-}
-
 
 
    ul.tree, ul.tree ul {
@@ -50,10 +26,6 @@ li::before {
    ul.tree ul {
      list-style-type: none;
      margin-left: 10px;
-   }
-
-  li {
-     list-style-type: square;
    }
 
 
@@ -73,7 +45,7 @@ a {
    }
 
    ul.tree li.last {
-     background: #fff url(images/lastnode.png) no-repeat;
+     background: no-repeat;
    }
 
 ul.topnav {
@@ -84,9 +56,6 @@ ul.topnav {
     background-color: #333;
     font-size: 15px;
     text-align: center;
-    width: 80vw;
-    min-width: 1200px;
-
 }
 
 ul.topnav li {float: left;
@@ -100,12 +69,12 @@ ul.topnav li a {
     padding: 4px 27px;
     text-decoration: none;
 }
+
 ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
 ul.topnav li a:hover {color: white}
 
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
-
 
 img.logo {max-width: 300px;}
 
@@ -124,11 +93,25 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer {  width: auto;  padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer {  width: 100%;  padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
 .footer a:visited { color:#878787; }
+
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
 
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
@@ -137,6 +120,17 @@ table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0p
 ul {
     list-style-type: circle;
 }
+
+ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+  li {
+     list-style-type: square;
+   }
 </style>
 </head>
 <body> 
@@ -151,7 +145,7 @@ ul {
   <li class="right"><a href="about.html">About</a></li>
 </font>
 </ul>
-<div style="padding:0 16px;  width: 80vw;">
+<div style="padding:0 16px;  ">
   <h2></h2>
   <p></p>
   <p></p>
@@ -281,4 +275,4 @@ sudo apt-get install gcc-4.9
 </div>
 </div>
 <br>
-<br> </div><footer> <hr> <p>Last updated: Tue May 29 10:57:57 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Fri Jun  1 00:56:49 EEST 2018 by aleksle</p></footer> </body> </html>

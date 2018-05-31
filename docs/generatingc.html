@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <style>
 
 body {
-        margin-top: 50px;
-        margin-left: 200px;
-        margin-right: 200px;
+        margin-top: 5vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
 	padding: 0;
         font-size: 15px;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
@@ -117,7 +116,6 @@ span.syscmd { color:#B28C00 }
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
-
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -134,7 +132,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px; width: 80vw;">
+<div style="padding:0 16px; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
@@ -242,8 +240,8 @@ Constants:
          phase0   (0.000000e+00)
 Initializing MC2D
 Computing...
-  0.800000 %  2.200000 %  3.700000 %  6.450000 %  9.200000 %  11.600000 %  13.450000 %  16.050000 %  18.800000 %  20.200000 %  21.950000 %  23.750000 %  25.150000 %  26.600000 %  28.100000 %  29.500000 %  31.050000 %  32.500000 %  33.900000 %  36.150000 %  38.150000 %  40.050000 %  42.550000 %  44.500000 %  45.900000 %  48.750000 %  50.100000 %  52.700000 %  54.300000 %  55.750000 %  57.350000 %  58.800000 %  60.250000 %  61.550000 %  63.200000 %  64.700000 %  66.250000 %  67.650000 %  69.350000 %  70.950000 %  72.500000 %  74.050000 %  75.650000 %  77.200000 %  78.750000 %  80.350000 %  81.750000 %  83.350000 %  85.150000 %  87.350000 %  89.050000 %  91.100000 %  92.400000 %  93.500000 %  94.400000 %  95.150000 %  95.800000 %  96.300000 %  96.850000 %  97.300000 %  97.650000 %  98.000000 %  100.000000 %Saving problem netgen_test_output.txt
-Computation took 6 seconds
+  0.300000 %  1.500000 %  2.950000 %  4.200000 %  5.700000 %  6.950000 %  8.400000 %  9.700000 %  10.900000 %  12.350000 %  13.700000 %  15.150000 %  16.250000 %  18.200000 %  20.150000 %  21.450000 %  23.250000 %  24.900000 %  26.500000 %  28.000000 %  29.950000 %  31.300000 %  33.850000 %  36.700000 %  38.400000 %  41.150000 %  42.650000 %  44.050000 %  45.550000 %  46.850000 %  48.950000 %  50.250000 %  51.850000 %  54.050000 %  55.350000 %  56.600000 %  58.000000 %  59.450000 %  61.200000 %  62.550000 %  63.750000 %  65.150000 %  66.550000 %  67.750000 %  69.050000 %  70.400000 %  71.850000 %  73.100000 %  74.550000 %  75.900000 %  77.300000 %  78.600000 %  79.750000 %  81.000000 %  82.300000 %  83.400000 %  84.550000 %  85.850000 %  87.050000 %  88.150000 %  89.350000 %  90.550000 %  100.000000 %Saving problem netgen_test_output.txt
+Computation took 7 seconds
 </pre><h2 id="5">Load the simulation output using importValoMC</h2><p>importValoMC can be used to retrieve the problem definition and the simulation output from the external executable</p><pre class="codeinput">[vmcmesh, vmcmedium, vmcboundary, options, solution] = importValoMC(<span class="string">'netgen_test_input.txt'</span>, <span class="string">'netgen_test_output.txt'</span>);
 
 <span class="comment">% Plot the solution</span>
@@ -263,5 +261,5 @@ hold <span class="string">off</span>
   </div>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Tue May 29 10:57:57 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Fri Jun  1 00:56:49 EEST 2018 by aleksle</p></footer> </body> </html>
 

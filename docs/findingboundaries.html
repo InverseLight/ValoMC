@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="UTF-8"> 
 <html>
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
@@ -185,30 +186,34 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <p>The return value is a vector. The vector holds the indices of boundaries (a line segment).
 For example</p>
 <pre class="code matlab literal-block">
-<span class="name">arcs</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="literal string">'arc'</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name">startangle</span> <span class="name">endangle</span><span class="punctuation">])</span>
+<span class="name">arcs</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="literal string">'direction'</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name">x1</span> <span class="name">y1</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="name">x2</span> <span class="name">y2</span><span class="punctuation">],</span> <span class="name">width</span><span class="punctuation">)</span>
 </pre>
-<p>returns the boundary elements in subspace spanned by startangle and endangle.</p>
+<p>returns the boundary elements that are within a distance of 'width' from line going from [x1 y1] to [x2 y2]</p>
 <p>A detailed documentation of the optional arguments and the query strings are given below.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="4%"></col>
-<col width="68%"></col>
-<col width="5%"></col>
-<col width="15%"></col>
+<col width="66%"></col>
+<col width="4%"></col>
+<col width="14%"></col>
 <col width="8%"></col>
+<col width="4%"></col>
 </colgroup>
 <tbody valign="top">
 <tr><td><strong>Query string</strong></td>
 <td><strong>Description</strong></td>
-<td><strong>Optional arguments</strong></td>
+<td><strong>Arguments</strong></td>
 <td><strong>Argument description</strong></td>
 <td><strong>Length</strong></td>
+<td><strong>Illustration</strong></td>
 </tr>
 <tr><td rowspan="3">'arc'</td>
-<td rowspan="3">Finds a boundary specified by an arc of the unit circle</td>
+<td rowspan="3">Finds a boundary specified by an arc of the unit circle.</td>
 <td>origin</td>
 <td>Origin point of the arc</td>
 <td>2</td>
+<td rowspan="3"><img alt="arc.png" class="first last" src="arc.png"/>
+</td>
 </tr>
 <tr><td>startangle</td>
 <td>Starting angle</td>
@@ -223,30 +228,36 @@ For example</p>
 <td>origin</td>
 <td>Origin point of the rectangle</td>
 <td>2</td>
+<td> </td>
 </tr>
 <tr><td>waypoint</td>
 <td>Direction vector of the rectangle</td>
 <td>2</td>
+<td> </td>
 </tr>
 <tr><td>width</td>
 <td>Width of the line rectangle</td>
 <td>1</td>
+<td> </td>
 </tr>
-<tr><td>maxdist</td>
+<tr><td>maxdist (optional)</td>
 <td>Maximum distance</td>
 <td>1</td>
+<td> </td>
 </tr>
 <tr><td>'inverse'</td>
 <td>Inverses the selection</td>
 <td>elements</td>
 <td>Array that contains the indices of the boundary that is selected</td>
 <td>number of elements in the selection</td>
+<td> </td>
 </tr>
 <tr><td>'location'</td>
 <td>Finds a boundary nearest to a user specified location</td>
 <td>location</td>
 <td>The location</td>
 <td>number of points specified</td>
+<td> </td>
 </tr>
 </tbody>
 </table>
@@ -258,5 +269,5 @@ For example</p>
   </div>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Fri Jun  1 01:10:22 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Tue Jun 19 10:56:00 EEST 2018 by aleksle</p></footer> </body> </html>
 

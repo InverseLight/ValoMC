@@ -1,7 +1,7 @@
 function elements = findElements(vmcmesh, querystring, varargin)
 % Finds elements
 %
-% See "Finding elements" in documentation
+% See https://inverselight.github.io/ValoMC/findingelements.html
     if(size(vmcmesh.H,2) == 3)
         % 2D
         if(strcmp(querystring, 'rectangle'))
@@ -10,7 +10,8 @@ function elements = findElements(vmcmesh, querystring, varargin)
         elseif(strcmp(querystring, 'circle'))
    	        elements = findElementsInsideCircle(vmcmesh, varargin{1}, varargin{2});
         elseif(strcmp(querystring, 'inverse'))
-            warning('2d inverse not yet implemented')
+            arr = 1:size(vmcmesh.H);
+            elements = setdiff(arr, [varargin{1}]);
         elseif(strcmp(querystring, 'location'))
             warning('2d location not yet implemented')
         elseif(strcmp(querystring, 'region'))

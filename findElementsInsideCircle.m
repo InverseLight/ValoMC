@@ -1,17 +1,20 @@
 function elements = findElementsInsideCircle(vmcmesh, radius, center)
-% Finds elements inside a circle with a given center and radius
+%FINDELEMENTSINSIDECIRCLE Returns indices to elements within a given radius from a location
 %
-% function elements = findElementsInsideCircle(vmcmesh, radius, center)
+% DESCRIPTION:
+%       Returns elements within given radius from a location
 %
-% INPUT
+% USAGE:
+%       elements = findElementsInsideCircle(vmcmesh, center, radius)
 %
-%  vmcmesh:         the mesh containing the elements (described in documentation/list of structures)
-%  radius:       the radius of the circle
-%
-% OUTPUT
-%
-%  center:       the center of the circle
-%
+% INPUTS:
+%       vmcmesh     - https://inverselight.github.io/ValoMC/structures.html
+%       radius      - radius of the circle
+%       center      - location vector of the circle
+%                     
+% OUTPUTS:
+%       elements    - elements within the circle
+
    v1 = ((vmcmesh.r(vmcmesh.H(:,1),1)-center(1)).*(vmcmesh.r(vmcmesh.H(:, 1),1)- ...
                                              center(1))+ ...
          (vmcmesh.r(vmcmesh.H(:,1),2)-center(2)).*(vmcmesh.r(vmcmesh.H(:,1),2)- ...

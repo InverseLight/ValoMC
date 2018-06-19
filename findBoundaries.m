@@ -11,15 +11,37 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
                 maxdist = varargin{4};
             end
             elements = findBoundariesByDirection(vmcmesh, varargin{1}, varargin{2}, varargin{3}, maxdist);
+        elseif(strcmp(querystring, 'arc'))
+
+            origin = varargin{1};
+            startangle = varargin{2};
+            endangle = varargin{3};
+            % find the center of the mesh
+            centerpoints1 = vmcmesh.r(vmcmesh.BH(:,1),:)-origin;
+            centerpoints2 = vmcmesh.r(vmcmesh.BH(:,2),:)-origin;
+            angle1=atan2(centerpoints1(:,2),centerpoints1(:,1));
+            angle2=atan2(centerpoints2(:,2),centerpoints2(:,1));
+
+            neg1=find(angle1 < 0);
+            neg2=find(angle2 < 0);
+
+            angle1(neg1) = 2*pi + angle1(neg1);
+            angle2(neg2) = 2*pi + angle2(neg2);
+
+            belements=find(angle1 >= startangle & angle1 <= endangle & angle2 >= startangle & angle2 <= endangle)
+
         elseif(strcmp(querystring, 'location'))
             elements = findLineSegmentsNearest(vmcmesh, varargin{1});
         elseif(strcmp(querystring, 'rectangle'))
-
+             
         elseif(strcmp(querystring, 'circle'))
 
+        elseif(strcmp(querystring, 'inverse'))
+            arr = 1:size(vmcmesh.BH);
+            elements = setdiff(arr, [varargin{1}]);
         end
     elseif(size(vmcmesh.H,2) == 4)
-        % 3D        
+        % 3D
         if(strcmp(querystring, 'direction'))
             origin=varargin{1};
             waypoint=varargin{2};

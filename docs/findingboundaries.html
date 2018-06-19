@@ -181,14 +181,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <div class="document">
 <p>Boundaries can be found from the mesh using the function 'findBoundaries'. It has the following syntax</p>
 <pre class="code matlab literal-block">
-<span class="name">boundaries</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="name">querystring</span><span class="punctuation">,</span> <span class="name">optional</span> <span class="name">arguments</span><span class="punctuation">);</span>
+<span class="name">boundary</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="name">querystring</span><span class="punctuation">,</span> <span class="name">optional</span> <span class="name">arguments</span><span class="punctuation">);</span>
 </pre>
 <p>The return value is a vector. The vector holds the indices of boundaries (a line segment).
 For example</p>
 <pre class="code matlab literal-block">
-<span class="name">arcs</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="literal string">'direction'</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name">x1</span> <span class="name">y1</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="name">x2</span> <span class="name">y2</span><span class="punctuation">],</span> <span class="name">width</span><span class="punctuation">)</span>
+<span class="name">boundary</span> <span class="punctuation">=</span> <span class="name">findBoundaries</span><span class="punctuation">(</span><span class="name">mesh</span><span class="punctuation">,</span> <span class="literal string">'direction'</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name">x1</span> <span class="name">y1</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="name">x2</span> <span class="name">y2</span><span class="punctuation">],</span> <span class="name">width</span><span class="punctuation">)</span>
 </pre>
-<p>returns the boundary elements that are within a distance of 'width' from line going from [x1 y1] to [x2 y2]</p>
+<p>returns the boundary elements that are within a distance of width/2 from a line going from [x1 y1] to [x2 y2]</p>
 <p>A detailed documentation of the optional arguments and the query strings are given below.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -269,5 +269,5 @@ For example</p>
   </div>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Tue Jun 19 10:56:00 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Tue Jun 19 11:17:12 EEST 2018 by aleksle</p></footer> </body> </html>
 

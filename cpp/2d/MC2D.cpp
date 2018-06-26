@@ -29,13 +29,13 @@ bool Progress(double perc);
 
 int main(int argc, char **argv) {
 
-  printf("-----ValoMC-2D-----\n");
-  printf("---Version %5s --\n", build_version);
-  printf("---Revision%5s---\n", build_revision);
+  printf("--------------ValoMC-2D--------------\n");
+  printf("  Version:  %s\n", build_version);
+  printf("  Revision: %s\n", build_revision);
 #ifdef USE_OMP
-  printf("--OpenMP version --\n");
+  printf("  OpenMP enabled                     \n");
 #endif
-  printf("-------------------\n");
+  printf("-------------------------------------\n");
   printf("\n");
 
 #ifdef USE_OMP

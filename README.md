@@ -150,12 +150,14 @@ Windows
 -------
 
 For example, the TDM gcc compiler can be obtained from this [site](http://tdm-gcc.tdragon.net/download).
+
 After installation you can use
 
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 	mex -setup 
 
-to inform MATLAB of the location. For Visual Studio, OpenMP support can be enabled as follows
+to inform MATLAB of the location. Visual Studio can be obtained [here] https://visualstudio.microsoft.com/
+For Visual Studio, OpenMP (parallelisation) support can be enabled as follows
 
 	mex  -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /fopenmp'
 

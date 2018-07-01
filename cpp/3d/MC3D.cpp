@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../version.h"
+#include <sstream>
+#include <utility>
+#include <iomanip>
 
 // define USE_OMP to utilize threading with OpenMP 
 //#define USE_OMP
@@ -17,7 +19,8 @@
 
 #include "Array.hpp"
 #include "MC3D.hpp"
-
+#include "../version.h"
+#include "../fileio.hpp"
 
 MC3D MC;
 
@@ -29,6 +32,8 @@ bool Progress(double perc);
 
 
 int main(int argc, char **argv){
+<<<<<<< HEAD
+=======
   printf("--------------ValoMC-3D--------------\n");
   printf("  Version:  %s\n", build_version);
   printf("  Revision: %s\n", build_revision);
@@ -45,21 +50,35 @@ int main(int argc, char **argv){
 
   MC.seed = (unsigned long) time(NULL);
 
+>>>>>>> 787f97f77cb924d6f4c392cdac92b169ab29771f
   // Display help
-  if( (argc < 3) ){
+  if ((argc < 3))
+  {
     printf("Use syntax:\n");
     printf(" MC2D inputfile outputfile\n");
     printf("\n");
     printf("Authors: Aki Pulkkinen, Aleksi Leino and Tanja Tarvainen (2018).\n");
     printf("The simulation code is originally written by Aki Pulkkinen.\n");
     printf("\n");
-    return(0);
+    return (0);
   }
 
+  printf("--------------ValoMC-3D--------------\n");
+  printf("  Version:  %s\n", build_version);
+  printf("  Revision: %s\n", build_revision);
 #ifdef USE_OMP
-  printf("Using %d threads\n", omp_get_max_threads());
-//  double tstart = omp_get_wtime();
+  printf("  OpenMP enabled                     \n");
+#else
+  printf("  OpenMP disabled, no parallelization\n");
 #endif
+#ifdef USE_OMP
+  printf("  Using %d threads\n", omp_get_max_threads());
+  //  double tstart = omp_get_wtime();
+#endif
+  printf("-------------------------------------\n");
+  printf("\n");
+
+
 
   MC.seed = (unsigned long) time(NULL);
 
@@ -91,7 +110,7 @@ int main(int argc, char **argv){
   MC.MonteCarlo(Progress);
   tend = (unsigned long) time(NULL);
   
-  printf("Saving problem %s\n", fout);
+  printf("Saving problem\n");
   if(SaveProblem(fout, tend-tstart)){
     printf("Error while saving!\n");
     return(1);
@@ -126,95 +145,51 @@ int LoadProblem_TXT(char *fin){
       [GaussianSigma] //[AL]
   */
 
-  long ii;
-  long Ne, Nb, Nr;
+  int_fast64_t ii;
+  int_fast64_t Ne, Nb, Nr;
   int fsr; // return value for file open (for avoiding compiler warnings)
-
 
   FILE *fp = fopen(fin, "r");
   if(fp == NULL) return(1);
 
-  fsr=fscanf(fp, "%ld %ld %ld %ld\n", &Ne, &Nb, &Nr, &MC.Nphoton);
+  fsr=fscanf(fp, "%lli %lli %lli %lli\n", &Ne, &Nb, &Nr, &MC.Nphoton);
   fsr=fscanf(fp, "%lf %lf\n", &MC.f, &MC.phase0);
-  fsr=fscanf(fp, "%*i %*i %*i\n"); // skip nx, ny and nz [AL]
 
+  char tmpline[5012]; // skip a line
+  fgets(tmpline, 5011, fp);
+   
   // make negative phase0 positive by adding a multiple of 2*pi
   if(MC.phase0 < 0) {
     MC.phase0 += 2*M_PI*ceil(-MC.phase0 / (2*M_PI));
   }
-  
-  MC.H.resize(Ne, 4);
-  MC.BH.resize(Nb, 3);
-  MC.r.resize(Nr, 3);
-  MC.BCType.resize(Nb);
-  MC.BCLNormal.resize(Nb, 3);
-  MC.BCLightDirectionType.resize(Nb);
-  MC.BCn.resize(Nb);
-  MC.mua.resize(Ne);
-  MC.mus.resize(Ne);
-  MC.g.resize(Ne);
-  MC.n.resize(Ne);
+     
+  printf("Constants:\n");
+  printf("  %10s   (%e)\n", "f", MC.f);
+  printf("  %10s   (%e)\n", "phase0", MC.phase0);
+  printf("  %10s   (%lli)\n", "Ne", Ne);
+  printf("  %10s   (%lli)\n", "Nb", Nb);
+  printf("  %10s   (%lli)\n", "Nr", Nr);
+  printf("  %10s   (%lli)\n", "Nphoton", MC.Nphoton);
+  printf("Arrays:\n");
 
-  for(ii = 0; ii < Ne; ii++) {
-    fsr=fscanf(fp, "%ld %ld %ld %ld\n", &MC.H(ii, 0), &MC.H(ii, 1), &MC.H(ii, 2), &MC.H(ii, 3));
-  }
-  for(ii = 0; ii < Nb; ii++) {
-    fsr=fscanf(fp, "%ld %ld %ld\n", &MC.BH(ii, 0), &MC.BH(ii, 1), &MC.BH(ii, 2));
-  }
-  for(ii = 0; ii < Nr; ii++) {
-    fsr=fscanf(fp, "%lf %lf %lf\n", &MC.r(ii, 0), &MC.r(ii, 1), &MC.r(ii, 2));
-  }
-  for(ii = 0; ii < Ne; ii++) {
-    fsr=fscanf(fp, "%lf %lf %lf %lf\n", &MC.mua(ii), &MC.mus(ii), &MC.g(ii), &MC.n(ii));
+  // make negative phase0 positive by adding a multiple of 2*pi
+  if (MC.phase0 < 0)
+  {
+    MC.phase0 += 2 * M_PI * ceil(-MC.phase0 / (2 * M_PI));
   }
 
-  for(ii = 0; ii < Nb; ii++) {
-    fsr=fscanf(fp, "%c\n", &MC.BCType(ii));
-  }
-   
-  // If the file still continues read BCn & BCLNormal
-  if(!feof(fp)){
-    for(ii = 0; ii < Nb; ii++) fsr=fscanf(fp, "%lf\n", &MC.BCn(ii)); 
-
-    if(!feof(fp)) {
-	for(ii = 0; ii < Nb; ii++) {
-	    fsr=fscanf(fp, "%lf %lf %lf\n", &MC.BCLNormal(ii, 0), &MC.BCLNormal(ii, 1), &MC.BCLNormal(ii, 2));
-	}
-    } else MC.BCLNormal.destroy();
-
-    if(!feof(fp)) for(ii = 0; ii < Nb; ii++) {
-	fsr=fscanf(fp, "%c\n", &MC.BCLightDirectionType(ii));  
-    } else MC.BCLightDirectionType.destroy();
-    
-    if(!feof(fp)) for(ii = 0; ii < Nb; ii++) fsr=fscanf(fp, "%lf\n", &MC.BCIntensity(ii));
-    else MC.BCIntensity.destroy();
-    
-    //    if(!feof(fp)) for(ii = 0; ii < Nb; ii++) fsr=fscanf(fp, "%le\n", &MC.GaussianSigma(ii));  
-    // else MC.GaussianSigma.destroy();
-    
-  }
-  else{
-    MC.BCn.destroy();
-    MC.BCLNormal.destroy();
-    MC.BCLightDirectionType.destroy();
-    MC.BCIntensity.destroy();
-    //MC.GaussianSigma.destroy();
-  }
+  readAndResize(fp, (int)Ne, 4, true, &MC.H, "H");
+  readAndResize(fp, (int)Nb, 3, true, &MC.BH, "BH");
+  readAndResize(fp, (int)Nr, 3, true, &MC.r, "r");
+  readAndResize(fp, (int)Ne, 1, true, &MC.mua, &MC.mus, &MC.g, &MC.n, "mua", "mus", "g", "n");
+  readAndResize(fp, (int)Nb, 1, true, &MC.BCType, "BCType");
+  readAndResize(fp, (int)Nb, 1, false, &MC.BCn, "BCn");
+  readAndResize(fp, (int)Nb, 3, false, &MC.BCLNormal, "BCLNormal");
+  readAndResize(fp, (int)Nb, 1, false, &MC.BCLightDirectionType, "BCLDirType");
+  readAndResize(fp, (int)Nb, 1, false, &MC.BCIntensity, "BCIntensity");
 
   fclose(fp);
-  
-  printf("Loaded:\n");
-  printf("         H   (%ld x %ld)\n", MC.H.Nx, MC.H.Ny);
-  printf("        BH   (%ld x %ld)\n", MC.BH.Nx, MC.BH.Ny);
-  printf("         r   (%ld x %ld)\n", MC.r.Nx, MC.r.Ny);
-  printf("    BCType   (%ld)\n", MC.BCType.Nx);
-  printf("       BCn   (%ld)\n", MC.BCn.Nx);
-  printf(" BCLNormal   (%ld x %ld)\n", MC.BCLNormal.Nx, MC.BCLNormal.Ny);
-  printf("       mua   (%ld)\n", MC.mua.Nx);
-  printf("       mus   (%ld)\n", MC.mus.Nx);
-  printf("         g   (%ld)\n", MC.g.Nx);
-  printf("         n   (%ld)\n", MC.n.Nx);
-  
+
   return(0);
 }
 

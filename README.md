@@ -1,3 +1,5 @@
+Please see the full documentation at https://inverselight.github.io/ValoMC/
+
 Introduction
 ============
 
@@ -121,12 +123,21 @@ Multithread (parallel) compilation
 
 To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
-	mex -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-	mex -DUSE_OMP cpp/3d/MC3Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+    mex -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
+    mex -DUSE_OMP cpp/2d/MC3Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
 
 Do not use OpenMP version if the MATLAB does not support the compiler used.
 See troubleshooting on how to install a specific version of GCC.
+For Visual Studio, change '-fopenmp' to '/openmp'.
 
+CMake compilation
+-----------------
+
+Please note that cmake installation has not yet been well tested.
+From command prompt, at 'ValoMC/'
+
+    cmake . 
+	cmake --build
 
 Troubleshooting
 ===============
@@ -160,7 +171,6 @@ you can install it by
 	sudo apt-get install g++-4.9
 	sudo apt-get install gcc-4.9
    
-and use
+and use (from MATLAB prompt, at 'ValoMC/'):
 	
-	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-
+	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"

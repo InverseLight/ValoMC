@@ -26,6 +26,10 @@
 #include "ArrayMPI.hpp"
 #endif
 
+#ifndef INT_FAST64_MAX
+#define INT_FAST64_MAX __INT_FAST64_MAX__
+#endif
+
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
@@ -130,13 +134,13 @@ public:
 
   // BCLightDirectionType =   n - No direction provided, use surface normal
   //                          a - Absolute
-  //                          r - Relative to surface  
+  //                          r - Relative to surface
 
   // Frequency and angular frequency of amplitude modulation of the light source
   double f, omega, phase0; //[AL] phase0
 
   // Number of photons to compute
-  long Nphoton;
+  int_fast64_t Nphoton;
 
   // Speed of light (mm / ps)
   double c0;
@@ -224,19 +228,16 @@ MC3D &MC3D::operator=(const MC3D &ref)
     EBI.resize(ref.EBI.N);
     long ii;
 
-
     for (ii = 0; ii < ER.N; ii++)
       ER[ii] = EI[ii] = 0.0;
     for (ii = 0; ii < EBR.N; ii++)
       EBR[ii] = EBI[ii] = 0.0;
 
-
     DEBR.resize(ref.DEBR.N); // [AL]
     DEBI.resize(ref.DEBI.N); // [AL]
 
     for (ii = 0; ii < DEBR.N; ii++) // [AL]
-      DEBR[ii] = DEBI[ii] = 0.0;   // [AL]
-
+      DEBR[ii] = DEBI[ii] = 0.0;    // [AL]
 
     LightSources = ref.LightSources;
     LightSourcesMother = ref.LightSourcesMother;
@@ -525,7 +526,8 @@ void MC3D::ErrorChecks()
       return;
     }
   }
-  if(BCLightDirectionType.N) {
+  if (BCLightDirectionType.N)
+  {
     if (BCLightDirectionType.Nx != BH.Nx)
     {
       throw SIZE_MISMATCH_LIGHT_DIRECTION_TYPE;
@@ -616,7 +618,6 @@ void MC3D::Init()
   for (ii = 0; ii < BH.Nx; ii++)
     DEBR[ii] = DEBI[ii] = 0.0;
 
-
   // Build lightsources
   BuildLightSource();
 
@@ -640,8 +641,10 @@ void MC3D::Init()
     {
       norm = sqrt(pow(BCLNormal(ii, 0), 2) + pow(BCLNormal(ii, 1), 2) + pow(BCLNormal(ii, 2), 2));
       // do not normalize coordinates
-      if(BCLightDirectionType.Nx == BCLNormal.Nx) {
-         if(BCLightDirectionType(ii) != 'n') continue;
+      if (BCLightDirectionType.Nx == BCLNormal.Nx)
+      {
+        if (BCLightDirectionType(ii) != 'n')
+          continue;
       }
       BCLNormal(ii, 0) /= norm;
       BCLNormal(ii, 1) /= norm;
@@ -649,13 +652,14 @@ void MC3D::Init()
     }
   }
 
-    // [AL] Change BCLNormal coordinates to relative if needed
-  double n[3],e1[3],e2[3],norm,dotprodn,dotprod1;
+  // [AL] Change BCLNormal coordinates to relative if needed
+  double n[3], e1[3], e2[3], norm, dotprodn, dotprod1;
 
   for (ii = 0; ii < BCLightDirectionType.N; ii++)
   {
     Normal(ii, &n[0]);
-    if(BCLightDirectionType[ii] == 'r') {
+    if (BCLightDirectionType[ii] == 'r')
+    {
       e1[0] = r(BH(ii, 1), 0) - r(BH(ii, 0), 0);
       e1[1] = r(BH(ii, 1), 1) - r(BH(ii, 0), 1);
       e1[2] = r(BH(ii, 1), 2) - r(BH(ii, 0), 2);
@@ -700,7 +704,7 @@ void MC3D::Init()
 
 void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t element)
 {
-  for (int i = 0; i < neighborlist.size(); i++)
+  for (unsigned int i = 0; i < neighborlist.size(); i++)
   {
     int_fast64_t neighbor = neighborlist[i];
     // Test for Face 0, 1, 2, 3
@@ -708,16 +712,16 @@ void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t
     {
       if (neighbor >= 0)
       {
-// ispart 
+      // ispart
 
 #define ISIN3(a, b) (H(element, a) == H(neighbor, b))
 #define ISPART3(a) (ISIN3(a, 0) || ISIN3(a, 1) || ISIN3(a, 2) || ISIN3(a, 3))
         if (ISPART3(0) && ISPART3(1) && ISPART3(2))
         {
-// There is something already written to the neighborhood matrix and this entry is not 
-// the same as would be written here. Something must be wrong with the mesh.
+          // There is something already written to the neighborhood matrix and this entry is not
+          // the same as would be written here. Something must be wrong with the mesh.
           if (HN(element, 0) != INT_FAST64_MAX && HN(element, 0) != neighbor)
-           {
+          {
             throw INCONSISTENT_MESH_DUPLICATE_NEIGHBORS;
           }
           HN(element, 0) = neighbor;
@@ -726,7 +730,7 @@ void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t
         {
           if (HN(element, 1) != INT_FAST64_MAX && HN(element, 1) != neighbor)
           {
- 	   std::cout << "HN : " << HN(element,1) << " \n";
+            std::cout << "HN : " << HN(element, 1) << " \n";
             throw INCONSISTENT_MESH_DUPLICATE_NEIGHBORS;
           }
           HN(element, 1) = neighbor;
@@ -735,7 +739,7 @@ void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t
         {
           if (HN(element, 2) != INT_FAST64_MAX && HN(element, 2) != neighbor)
           {
- 	   std::cout << "HN : " << HN(element,2) << " \n";
+            std::cout << "HN : " << HN(element, 2) << " \n";
             throw INCONSISTENT_MESH_DUPLICATE_NEIGHBORS;
           }
           HN(element, 2) = neighbor;
@@ -744,7 +748,7 @@ void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t
         {
           if (HN(element, 3) != INT_FAST64_MAX && HN(element, 3) != neighbor)
           {
- 	   std::cout << "HN : " << HN(element,3) << " \n";
+            std::cout << "HN : " << HN(element, 3) << " \n";
             throw INCONSISTENT_MESH_DUPLICATE_NEIGHBORS;
           }
           HN(element, 3) = neighbor;
@@ -800,33 +804,33 @@ void MC3D::BuildNeighbourhoods()
   if (HN.N != H.N)
   {
     HN.resize(H.Nx, 4);
-    std::vector<std::vector<int_fast64_t> > parent;
-    parent.resize(r.Nx);
+    std::vector<std::vector<int_fast64_t>> parent;
+    parent.resize((int)r.Nx);
     // Build a vector (parent)
     // that contains all tetrahedrons shared by a vertex
     for (int_fast64_t i = 0; i < H.Nx; i++)
     {
-      parent[H(i, 0)].push_back(i);
-      parent[H(i, 1)].push_back(i);
-      parent[H(i, 2)].push_back(i);
-      parent[H(i, 3)].push_back(i);
+      parent[(int)H(i, 0)].push_back(i);
+      parent[(int)H(i, 1)].push_back(i);
+      parent[(int)H(i, 2)].push_back(i);
+      parent[(int)H(i, 3)].push_back(i);
     }
     //
     for (int_fast64_t i = 0; i < BH.Nx; i++)
     {
-      parent[BH(i, 0)].push_back(-1 - i);
-      parent[BH(i, 1)].push_back(-1 - i);
-      parent[BH(i, 2)].push_back(-1 - i);
+      parent[(int)BH(i, 0)].push_back(-1 - i);
+      parent[(int)BH(i, 1)].push_back(-1 - i);
+      parent[(int)BH(i, 2)].push_back(-1 - i);
     }
     int_fast64_t istart = 0, iend = H.Nx;
     for (int_fast64_t ii = istart; ii < iend; ii++)
     {
       HN(ii, 0) = HN(ii, 1) = HN(ii, 2) = HN(ii, 3) = INT_FAST64_MAX;
       // Search neighbors from the tetrahedrons shared by the corner vertices
-      search_neighbor(parent[H(ii, 0)], ii);
-      search_neighbor(parent[H(ii, 1)], ii);
-      search_neighbor(parent[H(ii, 2)], ii);
-      search_neighbor(parent[H(ii, 3)], ii);
+      search_neighbor(parent[(int)H(ii, 0)], ii);
+      search_neighbor(parent[(int)H(ii, 1)], ii);
+      search_neighbor(parent[(int)H(ii, 2)], ii);
+      search_neighbor(parent[(int)H(ii, 3)], ii);
       //      printf("%li %li %li %li\n", HN(ii, 0), HN(ii, 1), HN(ii, 2), HN(ii, 3));
     }
   }
@@ -901,7 +905,7 @@ void MC3D::BuildNeighbourhoods()
 //   LightSourcesCDF will be a cumulative/normalized sum of areas of all the lightsources, this will ease randomizing the creation of photons
 void MC3D::BuildLightSource()
 {
-  int ii, jj, kk, ib, NLightSource;
+  int_fast64_t ii, jj, kk, ib, NLightSource;
 
   if (LightSources.N != 0)
     return;
@@ -942,8 +946,8 @@ void MC3D::BuildLightSource()
             (BCType[ib] == 'c') || (BCType[ib] == 'C') || BCType[ib] == 'p')
         {
 
-          LightSources[kk] = ib;
-          LightSourcesMother[kk] = ii;
+          LightSources[kk] = (int)ib;
+          LightSourcesMother[kk] = (int)ii;
 
           LightSourcesCDF[kk] = ElementArea(ib);
           kk++;
@@ -1174,7 +1178,6 @@ void MC3D::CreatePhoton(Photon *phot)
       phot->pos[2] = BCLNormal(ib, 2);
       //printf("shooting photon at %18.10lf %18.10lf %18.10lf\n", phot->pos[0],phot->pos[1],phot->pos[2]);
       //printf("to direction %18.10lf %18.10lf %18.10lf\n", phot->dir[0],phot->dir[1],phot->dir[2]);
-
     }
     else if ((BCType[ib] == 'i') || (BCType[ib] == 'I'))
     {
@@ -1270,7 +1273,7 @@ void MC3D::ScatterPhoton(Photon *phot)
   }
   else
     theta = acos(2.0 * UnifClosed() - 1.0);
-    
+
   phi = 2.0 * M_PI * UnifClosed();
 
   if (fabs(phot->dir[2]) > 0.999)
@@ -1343,7 +1346,7 @@ int MC3D::FresnelPhoton(Photon *phot)
 
   // Normal of the tranmitting face
   double nor[3];
-  Normal(phot->curel, phot->nextface, nor);
+  Normal((int)phot->curel, (int)phot->nextface, nor);
 
   double nipnt;
   // Check special case where the photon escapes through the boundary
@@ -1410,7 +1413,7 @@ int MC3D::FresnelPhoton(Photon *phot)
 void MC3D::PropagatePhoton(Photon *phot)
 {
   double prop, dist, ds;
-  int ib;
+  int_fast64_t ib;
   // Propagate until the photon dies
   while (1)
   {
@@ -1585,64 +1588,70 @@ void MC3D::MonteCarlo(bool (*progress)(double))
   // OpenMP implementation
 
   // Spawn new MC3D classes with Nphoton' = Nphoton / ThreadCount, and initialize mt_rng seed
-  long ii, jj, nthread = omp_get_max_threads();
-  long *ticks = new long[nthread];
-  MC3D *MCS = new MC3D[nthread]; 
-  bool abort_computation=false;
-    // [AL] the progress bar gets an update after every TICK_VAL photons
+  int_fast64_t ii, jj, nthread = omp_get_max_threads();
+  int_fast64_t *ticks = new int_fast64_t[(int)nthread];
+  MC3D *MCS = new MC3D[(int)nthread];
+  bool abort_computation = false;
+  // [AL] the progress bar gets an update after every TICK_VAL photons
 #define TICK_VAL 1000
   for (ii = 0; ii < nthread; ii++)
   {
     MCS[ii] = *this;
     MCS[ii].Nphoton = Nphoton / nthread;
-    MCS[ii].seed = MCS[ii].seed * totalthreads + ii;
+    MCS[ii].seed = (unsigned long) (MCS[ii].seed * totalthreads + ii);
     MCS[ii].InitRand();
     ticks[ii] = 0;
   }
 
-   // [AL] if remainder of nphoton / nthread is non-zero, total photon count is not the same as Nphoton
-   // therefore add the remaining photons to the last thread.
-
-  long realnphot = 0; 
-  for(ii = 0; ii < nthread; ii++) realnphot += MCS[ii].Nphoton;
-  MCS[nthread-1].Nphoton += Nphoton-realnphot; 
-
-
+  // [AL] if remainder of nphoton / nthread is non-zero, total photon count is not the same as Nphoton
+  // therefore add the remaining photons to the last thread.
+  long realnphot = 0;
+  for (ii = 0; ii < nthread; ii++)
+    realnphot += MCS[ii].Nphoton;
+  MCS[nthread - 1].Nphoton += Nphoton - realnphot;
   // Compute Monte Carlo on each thread separetely
 #pragma omp parallel
   {
-    long iphoton, thread = omp_get_thread_num();
+    int_fast64_t iphoton, thread = omp_get_thread_num();
     Photon phot;
     for (iphoton = 1; iphoton <= MCS[thread].Nphoton; iphoton++)
+    {
+      if (iphoton % TICK_VAL == 0)
       {
-	if (iphoton % TICK_VAL == 0)
-	  {
-	    ticks[thread] = iphoton;
-	    if (thread == 0)
-	      {
- 		int jj, csum = 0;
-		for (jj = 0; jj < nthread; jj++)
-		  {
-#pragma omp atomic
-		    csum += ticks[jj];
-		  }
-		if (!progress(100 * ((double)csum / (double)Nphoton)))
-		  {
-#pragma omp atomic write
-		    abort_computation = true;
-		    break;
-		  }
-	      }
-	    else
-	      {
-		if (abort_computation)
-		  break;
-	      }
-	  }
-	MCS[thread].CreatePhoton(&phot);
-	MCS[thread].PropagatePhoton(&phot);
+        ticks[thread] = iphoton;
+#pragma omp critical
+        if (thread == 0)
+        {
+          int_fast64_t jj, csum = 0;
+          {
+            for (jj = 0; jj < nthread; jj++)
+            {
+              csum += ticks[jj];
+            }
+            if (!progress(100 * ((double)csum / (double)Nphoton)))
+            {
+              abort_computation = true;
+            }
+          }
+        }
+        if (abort_computation)
+          break;
+      }
+      MCS[thread].CreatePhoton(&phot);
+      MCS[thread].PropagatePhoton(&phot);
     }
   }
+#ifdef VALOMC_MEX
+  int_fast64_t csum = 0;
+  for (jj = 0; jj < nthread; jj++)
+  {
+    csum += ticks[jj];
+  }
+  if (csum != Nphoton)
+  {
+    mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL ENVIRONMENT IS NOT WORKING CORRECTLY. IF YOU DID NOT ABORT THE RUN, PLEASE COMPILE AGAIN WITH OPENMP SUPPORT. \n");
+  }
+#endif
 #pragma omp barrier
 
   // Sum up the results to first instance and delete MCS
@@ -1682,7 +1691,7 @@ void MC3D::MonteCarlo(bool (*progress)(double))
     }
   }
 
-//  delete[] itick;
+  //  delete[] itick;
   delete[] ticks;
   delete[] MCS;
 

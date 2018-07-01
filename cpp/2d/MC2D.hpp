@@ -13,6 +13,10 @@
 #include <inttypes.h>
 #include <vector>
 
+#ifndef INT_FAST64_MAX
+#define INT_FAST64_MAX __INT_FAST64_MAX__
+#endif
+
 #include "Array.hpp"
 #include "../Errors.hpp"
 
@@ -243,7 +247,7 @@ MC2D &MC2D::operator=(const MC2D &ref)
     for (ii = 0; ii < EBR.N; ii++)
       EBR[ii] = EBI[ii] = 0.0;
     for (ii = 0; ii < DEBR.N; ii++) // [AL]
-      DEBR[ii] = DEBI[ii] = 0.0;   // [AL]
+      DEBR[ii] = DEBI[ii] = 0.0;    // [AL]
 
     LightSources = ref.LightSources;
     LightSourcesMother = ref.LightSourcesMother;
@@ -460,8 +464,10 @@ void MC2D::ErrorChecks()
   if (!has_lightsource)
     throw NO_LIGHTSOURCE;
 
-  if(has_gaussian_lightsource) {
-    if(GaussianSigma.N != BH.Nx) {
+  if (has_gaussian_lightsource)
+  {
+    if (GaussianSigma.N != BH.Nx)
+    {
       throw NO_GAUSSIAN_SIGMA;
     }
   }
@@ -485,21 +491,23 @@ void MC2D::ErrorChecks()
   }
 
   // H contains an index that cannot be found in r
-  // BH contains an index that cannot be found in r
 
-  for (int ii = 0; ii < H.N; ii++)
+  for (int_fast64_t ii = 0; ii < H.N; ii++)
   {
     if (H[ii] < 0 || H[ii] >= r.Nx)
     {
+      printf("Attempting to write entry %i to neighborhood (value %i), while it's size is %i \n", ii, H[ii], r.Nx);
       throw INCONSISTENT_H;
       return;
     }
   }
+  // BH contains an index that cannot be found in r
 
-  for (int ii = 0; ii < BH.N; ii++)
+  for (int_fast64_t ii = 0; ii < BH.N; ii++)
   {
     if (BH[ii] < 0 || BH[ii] >= r.Nx)
     {
+      printf("Attempting to write entry %i to neighborhood (value %i), while it's size is %i \n", ii, BH[ii], r.Nx);
       throw INCONSISTENT_BH;
       return;
     }
@@ -614,12 +622,13 @@ void MC2D::Init()
       BCLNormal(ii, 1) /= norm;
     }
   }
-  double n[2],t[2],norm;
+  double n[2], t[2], norm;
   // [AL] Change BCLNormal coordinates to relative if needed
   for (ii = 0; ii < BCLightDirectionType.N; ii++)
   {
     Normal(ii, &n[0]);
-    if(BCLightDirectionType[ii] == 'r') {
+    if (BCLightDirectionType[ii] == 'r')
+    {
       t[0] = r(BH(ii, 1), 0) - r(BH(ii, 0), 0);
       t[1] = r(BH(ii, 1), 1) - r(BH(ii, 0), 1);
       norm = sqrt(t[0] * t[0] + t[1] * t[1]);
@@ -720,7 +729,7 @@ void MC2D::BuildNeighbourhoods()
   if (HN.N != H.N)
   {
     HN.resize(H.Nx, 3);
-    std::vector< std::vector<int_fast64_t> > parent;
+    std::vector<std::vector<int_fast64_t>> parent;
     parent.resize(r.Nx);
     // Build a vector (parent)
     // that contains all tetrahedrons shared by a vertex
@@ -1065,7 +1074,7 @@ void MC2D::CreatePhoton(Photon *phot)
       // direction is given in the mesh coordinates
       phot->dir[0] = BCLNormal(ib, 0);
       phot->dir[1] = BCLNormal(ib, 1);
-     // printf("Launching photon %lf %lf\n", phot->dir[0], phot->dir[1]);
+      // printf("Launching photon %lf %lf\n", phot->dir[0], phot->dir[1]);
     }
     else if ((BCType[ib] == 'i'))
     {
@@ -1491,13 +1500,14 @@ void MC2D::MonteCarlo(bool (*progress)(double))
 
   // Spawn new MC2D classes with Nphoton' = Nphoton / ThreadCount, and initialize mt_rng seed
   long ii, jj, nthread = omp_get_max_threads(); // [AL]
-  if(nthread <= 0) {
+  if (nthread <= 0)
+  {
     printf("OpenMP initialization problem!");
     return;
   }
   MC2D *MCS = new MC2D[nthread];
-  long *ticks = new long[nthread];    
-  bool abort_computation=false;
+  long *ticks = new long[nthread];
+  bool abort_computation = false;
 
   // [AL] the progress bar gets an update after every TICK_VAL photons
 #define TICK_VAL 1000
@@ -1511,48 +1521,55 @@ void MC2D::MonteCarlo(bool (*progress)(double))
     ticks[ii] = 0;
   }
 
-   // [AL] if remainder of nphoton / nthread is non-zero, total photon count is not the same as Nphoton
-   // therefore add the remaining photons to the last thread.
-  long realnphot = 0; 
-  for(ii = 0; ii < nthread; ii++) realnphot += MCS[ii].Nphoton;
-  MCS[nthread-1].Nphoton += Nphoton-realnphot; 
-
-
-// Compute Monte Carlo on each thread separetely
+  // [AL] if remainder of nphoton / nthread is non-zero, total photon count is not the same as Nphoton
+  // therefore add the remaining photons to the last thread.
+  long realnphot = 0;
+  for (ii = 0; ii < nthread; ii++)
+    realnphot += MCS[ii].Nphoton;
+  MCS[nthread - 1].Nphoton += Nphoton - realnphot;
+  // Compute Monte Carlo on each thread separetely
 #pragma omp parallel
   {
-    long iphoton, thread = omp_get_thread_num();
+    int_fast64_t iphoton, thread = omp_get_thread_num();
     Photon phot;
     for (iphoton = 1; iphoton <= MCS[thread].Nphoton; iphoton++)
+    {
+      if (iphoton % TICK_VAL == 0)
       {
-	if (iphoton % TICK_VAL == 0)
-	  {
-	    ticks[thread] = iphoton;
-	    if (thread == 0)
-	      {
-		int jj, csum = 0;
-		for (jj = 0; jj < nthread; jj++)
-		  {
-
-		    csum += ticks[jj];
-		  }
-		if (!progress(100 * ((double)csum / (double)Nphoton)))
-		  {
-
-		    abort_computation = true;
-		    break;
-		  }
-	      }
-	    else
-	      {
-		if (abort_computation)
-		  break;
-	      }
-	  }
-	MCS[thread].CreatePhoton(&phot);
-	MCS[thread].PropagatePhoton(&phot);
+        ticks[thread] = iphoton;
+#pragma omp critical
+        if (thread == 0)
+        {
+          int_fast64_t jj, csum = 0;
+          {
+            for (jj = 0; jj < nthread; jj++)
+            {
+              csum += ticks[jj];
+            }
+            if (!progress(100 * ((double)csum / (double)Nphoton)))
+            {
+              abort_computation = true;
+            }
+          }
+        }
+        if (abort_computation)
+          break;
       }
+      MCS[thread].CreatePhoton(&phot);
+      MCS[thread].PropagatePhoton(&phot);
+    }
   }
+#ifdef VALOMC_MEX
+  int_fast64_t csum = 0;
+  for (jj = 0; jj < nthread; jj++)
+  {
+    csum += ticks[jj];
+  }
+  if (csum != Nphoton)
+  {
+    mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL ENVIRONMENT IS NOT WORKING CORRECTLY. IF YOU DID NOT ABORT THE RUN, PLEASE COMPILE AGAIN WITH OPENMP SUPPORT. \n");
+  }
+#endif
 #pragma omp barrier
 
   // Sum up the results to first instance and delete MCS
@@ -1672,7 +1689,6 @@ void MC2D::MonteCarlo(bool (*progress)(double))
 
   if (progress != NULL)
     progress(100);
-  
 }
 
 // Check if ray R + t D intersects with a segment (U, V)

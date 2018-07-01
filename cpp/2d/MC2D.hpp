@@ -729,7 +729,7 @@ void MC2D::BuildNeighbourhoods()
   if (HN.N != H.N)
   {
     HN.resize(H.Nx, 3);
-    std::vector<std::vector<int_fast64_t>> parent;
+    std::vector<std::vector<int_fast64_t> > parent;
     parent.resize(r.Nx);
     // Build a vector (parent)
     // that contains all tetrahedrons shared by a vertex

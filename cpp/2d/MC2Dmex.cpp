@@ -1,6 +1,9 @@
 
 #include <string>
 #define _USE_MATH_DEFINES
+
+#define VALOMC_MEX
+
 #include <cmath>
 #include <limits>
 #include <inttypes.h>
@@ -10,6 +13,7 @@
 #include "Array.hpp"
 #include "ArrayMEX.hpp"
 #include "MC2D.hpp"
+
 
 // Compiling (from MATLAB prompt):
 //   mex MC2Dmex.cpp

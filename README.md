@@ -123,8 +123,9 @@ Multithread (parallel) compilation
 
 To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
-    mex -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
-    mex -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
+	mex   -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'
+	mex   -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'
+
 
 Do not use OpenMP version if the MATLAB does not support the compiler used.
 See troubleshooting on how to install a specific version of GCC.
@@ -137,7 +138,7 @@ Please note that cmake installation has not yet been well tested.
 From command prompt, at 'ValoMC/'
 
     cmake . 
-	cmake --build
+    cmake --build .
 
 Troubleshooting
 ===============
@@ -154,7 +155,10 @@ After installation you can use
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 	mex -setup 
 
-to inform MATLAB of the location.
+to inform MATLAB of the location. For Visual Studio, OpenMP support can be enabled as follows
+
+	mex  -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /fopenmp'
+
 
 Ubuntu
 ------
@@ -173,4 +177,4 @@ you can install it by
    
 and use (from MATLAB prompt, at 'ValoMC/'):
 	
-	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
+	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'

@@ -32,8 +32,6 @@ bool Progress(double perc);
 
 
 int main(int argc, char **argv){
-<<<<<<< HEAD
-=======
   printf("--------------ValoMC-3D--------------\n");
   printf("  Version:  %s\n", build_version);
   printf("  Revision: %s\n", build_revision);
@@ -50,7 +48,6 @@ int main(int argc, char **argv){
 
   MC.seed = (unsigned long) time(NULL);
 
->>>>>>> 787f97f77cb924d6f4c392cdac92b169ab29771f
   // Display help
   if ((argc < 3))
   {

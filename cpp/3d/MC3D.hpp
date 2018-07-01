@@ -804,7 +804,7 @@ void MC3D::BuildNeighbourhoods()
   if (HN.N != H.N)
   {
     HN.resize(H.Nx, 4);
-    std::vector<std::vector<int_fast64_t>> parent;
+    std::vector<std::vector<int_fast64_t> > parent;
     parent.resize((int)r.Nx);
     // Build a vector (parent)
     // that contains all tetrahedrons shared by a vertex

@@ -124,7 +124,7 @@ Multithread (parallel) compilation
 To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
     mex -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
-    mex -DUSE_OMP cpp/2d/MC3Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
+    mex -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS="$COMPFLAGS -fopenmp"
 
 Do not use OpenMP version if the MATLAB does not support the compiler used.
 See troubleshooting on how to install a specific version of GCC.

@@ -496,7 +496,6 @@ void MC2D::ErrorChecks()
   {
     if (H[ii] < 0 || H[ii] >= r.Nx)
     {
-      printf("Attempting to write entry %i to neighborhood (value %i), while it's size is %i \n", ii, H[ii], r.Nx);
       throw INCONSISTENT_H;
       return;
     }
@@ -507,7 +506,6 @@ void MC2D::ErrorChecks()
   {
     if (BH[ii] < 0 || BH[ii] >= r.Nx)
     {
-      printf("Attempting to write entry %i to neighborhood (value %i), while it's size is %i \n", ii, BH[ii], r.Nx);
       throw INCONSISTENT_BH;
       return;
     }

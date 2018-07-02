@@ -156,7 +156,7 @@ After installation you can use
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 	mex -setup 
 
-to inform MATLAB of the location. Visual Studio can be obtained [here] https://visualstudio.microsoft.com/
+to inform MATLAB of the location. Visual Studio can be obtained [here]https://visualstudio.microsoft.com/
 For Visual Studio, OpenMP (parallelisation) support can be enabled as follows
 
 	mex  -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /fopenmp'

@@ -145,8 +145,8 @@ int LoadProblem_TXT(char *fin)
   fsr = fscanf(fp, "%li %li %li %li\n", &Ne, &Nb, &Nr, &MC.Nphoton);
   fsr = fscanf(fp, "%lf %lf\n", &MC.f, &MC.phase0); // [AL]
   char line[5012]; // skip a line
-  fgets(line, 5011, fp);
-   
+  char *tmpbuf = fgets(line, 5011, fp);
+
   printf("Constants:\n");
   printf("  %10s   (%e)\n", "f", MC.f);
   printf("  %10s   (%e)\n", "phase0", MC.phase0);

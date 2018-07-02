@@ -32,20 +32,6 @@ bool Progress(double perc);
 
 
 int main(int argc, char **argv){
-  printf("--------------ValoMC-3D--------------\n");
-  printf("  Version:  %s\n", build_version);
-  printf("  Revision: %s\n", build_revision);
-#ifdef USE_OMP
-  printf("  OpenMP enabled                     \n");
-#endif
-  printf("-------------------------------------\n");
-  printf("\n");
-
-#ifdef USE_OMP
-  printf("Using %d threads\n", omp_get_max_threads());
- //  double tstart = omp_get_wtime();
-#endif
-
   MC.seed = (unsigned long) time(NULL);
 
   // Display help
@@ -149,11 +135,11 @@ int LoadProblem_TXT(char *fin){
   FILE *fp = fopen(fin, "r");
   if(fp == NULL) return(1);
 
-  fsr=fscanf(fp, "%lli %lli %lli %lli\n", &Ne, &Nb, &Nr, &MC.Nphoton);
+  fsr=fscanf(fp, "%li %li %li %li\n", &Ne, &Nb, &Nr, &MC.Nphoton);
   fsr=fscanf(fp, "%lf %lf\n", &MC.f, &MC.phase0);
 
   char tmpline[5012]; // skip a line
-  fgets(tmpline, 5011, fp);
+  char *tmpbuf=fgets(tmpline, 5011, fp);
    
   // make negative phase0 positive by adding a multiple of 2*pi
   if(MC.phase0 < 0) {
@@ -163,10 +149,10 @@ int LoadProblem_TXT(char *fin){
   printf("Constants:\n");
   printf("  %10s   (%e)\n", "f", MC.f);
   printf("  %10s   (%e)\n", "phase0", MC.phase0);
-  printf("  %10s   (%lli)\n", "Ne", Ne);
-  printf("  %10s   (%lli)\n", "Nb", Nb);
-  printf("  %10s   (%lli)\n", "Nr", Nr);
-  printf("  %10s   (%lli)\n", "Nphoton", MC.Nphoton);
+  printf("  %10s   (%li)\n", "Ne", Ne);
+  printf("  %10s   (%li)\n", "Nb", Nb);
+  printf("  %10s   (%li)\n", "Nr", Nr);
+  printf("  %10s   (%li)\n", "Nphoton", MC.Nphoton);
   printf("Arrays:\n");
 
   // make negative phase0 positive by adding a multiple of 2*pi

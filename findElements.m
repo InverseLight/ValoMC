@@ -46,12 +46,13 @@ function elements = findElements(vmcmesh, querystring, varargin)
                 l2 = vmcmesh.r(vmcmesh.H(i,2),:) - position;
                 l3 = vmcmesh.r(vmcmesh.H(i,3),:) - position;
                 l4 = vmcmesh.r(vmcmesh.H(i,4),:) - position;
-                if(dot(l1, normal) > 0 && dot(l2, normal) > 0 && dot(l3, normal) > 0 && dot(l4,normal))
+                if(dot(l1, normal) >= 0 || dot(l2, normal) >= 0 || dot(l3, normal) >= 0 || dot(l4,normal))
                    elements = [elements; i];
                 end
             end
         elseif(strcmp(querystring, 'inverse'))
-             warning('3d inverse not yet implemented')
+            arr = 1:size(vmcmesh.H);
+            elements = setdiff(arr, [varargin{1}]);
         elseif(strcmp(querystring, 'location'))
             warning('3d location not yet implemented')
         elseif(strcmp(querystring, 'region'))

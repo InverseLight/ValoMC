@@ -71,10 +71,10 @@ where ValoMC/ is the the folder from the zip archive or obtained using git.
 	compile_vmc_mex
 ```
 
-to compile mex files for MATLAB. 
-This assumes that a working C++ compiler has been installed and compiles a serial version
-of the code. See below on instructions how to obtain a suitable compiler such as GCC
-and how to compile the parallel version. 
+to compile mex files for MATLAB.  This assumes that a working C++
+compiler has been installed and compiles a serial version of the
+code. See below on instructions how to obtain a suitable compiler such
+as GCC and how to compile the parallel version.
 
 You can now run the examples in the examples/ -folder. 
 The next time you use ValoMC, the mex files will be already 
@@ -104,16 +104,17 @@ Advanced installation
 CMake compilation
 -----------------
 
-CMake is a program that can automatize the compilation process. It can be
-obtained [here](https://cmake.org). ValoMC can then be installed from command prompt, at 'ValoMC/'
+CMake is a program that can automatize the compilation process. It can
+be obtained [here](https://cmake.org). ValoMC can then be installed
+from command prompt, at 'ValoMC/'
 
     cmake . 
     cmake --build .
 
-This will build the external executables as well as the mex files. It will try
-to compile the parallel versions. If problems persist, see below how
-to compile the external executable and the mex files manually and how
-to obtain a suitable compiler.
+This will build the external executables as well as the mex files. It
+will try to compile the parallel versions. If problems persist, see
+below how to compile the external executable and the mex files
+manually and how to obtain a suitable compiler.
 
 
 Compiling the external executable
@@ -146,29 +147,31 @@ To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 	mex   -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'
 
 
-Do not use OpenMP version if the MATLAB does not support the compiler used.
-For hints how to install a compiler, see 'troubleshooting' below.
-For Visual Studio, change '-fopenmp' to '/openmp'.
+Do not use OpenMP version if the MATLAB does not support the compiler
+used.  For hints how to install a compiler, see 'troubleshooting'
+below.  For Visual Studio, change '-fopenmp' to '/openmp'.
 
 
 Troubleshooting
 ===============
 
-To install ValoMC, MATLAB mex system must be set up. It needs to have an external
-C++ compiler to work.
+To install ValoMC, MATLAB mex system must be set up. It needs to have
+an external C++ compiler to work.
 
 Windows
 -------
 
-For example, the TDM gcc compiler can be obtained from this [site](http://tdm-gcc.tdragon.net/download).
+For example, the TDM gcc compiler can be obtained from this
+[site](http://tdm-gcc.tdragon.net/download).
 
 After installation you can use
 
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 	mex -setup 
 
-to inform MATLAB of the location. Visual Studio can be obtained [here]https://visualstudio.microsoft.com/
-For Visual Studio, OpenMP (parallelisation) support can be enabled as follows
+to inform MATLAB of the location. Visual Studio can be obtained
+[here]https://visualstudio.microsoft.com/ For Visual Studio, OpenMP
+(parallelisation) support can be enabled as follows
 
 	mex  -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /fopenmp'
 

@@ -1,4 +1,4 @@
-const char * build_version = "v0.1-1-g363c27c";
-const char * build_revision = "69";
+const char * build_version = "v0.1-2-g503a11b";
+const char * build_revision = "70";
 
 

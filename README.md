@@ -51,7 +51,8 @@ The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a
 Simple installation
 ===================
 
-1. Obtain the latest source code using git
+1. Obtain the latest source code using git or direct [download](https://github.com/InverseLight/ValoMC/archive/master.zip)
+
 ```
 	git clone https://github.com/InverseLight/ValoMC/
 ```
@@ -61,7 +62,7 @@ Simple installation
 	addpath('ValoMC/')
 ```
 
-where ValoMC/ is the the folder from the zip archive.
+where ValoMC/ is the the folder from the zip archive or obtained using git.
 
 3. Type 
 
@@ -70,7 +71,10 @@ where ValoMC/ is the the folder from the zip archive.
 	compile_vmc_mex
 ```
 
-to compile single-threaded ValoMC mex files for MATLAB. 
+to compile mex files for MATLAB. 
+This assumes that a working C++ compiler has been installed and compiles a serial version
+of the code. See below on instructions how to obtain a suitable compiler such as GCC
+and how to compile the parallel version. 
 
 You can now run the examples in the examples/ -folder. 
 The next time you use ValoMC, the mex files will be already 
@@ -96,6 +100,21 @@ version, see 'troubleshooting'
 
 Advanced installation
 =====================
+
+CMake compilation
+-----------------
+
+CMake is a program that can automatize the compilation process. It can be
+obtained [here](https://cmake.org). ValoMC can then be installed from command prompt, at 'ValoMC/'
+
+    cmake . 
+    cmake --build .
+
+This will build the external executables as well as the mex files. It will try
+to compile the parallel versions. If problems persist, see below how
+to compile the external executable and the mex files manually and how
+to obtain a suitable compiler.
+
 
 Compiling the external executable
 ---------------------------------
@@ -131,14 +150,6 @@ Do not use OpenMP version if the MATLAB does not support the compiler used.
 For hints how to install a compiler, see 'troubleshooting' below.
 For Visual Studio, change '-fopenmp' to '/openmp'.
 
-CMake compilation
------------------
-
-Please note that cmake installation has not yet been well tested.
-From command prompt, at 'ValoMC/'
-
-    cmake . 
-    cmake --build .
 
 Troubleshooting
 ===============

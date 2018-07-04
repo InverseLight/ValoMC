@@ -103,6 +103,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
             secondcorner = isnan(pointLocation(DT, vmcmesh.r(vmcmesh.BH(:,2),:))); 
             thirdcorner = isnan(pointLocation(DT, vmcmesh.r(vmcmesh.BH(:,3),:))); 
             elements = find(firstcorner == 0 & secondcorner == 0 & thirdcorner == 0);
+            end
         end
     else
             error('Could not recognize mesh');  

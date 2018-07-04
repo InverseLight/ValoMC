@@ -18,8 +18,8 @@ function [HN] = createHN(H);
 
 
 if(size(H,2) > 3)
-   error('3d meshes are not currently supported')
-end
+   error('Three dimensional meshes not yet supported');
+else
 
 HN = zeros(size(H));
 
@@ -42,5 +42,6 @@ for(el = 1 : size(H, 1));
   if(~isempty(ii));
     HN(el, 3) = ii;
   end;
+end
 
 end;

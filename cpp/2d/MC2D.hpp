@@ -1556,6 +1556,7 @@ void MC2D::MonteCarlo(bool (*progress)(double))
       MCS[thread].CreatePhoton(&phot);
       MCS[thread].PropagatePhoton(&phot);
     }
+    ticks[thread] = iphoton;
   }
 #ifdef VALOMC_MEX
   int_fast64_t csum = 0;
@@ -1568,8 +1569,6 @@ void MC2D::MonteCarlo(bool (*progress)(double))
     mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL ENVIRONMENT IS NOT WORKING CORRECTLY. IF YOU DID NOT ABORT THE RUN, PLEASE COMPILE AGAIN WITH OPENMP SUPPORT. \n");
   }
 #endif
-#pragma omp barrier
-
   // Sum up the results to first instance and delete MCS
   Nphoton = 0;
   loss = 0;

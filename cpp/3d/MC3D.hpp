@@ -1640,6 +1640,7 @@ void MC3D::MonteCarlo(bool (*progress)(double))
       MCS[thread].CreatePhoton(&phot);
       MCS[thread].PropagatePhoton(&phot);
     }
+    ticks[thread] = iphoton;
   }
 #ifdef VALOMC_MEX
   int_fast64_t csum = 0;

@@ -149,7 +149,7 @@ To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
 Do not use OpenMP version if the MATLAB does not support the compiler
 used.  For hints how to install a compiler, see 'troubleshooting'
-below.  For Visual Studio, change '-fopenmp' to '/openmp'.
+below. For Visual Studio, change '-fopenmp' to '/openmp'.
 
 
 Troubleshooting

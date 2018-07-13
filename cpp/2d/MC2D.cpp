@@ -22,7 +22,7 @@
 
 #include "Array.hpp"
 #include "MC2D.hpp"
-#include "../version.h"
+#include "../versionstring.h"
 #include "../fileio.hpp"
 
 MC2D MC;
@@ -33,6 +33,12 @@ bool Progress(double perc);
 
 int main(int argc, char **argv)
 {
+
+  printf("                 ValoMC-2D\n");
+  char infobuf[5012];
+  version_string(infobuf);
+  printf("%s",infobuf);
+
 
   // Display help
   if ((argc < 3))
@@ -45,21 +51,6 @@ int main(int argc, char **argv)
     printf("\n");
     return (0);
   }
-
-  printf("--------------ValoMC-2D--------------\n");
-  printf("  Version:  %s\n", build_version);
-  printf("  Revision: %s\n", build_revision);
-#ifdef USE_OMP
-  printf("  OpenMP enabled                     \n");
-#else
-  printf("  OpenMP disabled, no parallelization\n");
-#endif
-#ifdef USE_OMP
-  printf("  Using %d threads\n", omp_get_max_threads());
-  //  double tstart = omp_get_wtime();
-#endif
-  printf("-------------------------------------\n");
-  printf("\n");
 
   MC.seed = (unsigned long)time(NULL);
 

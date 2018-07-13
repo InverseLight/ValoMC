@@ -13,6 +13,7 @@
 #include "Array.hpp"
 #include "ArrayMEX.hpp"
 #include "MC2D.hpp"
+#include "../versionstring.h"
 
 
 // Compiling (from MATLAB prompt):
@@ -70,6 +71,11 @@ bool Progress(double perc){
 
 void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
 {
+  mexPrintf("                 ValoMC-2D\n");
+  char infobuf[5012];
+  version_string(infobuf);
+  mexPrintf("%s",infobuf);
+
   if ((nrhs != 18) || ((nlhs != 4) && (nlhs != 5)))
   {
     mexPrintf("nrhs %i nlhs %i", nrhs, nlhs);

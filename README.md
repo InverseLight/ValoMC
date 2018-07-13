@@ -114,8 +114,11 @@ from command prompt, at 'ValoMC/'
 This will build the external executables as well as the mex files. It
 will try to compile the parallel versions. If problems persist, see
 below how to compile the external executable and the mex files
-manually and how to obtain a suitable compiler.
+manually and how to obtain a suitable compiler. To use CMake with
+a specific compiler, you can use e.g. 
 
+    cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-4.9
+    cmake --build .
 
 Compiling the external executable
 ---------------------------------

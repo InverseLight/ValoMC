@@ -11,7 +11,7 @@
 #include "Array.hpp"
 #include "ArrayMEX.hpp"
 #include "MC3D.hpp"
-
+#include "../versionstring.h"
 // Compiling (from MATLAB prompt):
 //   mex MC3Dmex.cpp
 //
@@ -66,6 +66,10 @@ bool Progress(double perc){
 
 void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
 {
+  mexPrintf("                 ValoMC-3D\n");
+  char infobuf[5012];
+  version_string(infobuf);
+  mexPrintf("%s",infobuf);
   
   if ((nrhs != 17) || ((nlhs != 4) && (nlhs != 5)))
   {

@@ -149,9 +149,6 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
 
   // Compute
   if(disable_pbar[0] == 0) {
-     #ifdef USE_OMP
-     mexPrintf("Computation uses %i threads\n", omp_get_max_threads());
-     #endif
      mexPrintf("Computing... \n");
     // Create a wait bar
      mexEvalString("assignin('base','abort_photonMC', false);");

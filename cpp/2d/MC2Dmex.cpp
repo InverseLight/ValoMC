@@ -141,11 +141,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   //MC.seed = (unsigned long) time(NULL);
 
   // Initialize
-#ifdef USE_OMP
-  mexPrintf("Initializing MC2D using %i threads...\n",  omp_get_max_threads());
-#else
   mexPrintf("Initializing MC2D...\n");
-#endif
   try {
     MC.ErrorChecks();
     MC.Init();

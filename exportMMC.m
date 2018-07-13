@@ -25,5 +25,5 @@ function exportMMC(vmcmesh, vmcmedium, mmc_suffix)
        error('2d not supported')
    end
    savemmcmesh(mmc_suffix,vmcmesh.r,vmcmesh.H);
-   
+   [a b] = unique(testi, 'rows')
 end

@@ -1534,7 +1534,6 @@ void MC2D::MonteCarlo(bool (*progress)(double))
     {
       if (iphoton % TICK_VAL == 0)
       {
-        ticks[thread] = iphoton;
 #pragma omp critical
         if (thread == 0)
         {

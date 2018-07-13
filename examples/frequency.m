@@ -37,7 +37,7 @@ vmcmedium.refractive_index = 1.37;           % refractive index [unitless]
 
 % Increase the default photon count to get reasonable statistics
 % at the detector
-options.photon_count = 1e8; 
+options.photon_count = 1e7; 
 
 %% Run the simulations
 % Two simulations are used to simulate two modified lightsources.

@@ -1441,9 +1441,6 @@ void MC2D::PropagatePhoton(Photon *phot)
         }
       }
 
-      // Upgrade remaining photon propagation lenght in case it is transmitted to different mus domain
-      prop *= mus[phot->curel] / mus[phot->nextel];
-
       // Test transmission from vacuum -> scattering media
       if ((mus[phot->curel] <= 0.0) && (mus[phot->nextel] > 0.0))
       {
@@ -1465,6 +1462,9 @@ void MC2D::PropagatePhoton(Photon *phot)
         if (FresnelPhoton(phot))
           continue;
       }
+
+      // Upgrade remaining photon propagation lenght in case it is transmitted to different mus domain
+      prop *= mus[phot->curel] / mus[phot->nextel];
 
       // Update current face of the photon to that face which it will be on in the next element
       if (HN(phot->nextel, 0) == phot->curel)

@@ -718,8 +718,8 @@ void MC3D::search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t
 #define ISPART3(a) (ISIN3(a, 0) || ISIN3(a, 1) || ISIN3(a, 2) || ISIN3(a, 3))
         if (ISPART3(0) && ISPART3(1) && ISPART3(2))
         {
-          // There is something already written to the neighborhood matrix and this entry is not
-          // the same as would be written here. Something must be wrong with the mesh.
+          // Another, different, entry is already written to the neighborhood matrix.
+          // Something must be wrong with the mesh.
           if (HN(element, 0) != INT_FAST64_MAX && HN(element, 0) != neighbor)
           {
             throw INCONSISTENT_MESH_DUPLICATE_NEIGHBORS;
@@ -1359,7 +1359,7 @@ int MC3D::FresnelPhoton(Photon *phot)
 
   if (1.0 - pow(nipnt, 2) * (1.0 - pow(costhi, 2)) <= 0.0)
   {
-    // Total reflection due to critical angle of Snell's law -- costht below would be complex
+    // Total reflection due to critical angle of Snell's law
     phot->dir[0] += 2.0 * costhi * nor[0];
     phot->dir[1] += 2.0 * costhi * nor[1];
     phot->dir[2] += 2.0 * costhi * nor[2];

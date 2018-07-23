@@ -1210,7 +1210,7 @@ int MC2D::FresnelPhoton(Photon *phot)
 
     if (1.0 - pow(nipnt, 2) * (1.0 - pow(costhi, 2)) <= 0.0)
     {
-      // Total reflection due to critical angle of Snell's law -- costht below would be complex
+      // Total reflection due to critical angle of Snell's law 
       phot->dir[0] += 2.0 * costhi * nor[0];
       phot->dir[1] += 2.0 * costhi * nor[1];
       phot->curface = phot->nextface;
@@ -1255,7 +1255,7 @@ int MC2D::FresnelPhoton(Photon *phot)
 
     if (1.0 - pow(nipnt, 2) * (1.0 - pow(costhi, 2)) <= 0.0)
     {
-      // Total reflection due to critical angle of Snell's law -- costht below would be complex
+      // Total reflection due to critical angle of Snell's law 
       phot->dir[0] += 2.0 * costhi * nor[0];
       phot->dir[1] += 2.0 * costhi * nor[1];
       phot->curface = phot->nextface;

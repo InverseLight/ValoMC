@@ -1365,6 +1365,7 @@ void MC2D::PropagatePhoton(Photon *phot)
 	    pretty( simplify( real(f) ) )
 	    pretty( simplify( imag(f) ) )
 	*/
+
         ER[phot->curel] += phot->weight * (cos(phot->phase) - cos(-phot->phase - k[phot->curel] * ds) * exp(-mua[phot->curel] * ds));
         EI[phot->curel] += phot->weight * (-sin(phot->phase) + sin(phot->phase + k[phot->curel] * ds) * exp(-mua[phot->curel] * ds));
         phot->phase += k[phot->curel] * ds;

@@ -2,6 +2,15 @@
  <meta charset="UTF-8"> 
 <html>
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125261808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125261808-1');
+</script>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -31,6 +40,7 @@ body {
 
   ol li {
      list-style-type: decimal;
+     margin-left: -10px;
    }
 
 a {
@@ -78,11 +88,11 @@ ul.topnav li.right {float: right;}
 
 img.logo {max-width: 300px;}
 
-pre, code { font-size:12px; background:#eeeeee; }
+pre, code { font-size:12px; background:#eeeeee; margin:20px 0px 20px; }
 tt { font-size: 1.2em; }
-pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre { margin:0px 30px 20px; white-space: pre-wrap;}
 pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.codeoutput { padding:10px 11px; margin:20px 0px 20px; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -156,21 +166,30 @@ ul.tree a {
 </div>
 <div class="section" id="pre-release-versions">
 <h2>Pre-release versions</h2>
+<p>We recommend using the latest development version.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="15%"></col>
-<col width="16%"></col>
-<col width="68%"></col>
+<col width="26%"></col>
+<col width="11%"></col>
+<col width="17%"></col>
+<col width="46%"></col>
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head"><strong>Version</strong></th>
+<tr><th class="head">Name</th>
+<th class="head"><strong>Version</strong></th>
 <th class="head">Release date</th>
 <th class="head">Download link</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td>1.0 beta</td>
-<td>27.1.2018</td>
+<tr><td>Latest development version</td>
+<td>v1.0b-86</td>
+<td>27 Jul 2018</td>
+<td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/master.zip">https://github.com/InverseLight/ValoMC/archive/master.zip</a></td>
+</tr>
+<tr><td>First archived version (1.0b)</td>
+<td>1.0b</td>
+<td>27 Jan 2018</td>
 <td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/v1.0b.zip">https://github.com/InverseLight/ValoMC/archive/v1.0b.zip</a></td>
 </tr>
 </tbody>
@@ -223,4 +242,4 @@ Note that you can also use the GitHub repository to report an issue, create pull
 </div>
 </div>
 <br>
-<br> </div><footer> <hr> <p>Last updated: Fri Jun  1 01:10:22 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>

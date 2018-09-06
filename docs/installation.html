@@ -2,6 +2,14 @@
  <meta charset="UTF-8"> 
 <html>
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125261808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-125261808-1');
+</script>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -31,6 +39,7 @@ body {
 
   ol li {
      list-style-type: decimal;
+     margin-left: -10px;
    }
 
 a {
@@ -78,11 +87,11 @@ ul.topnav li.right {float: right;}
 
 img.logo {max-width: 300px;}
 
-pre, code { font-size:12px; background:#eeeeee; }
+pre, code { font-size:12px; background:#eeeeee; margin:20px 0px 20px; }
 tt { font-size: 1.2em; }
-pre { margin:0px 0px 20px; white-space: pre-wrap;}
+pre { margin:0px 30px 20px; white-space: pre-wrap;}
 pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.codeoutput { padding:10px 11px; margin:20px 0px 20px; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -155,13 +164,14 @@ ul.tree a {
 <ul class="simple">
 <li><a class="reference internal" href="#simple-installation" id="id1">Simple installation</a></li>
 <li><a class="reference internal" href="#advanced-installation" id="id2">Advanced installation</a><ul>
-<li><a class="reference internal" href="#compiling-the-external-executable" id="id3">Compiling the external executable</a></li>
-<li><a class="reference internal" href="#multithread-parallel-compilation" id="id4">Multithread (parallel) compilation</a></li>
+<li><a class="reference internal" href="#cmake-compilation" id="id3">CMake compilation</a></li>
+<li><a class="reference internal" href="#compiling-the-external-executable-manually" id="id4">Compiling the external executable manually</a></li>
+<li><a class="reference internal" href="#multithread-parallel-compilation-from-matlab-commmand-prompt" id="id5">Multithread (parallel) compilation from MATLAB commmand prompt</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id5">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#windows" id="id6">Windows</a></li>
-<li><a class="reference internal" href="#ubuntu" id="id7">Ubuntu</a></li>
+<li><a class="reference internal" href="#how-to-obtain-a-suitable-compiler" id="id6">How to obtain a suitable compiler</a><ul>
+<li><a class="reference internal" href="#windows" id="id7">Windows</a></li>
+<li><a class="reference internal" href="#ubuntu" id="id8">Ubuntu</a></li>
 </ul>
 </li>
 </ul>
@@ -169,21 +179,29 @@ ul.tree a {
 <div class="section" id="simple-installation">
 <h1><a class="toc-backref" href="#id1">Simple installation</a></h1>
 <ol class="arabic simple">
-<li>Unzip the archive</li>
+<li>Obtain the latest source code using git or direct <a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/master.zip">download</a>.</li>
+</ol>
+<pre class="code bash literal-block">
+git clone https://github.com/InverseLight/ValoMC/
+</pre>
+<ol class="arabic simple" start="2">
 <li>Open MATLAB and type</li>
 </ol>
 <pre class="code matlab literal-block">
 <span class="name">addpath</span><span class="punctuation">(</span><span class="literal string">'ValoMC/'</span><span class="punctuation">)</span>
 </pre>
-<p>where ValoMC/ is the the folder from the zip archive.</p>
+<p>where ValoMC/ is the the folder from the zip archive or obtained using git.</p>
 <ol class="arabic simple" start="3">
 <li>Type</li>
 </ol>
-<pre class="code matlab literal-block">
-<span class="name">cd</span> <span class="name">ValoMC</span>
-<span class="name">compile_vmc_mex</span>
+<pre class="code bash literal-block">
+<span class="name builtin">cd</span> ValoMC
+compile_vmc_mex
 </pre>
-<p>to compile single-threaded ValoMC mex files for MATLAB.</p>
+<p>to compile mex files for MATLAB.  This assumes that a working C++
+compiler has been installed and compiles a serial version of the
+code. See below on instructions how to obtain a suitable compiler such
+as GCC and how to compile the parallel version.</p>
 <p>You can now run the examples in the examples/ -folder.
 The next time you use ValoMC, the mex files will be already
 compiled and you simply need to repeat step 2 to continue using
@@ -206,73 +224,97 @@ version, see 'troubleshooting'</p>
 </div>
 <div class="section" id="advanced-installation">
 <h1><a class="toc-backref" href="#id2">Advanced installation</a></h1>
-<div class="section" id="compiling-the-external-executable">
-<h2><a class="toc-backref" href="#id3">Compiling the external executable</a></h2>
+<div class="section" id="cmake-compilation">
+<h2><a class="toc-backref" href="#id3">CMake compilation</a></h2>
+<p>CMake is a program that can automatize the compilation process. It can
+be obtained <a class="reference external" href="https://cmake.org">here</a>. ValoMC can then be installed
+from command prompt, at 'ValoMC/'</p>
+<pre class="code bash literal-block">
+cmake .
+cmake --build .
+</pre>
+<p>This will build the external executables as well as the mex files. It
+will try to compile the parallel versions. If problems persist, see
+below how to compile the external executable and the mex files
+manually and how to obtain a suitable compiler. To use CMake with
+a specific compiler, you can use e.g.</p>
+<pre class="code bash literal-block">
+cmake -DCMAKE_CXX_COMPILER<span class="operator">=</span>/usr/bin/g++-4.9
+cmake --build .
+</pre>
+</div>
+<div class="section" id="compiling-the-external-executable-manually">
+<h2><a class="toc-backref" href="#id4">Compiling the external executable manually</a></h2>
 <p>The external executable can be used to run ValoMC e.g. on a cluster
 without MATLAB (see example: 'Generating input for the external
 executable'). The source code for the external executables are located
-in 2d/cpp/ and 3d/cpp/.  These folders contain Ubuntu makefiles for
-reference. For example, using a gnu compiler the single threaded
-executable can be compiled with</p>
-<pre class="code makefile literal-block">
-<span class="error">g++</span> <span class="error">MC2D.cpp</span> <span class="error">-o</span> <span class="error">MC2D.a</span> <span class="error">-O3</span>
+in 2d/cpp/ and 3d/cpp/. These folders contain Ubuntu makefiles for
+reference. CMake also builds the external executables. The 2D code
+can be manually built using</p>
+<pre class="code bash literal-block">
+g++ MC2D.cpp -o MC2D.a -O3
 </pre>
-<p>The multi-threaded (OpenMP) version of the external executable can be
-compiled with</p>
-<pre class="code makefile literal-block">
-<span class="error">g++</span> <span class="error">MC2D.cpp</span> <span class="error">-o</span> <span class="error">MC2D.a</span> <span class="error">-O3</span> <span class="error">-DUSE_OMP</span> <span class="error">-fopenmp</span> <span class="error">-O3</span>
+<p>The multi-threaded (OpenMP) version can be compiled with</p>
+<pre class="code bash literal-block">
+g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp
 </pre>
-<p>ValoMC has been tested only with gnu compilers, however,
-generalization to other compilers should be straightforward.</p>
+<p>Generalization to other compilers than GNU ones should be straightforward.</p>
 </div>
-<div class="section" id="multithread-parallel-compilation">
-<h2><a class="toc-backref" href="#id4">Multithread (parallel) compilation</a></h2>
-<p>To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):</p>
+<div class="section" id="multithread-parallel-compilation-from-matlab-commmand-prompt">
+<h2><a class="toc-backref" href="#id5">Multithread (parallel) compilation from MATLAB commmand prompt</a></h2>
+<p>Linux (gcc): To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):</p>
 <pre class="code matlab literal-block">
-<span class="name">mex</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>" <span class="name">LDFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>"
-<span class="name">mex</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>" <span class="name">LDFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>"
+<span class="name">mex</span>   <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS -fopenmp'</span> <span class="name">CXXFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$CXXFLAGS -fopenmp'</span> <span class="name">LDFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$LDFLAGS -fopenmp'</span>
+<span class="name">mex</span>   <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS -fopenmp'</span> <span class="name">CXXFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$CXXFLAGS -fopenmp'</span> <span class="name">LDFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$LDFLAGS -fopenmp'</span>
 </pre>
-<p>Do not use OpenMP version if the MATLAB does not support the compiler used.
-See troubleshooting on how to install a specific version of GCC.</p>
+<p>Windows (Visual Studio):</p>
+<pre class="code matlab literal-block">
+<span class="name">mex</span>   <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS /openmp /O2'</span> <span class="name">CXXFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$CXXFLAGS '</span> <span class="name">LDFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$LDFLAGS '</span>
+<span class="name">mex</span>   <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS /openmp /O2'</span> <span class="name">CXXFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$CXXFLAGS '</span> <span class="name">LDFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$LDFLAGS '</span>
+</pre>
 </div>
 </div>
-<div class="section" id="troubleshooting">
-<h1><a class="toc-backref" href="#id5">Troubleshooting</a></h1>
-<p>To install ValoMC, MATLAB mex system must be set up. It needs to have an external
-C++ compiler to work.</p>
+<div class="section" id="how-to-obtain-a-suitable-compiler">
+<h1><a class="toc-backref" href="#id6">How to obtain a suitable compiler</a></h1>
+<p>MATLAB MEX system must be set up before installing ValoMC. It needs to have
+an external C++ compiler to work.</p>
 <div class="section" id="windows">
-<h2><a class="toc-backref" href="#id6">Windows</a></h2>
-<p>For example, the TDM gcc compiler can be obtained from this <a class="reference external" href="http://tdm-gcc.tdragon.net/download">link</a>.
-After installation you can use</p>
+<h2><a class="toc-backref" href="#id7">Windows</a></h2>
+<p>For example, the TDM gcc compiler can be obtained from this
+<a class="reference external" href="http://tdm-gcc.tdragon.net/download">site</a>.</p>
+<p>After installation you can use</p>
 <pre class="code matlab literal-block">
 <span class="name">setenv</span><span class="punctuation">(</span><span class="literal string">'MW_MINGW64_LOC'</span><span class="punctuation">,</span><span class="literal string">'C:\TDM-GCC-64'</span><span class="punctuation">);</span>
 <span class="name">mex</span> <span class="operator">-</span><span class="name">setup</span>
 </pre>
-<p>to inform MATLAB of the location.</p>
+<p>to inform MATLAB of the location. Visual Studio can be obtained
+following this <a class="reference external" href="https://visualstudio.microsoft.com">link</a>. For Visual Studio, OpenMP
+(parallelisation) support can be enabled as follows</p>
+<pre class="code matlab literal-block">
+<span class="name">mex</span>  <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS /openmp'</span>
+</pre>
 </div>
 <div class="section" id="ubuntu">
-<h2><a class="toc-backref" href="#id7">Ubuntu</a></h2>
-<p>To get gcc in ubuntu you can use</p>
-<pre class="code sh literal-block">
+<h2><a class="toc-backref" href="#id8">Ubuntu</a></h2>
+<p>To get gcc in Ubuntu you can use</p>
+<pre class="code bash literal-block">
 sudo apt-get install g++
 sudo apt-get install gcc
 </pre>
 <p>in shell. Depending on your MATLAB, it might be necessary to obtain an
 older version of the compiler. For example, if MATLAB supports g++ 4.9
 you can install it by</p>
-<pre class="code sh literal-block">
+<pre class="code bash literal-block">
 sudo apt-get install g++-4.9
 sudo apt-get install gcc-4.9
 </pre>
-<p>and use</p>
+<p>and use (from MATLAB prompt, at 'ValoMC/'):</p>
 <pre class="code matlab literal-block">
-<span class="name">mex</span>  <span class="operator">-</span><span class="name">v</span> <span class="name">GCC</span><span class="punctuation">=</span><span class="literal string">'/usr/bin/gcc-4.9'</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>" <span class="name">LDFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>"
-<span class="name">mex</span>  <span class="operator">-</span><span class="name">v</span> <span class="name">GCC</span><span class="punctuation">=</span><span class="literal string">'/usr/bin/gcc-4.9'</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">3</span><span class="name">d</span><span class="operator">/</span><span class="name">MC3Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">CFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">CFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>" <span class="name">LDFLAGS</span><span class="punctuation">=</span>"<span class="operator">\</span>$<span class="name">LDFLAGS</span> <span class="operator">-</span><span class="name">fopenmp</span>"
+<span class="name">mex</span>  <span class="operator">-</span><span class="name">v</span> <span class="name">GCC</span><span class="punctuation">=</span><span class="literal string">'/usr/bin/gcc-4.9'</span> <span class="operator">-</span><span class="name">DUSE_OMP</span> <span class="name">cpp</span><span class="operator">/</span><span class="literal number integer">2</span><span class="name">d</span><span class="operator">/</span><span class="name">MC2Dmex</span><span class="punctuation">.</span><span class="name">cpp</span> <span class="name">COMPFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$COMPFLAGS -fopenmp'</span> <span class="name">CXXFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$CXXFLAGS -fopenmp'</span> <span class="name">LDFLAGS</span><span class="punctuation">=</span><span class="literal string">'\$LDFLAGS -fopenmp'</span>
 </pre>
-<p>to instruct MATLAB to use this compiler when compiling ValoMC.</p>
 </div>
 </div>
 </div>
 </div>
 <br>
-<br> </div><footer> <hr> <p>Last updated: Fri Jun  1 01:10:22 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>

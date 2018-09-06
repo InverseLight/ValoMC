@@ -120,29 +120,27 @@ a specific compiler, you can use e.g.
     cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-4.9
     cmake --build .
 
-Compiling the external executable
----------------------------------
+Compiling the external executable manually
+------------------------------------------
 
 The external executable can be used to run ValoMC e.g. on a cluster
 without MATLAB (see example: 'Generating input for the external
 executable'). The source code for the external executables are located
-in 2d/cpp/ and 3d/cpp/.  These folders contain Ubuntu makefiles for
-reference. For example, using a GNU compiler the single threaded
-executable for the 2D code can be compiled with
+in 2d/cpp/ and 3d/cpp/. These folders contain Ubuntu makefiles for
+reference. CMake also builds the external executables. The 2D code 
+can be manually built using
 
 	g++ MC2D.cpp -o MC2D.a -O3
 
-The multi-threaded (OpenMP) version of the external executable can be
-compiled with
+The multi-threaded (OpenMP) version can be compiled with
 
-	g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp -O3
+	g++ MC2D.cpp -o MC2D.a -O3 -DUSE_OMP -fopenmp 
 		
-
 Generalization to other compilers than GNU ones should be straightforward.
 	
 		
-Multithread (parallel) compilation 
-----------------------------------
+Multithread (parallel) compilation from MATLAB commmand prompt 
+--------------------------------------------------------------
 
 Linux (gcc): To compile with OpenMP (multithread) support (from MATLAB prompt, at 'ValoMC/'):
 
@@ -151,18 +149,14 @@ Linux (gcc): To compile with OpenMP (multithread) support (from MATLAB prompt, a
 
 Windows (Visual Studio):
 
-    mex   -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /openmp /O2' CXXFLAGS='\$CXXFLAGS ' LDFLAGS='\$LDFLAGS '
-    mex   -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS='\$COMPFLAGS /openmp /O2' CXXFLAGS='\$CXXFLAGS ' LDFLAGS='\$LDFLAGS '
-
-Do not use OpenMP version if the MATLAB does not support the compiler
-used.  For hints how to install a compiler, see 'troubleshooting'
-below. For Visual Studio, change '-fopenmp' to '/openmp'.
+	mex   -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /openmp /O2' CXXFLAGS='\$CXXFLAGS ' LDFLAGS='\$LDFLAGS '
+	mex   -DUSE_OMP cpp/3d/MC3Dmex.cpp COMPFLAGS='\$COMPFLAGS /openmp /O2' CXXFLAGS='\$CXXFLAGS ' LDFLAGS='\$LDFLAGS '
 
 
 Troubleshooting
 ===============
 
-To install ValoMC, MATLAB mex system must be set up. It needs to have
+MATLAB MEX system must be set up before installing ValoMC. It needs to have
 an external C++ compiler to work.
 
 Windows

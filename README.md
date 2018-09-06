@@ -90,7 +90,7 @@ Try to run e.g. simpletest.m.
 
 If you receive error messages, it most likely means the mex compiler
 has not yet been set up in MATLAB.  Messages along the lines 'libstdc++.so.6: version GLIBCXX_3.4.21 not found'
-means that MATLAB does not support the compiler version.
+means that MATLAB does not support the GCC version.
 For instructions on how to compile the mex files using another GCC version, 
 see 'How to obtain a suitable compiler'
 

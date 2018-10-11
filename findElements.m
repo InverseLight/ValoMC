@@ -58,13 +58,18 @@ function elements = findElements(vmcmesh, querystring, varargin)
         elseif(strcmp(querystring, 'region'))
             surface = varargin{1};
             indices = unique(surface(:)); % get the points that belong to surface
-            DT = delaunayTriangulation(vmcmesh.r(indices,:));
+
+            minimum = min(vmcmesh.r(indices,:));
+            half = (max(vmcmesh.r(indices,:)) - min(vmcmesh.r(indices,:))) / 2;
+            
+
+            DT = delaunayTriangulation((vmcmesh.r(indices,:) - minimum - half)*1.1);
             elements = [];
             for i=1:size(vmcmesh.H,1)
-               if(~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,1),:))) && ...  
-                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,2),:))) && ...
-                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,3),:))) && ...
-                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,4),:))))
+               if(~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,1),:)-minimum-half)) && ...  
+                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,2),:)-minimum-half)) && ...
+                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,3),:)-minimum-half)) && ...
+                  ~isnan(pointLocation(DT, vmcmesh.r(vmcmesh.H(i,4),:)-minimum-half)))
                     elements = [elements; i];
                end
             end

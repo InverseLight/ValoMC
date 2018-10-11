@@ -106,8 +106,7 @@ vmcboundary.lightsource(lightsource4_boundaryelements) = {'isotropic'};
 
 %% Directing the light sources
 
-% The difference between 'absolute' and 'relative' direction type
-% is demonstrated below.
+% The difference between 'absolute' and 'relative' direction type is demonstrated below.
 
 % Here the 'absolute' direction type is used. This means that the direction is
 % given in the position coordinates. To direct the light source
@@ -126,11 +125,9 @@ vmcboundary.lightsource_direction(lightsource1_boundaryelements,2) = absolute_di
 
 vmcboundary.lightsource_direction_type(lightsource3_boundaryelements) = {'relative'};
 
-% lightsource 3 is located at line3_end. The angle to tilt it so
-% that it is directed towards the rectangle is calculated using a vector
-% that goes from the lightsource to the rectangle
+% lightsource 3 is located at line3_end.
 
-lightsource_to_rectangle =  rectangle_position - line3_end; 
+lightsource_to_rectangle =  rectangle_position - line3_end;
 alpha = tan(lightsource_to_rectangle(2)/lightsource_to_rectangle(1));
 
 vmcboundary.lightsource_direction(lightsource3_boundaryelements,1) = sin(alpha);

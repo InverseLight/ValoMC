@@ -1,10 +1,10 @@
-%% Netgen 3D example 
+%% Netgen 3D example
 % This example demonstrates how to setup a 3D simulation on a geometry
 % built with Netgen and run it. The geometry is a sphere within a
 % cube. The sphere has a different refractive index than the cube. The
 % mesh is created so that there is a circular domain within one
 % surface of the cube.  You can view the Netgen Python source code
-% <netgen_box_with_sphere.py here>
+% <netgen_sphere_in_box.py here>
 
 
 %% Import the NetGen file
@@ -12,26 +12,22 @@
 
 clear all;
 
-if(exist('box_with_sphere.vol', 'file') ~= 2)
-    error('Could not find the mesh data file. Please run netgen netgen_box_with_sphere.py');
+if(exist('sphere_in_box.vol', 'file') ~= 2)
+    error('Could not find the mesh data file. Please run netgen netgen_sphere_in_box.py');
 end
 
-[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh('box_with_sphere.vol');
+[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh('sphere_in_box.vol');
 
-%% Remove incompatible boundaries from the mesh 
-% Note that boundary 7 (sphere surface) is located within the medium,
-% so it must be removed (see Netgen example in 2d). However, before 
-% removing it, the sphere surface  can be used to find the elements 
-% within the sphere
+%% Remove incompatible boundaries from the mesh
+% Note that boundary 7 (surface of the sphere) introduces boundaries within
+% the mesh, so it must be removed. However, before removing it, the surface 
+% can be used to find the elements within the sphere.
 
-elements_of_the_sphere = findElements(vmcmesh, 'region', vmcmesh.BH(cell2mat(boundaries(7)))); % store the indices of the elements within the sphere surface
-vmcmesh.BH(cell2mat(boundaries(7)),:) = [];
-boundaries(7) = [];
+elements_of_the_sphere = findElements(vmcmesh, 'region', vmcmesh.BH(cell2mat(boundaries(7))));
 
-% 0.1 is to make the search area slightly larger than the cylinder
-% that was used to create the lightsource (c.f. fincyl in the Netgen
-% source) to make sure all the boundary elements are contained.
+vmcmesh.BH = createBH(vmcmesh.H);
 
+surface_of_the_sphere = createBH(vmcmesh.H(elements_of_the_sphere,:));
 
 
 %% Set constant background coefficients
@@ -58,8 +54,11 @@ elements_of_the_lightsource = findBoundaries(vmcmesh, 'direction', startpoint, w
 %% Plot the Netgen mesh
 figure
 
-trimesh(vmcmesh.BH(cell2mat(boundaries(:)),:),vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),'facecolor', 'r','FaceAlpha',0.2);
+trimesh(surface_of_the_sphere,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),'facecolor', 'r','FaceAlpha',0.2);
 hold
+
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),'facecolor', 'r','FaceAlpha',0.2);
+
 
 % Highlight the location for the lightsource for the plot
 trimesh(vmcmesh.BH(elements_of_the_lightsource,:),vmcmesh.r(:,1), ...

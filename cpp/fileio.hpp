@@ -24,10 +24,10 @@ void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Arr
           {
             F *entry = &(*items[(int)j])(i, k);
             linestream >> *entry;
-            //std::cout << names[j] << "[" << i << "," << k << "]"
-            //          << ":" << std::setprecision(30) << *entry << ".";
+          //  std::cout << names[j] << "[" << i << "," << k << "]"
+          //            << ":" << std::setprecision(30) << *entry << ".";
           }
-          //std::cout << "\n";
+        //  std::cout << "\n";
         }
       }
       catch (...)
@@ -53,8 +53,8 @@ void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Arr
   {
     for (unsigned int i = 0; i < items.size(); i++)
     {
-//       std::cout << std::right << std::setw(12) << names[i].c_str();
-//       std::cout << "   " << "(" << items[i]->Nx << "x" << items[i]->Ny << ")\n";
+       std::cout << std::right << std::setw(12) << names[i].c_str();
+       std::cout << "   " << "(" << items[i]->Nx << "x" << items[i]->Ny << ")\n";
     }
   }
   if (halt && !success)

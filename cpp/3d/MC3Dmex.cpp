@@ -21,6 +21,11 @@
 
 time_t starting_time;
 
+
+#ifdef _MAKE_CTRL_C_POSSIBLE_
+extern "C" bool utIsInterruptPending();
+#endif
+
 bool Progress_with_bar(double perc){
   //  printf("  %d %%\r", perc);
   mxArray *result;
@@ -34,6 +39,13 @@ bool Progress_with_bar(double perc){
   time_t now;
   time(&now);
   double timedifference = difftime(now,starting_time);
+  
+  #ifdef _MAKE_CTRL_C_POSSIBLE_
+  if(utIsInterruptPending()) {
+      mxDestroyArray(result);
+      return false;
+  }
+  #endif
 
   char matlabstring[5012];
   

@@ -16,6 +16,10 @@
 #include "../versionstring.h"
 
 
+#ifdef _MAKE_CTRL_C_POSSIBLE_
+extern "C" bool utIsInterruptPending();
+#endif
+
 // Compiling (from MATLAB prompt):
 //   mex MC2Dmex.cpp
 //
@@ -35,6 +39,14 @@ bool Progress_with_bar(double perc){
       return false;
     }
   }
+
+  #ifdef _MAKE_CTRL_C_POSSIBLE_
+  if(utIsInterruptPending()) {
+      mxDestroyArray(result);
+      return false;
+  }
+  #endif
+
   time_t now;
   time(&now);
   double timedifference = difftime(now,starting_time);

@@ -1452,8 +1452,9 @@ void MC2D::PropagatePhoton(Photon *phot)
       // Test for surival of the photon via roulette
       if (phot->weight < weight0)
       {
-        if (UnifClosed() > chance)
+        if (UnifClosed() > chance) {
           return;
+        }
         phot->weight /= chance;
       }
 

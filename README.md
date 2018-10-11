@@ -89,15 +89,17 @@ Try to run e.g. simpletest.m.
 	simpletest
 
 If you receive error messages, it most likely means the mex compiler
-has not yet been set up in MATLAB.  Messages along the lines 'libstdc++.so.6: version GLIBCXX_3.4.21 not found'
-means that MATLAB does not support the GCC version.
-For instructions on how to compile the mex files using another GCC version, 
-see 'How to obtain a suitable compiler'
+has not yet been set up in MATLAB. For instructions how to set up the mex
+compiler, please refer to MATLAB manual and 'troubleshooting' below.
+
+Messages along the lines 'libstdc++.so.6: version GLIBCXX_3.4.21 not found'
+most likely means that MATLAB does not support the compiler version.
+For instructions how to compile the mex files with a specific gcc
+version, see 'troubleshooting'
 
 
 Advanced installation
 =====================
-
 
 CMake compilation
 -----------------
@@ -113,7 +115,7 @@ This will build the external executables as well as the mex files. It
 will try to compile the parallel versions. If problems persist, see
 below how to compile the external executable and the mex files
 manually and how to obtain a suitable compiler. To use CMake with
-another GCC version, you can use e.g. 
+a specific compiler, you can use e.g. 
 
     cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-4.9
     cmake --build .
@@ -152,9 +154,9 @@ Windows (Visual Studio):
 
 
 How to obtain a suitable compiler
-================================
+=================================
 
-MATLAB MEX system must be set up before installing ValoMC. It needs to have
+To install ValoMC, MATLAB mex system must be set up. It needs to have
 an external C++ compiler to work.
 
 Windows
@@ -168,8 +170,11 @@ After installation you can use
 	setenv('MW_MINGW64_LOC','C:\TDM-GCC-64'); 
 	mex -setup 
 
-to inform MATLAB of the location. Alternatively, Visual Studio can be obtained
-[here]https://visualstudio.microsoft.com/ 
+to inform MATLAB of the location. Visual Studio can be obtained
+[here]https://visualstudio.microsoft.com/ For Visual Studio, OpenMP
+(parallelisation) support can be enabled as follows
+
+	mex  -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS /openmp'
 
 
 Ubuntu
@@ -187,8 +192,6 @@ you can install it by
 	sudo apt-get install g++-4.9
 	sudo apt-get install gcc-4.9
    
-and use e.g. (from MATLAB prompt, at 'ValoMC/'):
+and use (from MATLAB prompt, at 'ValoMC/'):
 	
 	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'
-
-to compile the mex files

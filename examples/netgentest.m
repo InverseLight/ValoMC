@@ -39,7 +39,7 @@ vmcmesh.BH = vmcmesh.BH(indices_for_outer_boundary,:);
 indices_for_lightsource=1:size(cell2mat(boundaries(2)),1);
 
 
-% bote that 
+% Note that 
 % In Matlab 2016b and later it is possible to find indices using
 %
 % indices_for_lightsource = cell2mat(boundaries(find(contains(boundary_names,'lightsource'))));

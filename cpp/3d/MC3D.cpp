@@ -159,6 +159,10 @@ int LoadProblem_TXT(char *fin){
   readAndResize(fp, (int)Nb, 1, false, &MC.BCLightDirectionType, "BCLDirType");
   readAndResize(fp, (int)Nb, 1, false, &MC.BCIntensity, "BCIntensity");
 
+  if(MC.BCLightDirectionType.N == 0) {
+     MC.BCLightDirectionType.resize(Nb,1);
+     for(int i = 0; i < Nb; i++) MC.BCLightDirectionType[i] = 'n';
+  }
   fclose(fp);
 
   return(0);

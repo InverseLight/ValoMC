@@ -37,7 +37,9 @@ add_executable(MC3D cpp/3d/MC3D.cpp)
 
 
 if (Matlab_FOUND)
-   add_definitions(-D_MAKE_CTRL_C_POSSIBLE_)
+   if(linux)
+      add_definitions(-D_MAKE_CTRL_C_POSSIBLE_)
+   endif()
    matlab_add_mex(NAME MC2Dmex OUTPUT_NAME MC2Dmex ${CMAKE_CURRENT_SOURCE_DIR}/cpp/2d/MC2Dmex.cpp)
    matlab_add_mex(NAME MC3Dmex OUTPUT_NAME MC3Dmex ${CMAKE_CURRENT_SOURCE_DIR}/cpp/3d/MC3Dmex.cpp)
    matlab_add_mex(NAME createBH3 OUTPUT_NAME createBH3 ${CMAKE_CURRENT_SOURCE_DIR}/cpp/3d/createBH3mex.cpp)

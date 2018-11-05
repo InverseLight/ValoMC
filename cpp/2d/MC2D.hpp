@@ -104,7 +104,7 @@ public:
   void PropagatePhoton(Photon *phot);
   inline void search_neighbor(std::vector<int_fast64_t> &neighborlist, int_fast64_t element);
   // Perform MonteCarlo computation
-  void MonteCarlo(bool (*progress)(double) = NULL);
+  void MonteCarlo(bool (*progress)(double) = NULL, void (*finalchecks)(int, int) = NULL);
 
   // [AL] Check if the arrays seem valid
   void ErrorChecks();
@@ -1492,7 +1492,7 @@ void MC2D::PropagatePhoton(Photon *phot)
 }
 
 // Run Monte Carlo
-void MC2D::MonteCarlo(bool (*progress)(double))
+void MC2D::MonteCarlo(bool (*progress)(double), void (*finalchecks)(int,int))
 {
 #ifdef USE_OMP
 
@@ -1559,17 +1559,15 @@ void MC2D::MonteCarlo(bool (*progress)(double))
       MCS[thread].PropagatePhoton(&phot);
     }
   }
-#ifdef VALOMC_MEX
+
   int_fast64_t csum = 0;
   for (jj = 0; jj < nthread; jj++)
   {
     csum += ticks[jj];
   }
-  if (csum != Nphoton)
-  {
-    mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL ENVIRONMENT IS NOT WORKING CORRECTLY. IF YOU DID NOT ABORT THE RUN, PLEASE COMPILE AGAIN WITH OPENMP SUPPORT. \n");
-  }
-#endif
+
+  finalchecks(csum, Nphoton);
+
   // Sum up the results to first instance and delete MCS
   Nphoton = 0;
   loss = 0;

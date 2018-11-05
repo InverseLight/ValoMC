@@ -49,7 +49,6 @@ solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 %% Plot the solution
 % The solution is given as an array in which the values represent a
 % constant photon fluence in each element.
-
 % This array can be plotted with Matlab's built-in function patch
 
 patch('Faces',vmcmesh.H,'Vertices',vmcmesh.r,'FaceVertexCData', solution.element_fluence, 'FaceColor', 'flat', 'LineWidth',1.5);

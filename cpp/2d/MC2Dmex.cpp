@@ -2,8 +2,6 @@
 #include <string>
 #define _USE_MATH_DEFINES
 
-#define VALOMC_MEX
-
 #include <cmath>
 #include <limits>
 #include <inttypes.h>
@@ -28,6 +26,20 @@ extern "C" bool utIsInterruptPending();
 // Do not use OpenMP version if the MATLAB does not support the compiler used
 
 time_t starting_time;
+
+void finalchecks(int csum, int Nphoton) {
+  if (csum != Nphoton)
+  {
+    mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL COMPUTING ENVIRONMENT IS NOT WORKING CORRECTLY. \n");
+    // destroy progress bar
+    mexEvalString("delete(mcwaitbar);");
+  }
+}
+
+void finalchecks_destroy_bar(int csum, int Nphoton) {
+   finalchecks(csum, Nphoton);
+}
+
 
 bool Progress_with_bar(double perc){
   //  printf("  %d %%\r", perc);
@@ -172,12 +184,12 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
      mexEvalString("assignin('base','abort_photonMC', false);");
      mexEvalString("mcwaitbar = waitbar(0,'Please wait..', 'name', 'Running simulation', 'CreateCancelBtn','abort_photonMC=true;');");
 
-     MC.MonteCarlo(Progress_with_bar);
+     MC.MonteCarlo(Progress_with_bar, finalchecks_destroy_bar);
      mexPrintf("...done\n");
      printf("\n"); fflush(stdout);
   } else {
      mexPrintf("Computing... \n");
-     MC.MonteCarlo(Progress);
+     MC.MonteCarlo(Progress, finalchecks);
      mexPrintf("...done\n");
      printf("\n"); fflush(stdout);
   }

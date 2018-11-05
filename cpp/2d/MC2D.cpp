@@ -31,6 +31,8 @@ int LoadProblem(char *fin);
 int SaveProblem(char *fout, int time);
 bool Progress(double perc);
 
+void FinalChecks(int, int) {}; // [AL] finalize is intentionally left empty
+
 int main(int argc, char **argv)
 {
 
@@ -81,7 +83,7 @@ int main(int argc, char **argv)
 
   printf("Computing...\n");
   int tstart = (unsigned long)time(NULL);
-  MC.MonteCarlo(Progress);
+  MC.MonteCarlo(Progress, FinalChecks);
   int tend = (unsigned long)time(NULL);
 
   printf("Saving problem\n");

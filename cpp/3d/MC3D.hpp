@@ -97,7 +97,7 @@ public:
   void PropagatePhoton(Photon *phot);
 
   // Perform MonteCarlo computation
-  void MonteCarlo(bool (*progress)(double) = NULL); // [AL] progress from int to double
+  void MonteCarlo(bool (*progress)(double) = NULL, void (*finalchecks)(int, int) = NULL);
   // [AL] Check if the arrays seem valid
   void ErrorChecks();
 
@@ -1583,7 +1583,7 @@ void MC3D::PropagatePhoton(Photon *phot)
 }
 
 // Run Monte Carlo
-void MC3D::MonteCarlo(bool (*progress)(double))
+void MC3D::MonteCarlo(bool (*progress)(double), void (*finalchecks)(int,int))
 {
 #ifdef USE_OMP
 
@@ -1649,10 +1649,9 @@ void MC3D::MonteCarlo(bool (*progress)(double))
   {
     csum += ticks[jj];
   }
-  if (csum != Nphoton)
-  {
-    mexPrintf("WARNING: RUN WAS ABORTED OR PARALLEL ENVIRONMENT IS NOT WORKING CORRECTLY. IF YOU DID NOT ABORT THE RUN, PLEASE COMPILE AGAIN WITH OPENMP SUPPORT. \n");
-  }
+
+  finalchecks(csum, Nphoton);
+
 #endif
 #pragma omp barrier
 

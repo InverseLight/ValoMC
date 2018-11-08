@@ -13,7 +13,7 @@ function elements = findElements(vmcmesh, querystring, varargin)
             arr = 1:size(vmcmesh.H);
             elements = setdiff(arr, [varargin{1}]);
         elseif(strcmp(querystring, 'location'))
-            warning('2d location not yet implemented')
+            elements =  findElementsNearest(vmcmesh, varargin{1});
         elseif(strcmp(querystring, 'region'))
             warning('2d region not yet implemented')
         end

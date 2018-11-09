@@ -86,7 +86,8 @@ bool Progress_with_bar(double perc){
 }
 
 bool Progress(double perc){
-  printf("  %d %%\r", perc);
+  mexPrintf("  %f %%\r", perc);
+
   return true;
 }
 

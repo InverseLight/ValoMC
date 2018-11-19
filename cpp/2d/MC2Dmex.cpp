@@ -163,7 +163,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   }
   
   // Comment to use fixed seed
-  //MC.seed = (unsigned long) time(NULL);
+  MC.seed = (unsigned long) time(NULL);
 
   // Initialize
   mexPrintf("Initializing MC2D...\n");

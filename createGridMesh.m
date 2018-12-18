@@ -24,7 +24,7 @@ function output = createGridMesh(xvec, yvec, zvec)
 %       x = grid point (locattion given by xvec, yvec)
 %
 %       The mesh can be either 2d  (xvec, yvec given) or 3d.
-%       In 2d, the triangular mesh is constructed in the following fashion   
+%       In 2d, the triangular mesh is constructed in the following fashion
 %
 %       o--b3---o--b4---o
 %       | .  t6 | .  t8 |

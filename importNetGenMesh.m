@@ -1,38 +1,41 @@
 function [vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
-% Import a NetGen mesh
+% Imports NetGen .vol files
 %
 % function [mesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
 %
 % INPUT
 %
-%  filename:            filename of a file that is in Netgen's native 'vol' -format
+%  filename:            filename ('.vol', file must be in ASCII format)
 %
 % OUTPUT
 %
-%  mesh:		mesh structure (see the documentation for the structures in the toolbox doc)
-%  regions: 		the regions in the vol file as cell arrays. Each element contains a vector
-%                       that holds the indices of a region in the 'medium' structure.
-%  region_names:        names of the regions as a cell array. Indexing is the same as in 'regions',
-%                       i.e. region_names(i) is the name of the region indicated by regions(i)
-%  boundaries: 		same as regions, but for boundaries
+%  mesh:                a structure that contains coordinates (r), elements (H, indices to r) 
+%                       and boundary elements (BH, indices to r) of the mesh
+%
+%  regions: 		the regions (indices to H) in the vol file as cell array
+%
+%  region_names:        names of the regions as a cell array. Indexing is the same as in 'regions'.
+%
+%  boundaries: 		same as regions, but for boundaries (indices to BH)
+%
 %  boundary_names:	same as region_names, but for boundaries
 %
 %
 %  EXAMPLE:
 %
-% [mesh regions region_names boundaries boundary_names] = importNetGenMesh('mymesh.vol');
-% indices_for_background = cell2mat(regions(1));
-% indices_for_circles = cell2mat(regions(2));
-% indices_for_lightsource = cell2mat(boundaries(2));
-% vmcmedium.refractive_index(indices_for_circles)=1.6;
-% vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};
+%   [mesh regions region_names boundaries boundary_names] = importNetGenMesh('mymesh.vol');
+%   indices_for_background = cell2mat(regions(1));
+%   indices_for_circles = cell2mat(regions(2));
+%   indices_for_lightsource = cell2mat(boundaries(2));
+%   vmcmedium.refractive_index(indices_for_circles)=1.6;
+%   vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};
 
     fid = -1;
     errmsg = '';
     [fid,errmsg] = fopen(filename_vol);
-    if(fid < 0) 
+    if(fid < 0)
         disp(errmsg);
-        return 
+        return
     end
     surface_elements = [];
     volume_elements = [];

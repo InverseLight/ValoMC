@@ -1,15 +1,54 @@
 #ifndef _FILEIO_H_
 #define _FILEIO_H_
 
+#include <sstream>
+
 template <typename F>
 void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Array<F> *> items, std::vector<std::string> names)
 {
   bool success = true;
   char line[5012];
+
+  // read the name tag and rewind if it does not match
+  fpos_t position;
+  fgetpos (file, &position);
+  
+  bool should_rewind = false;
+  
+  if(fgets(line, 5011, file) == 0) {
+       exit(1);
+  };
+
+  std::stringstream linestream;
+  linestream << line;
+  std::istringstream iss();
+  std::vector<std::string> infoline;
+  std::string word;
+
+  while (linestream >> word)
+  {
+    infoline.push_back(word);
+  }
+
+  if(infoline.size() == names.size() ) {
+     for (unsigned int i = 0; i < items.size(); i++) {
+      	if(infoline[i].compare(names[i])) {
+           should_rewind = true;
+      	}
+     }
+  } else {
+     should_rewind = true;
+  }
+  
+  if(should_rewind) {
+     fsetpos(file, &position);
+     return;
+  }
+
   for (unsigned int i = 0; i < items.size(); i++)
   {
     items[i]->resize(height, width);
-   }
+  }
   for (int_fast64_t i = 0; i < height; i++)
   {
     if (!feof(file) && fgets(line, 5011, file) != NULL)
@@ -24,10 +63,10 @@ void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Arr
           {
             F *entry = &(*items[(int)j])(i, k);
             linestream >> *entry;
-          //  std::cout << names[j] << "[" << i << "," << k << "]"
-          //            << ":" << std::setprecision(30) << *entry << ".";
+            //  std::cout << names[j] << "[" << i << "," << k << "]"
+            //            << ":" << std::setprecision(30) << *entry << ".";
           }
-        //  std::cout << "\n";
+          //  std::cout << "\n";
         }
       }
       catch (...)
@@ -53,8 +92,9 @@ void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Arr
   {
     for (unsigned int i = 0; i < items.size(); i++)
     {
-       std::cout << std::right << std::setw(12) << names[i].c_str();
-       std::cout << "   " << "(" << items[i]->Nx << "x" << items[i]->Ny << ")\n";
+      std::cout << std::right << std::setw(12) << names[i].c_str();
+      std::cout << "   "
+                << "(" << items[i]->Nx << "x" << items[i]->Ny << ")\n";
     }
   }
   if (halt && !success)

@@ -120,6 +120,7 @@ function [vmcboundary, vmcmesh_out] = createBoundary(vmcmesh, vmcmedium_in, vmcb
                 duplicateArray(vmcboundary_in.lightsource_gaussian_sigma, size(vmcmesh.BH,1));
         end;
 
+        
     end
     
 end

@@ -5,7 +5,6 @@
 #include <sstream>
 #include <utility>
 #include <iomanip>
-
 // define USE_OMP to utilize threading with OpenMP 
 //#define USE_OMP
 // define USE_MPI to utilize MPI in multicomputer cluster
@@ -32,7 +31,6 @@ bool Progress(double perc);
 
 
 int main(int argc, char **argv){
-  MC.seed = (unsigned long) time(NULL);
 
   printf("                 ValoMC-3D\n");
   char infobuf[5012];
@@ -42,16 +40,13 @@ int main(int argc, char **argv){
   if ((argc < 3))
   {
     printf("Use syntax:\n");
-    printf(" MC2D inputfile outputfile\n");
+    printf(" MC3D inputfile outputfile\n");
     printf("\n");
     printf("Authors: Aki Pulkkinen, Aleksi Leino and Tanja Tarvainen (2018).\n");
     printf("The simulation code is originally written by Aki Pulkkinen.\n");
     printf("\n");
     return (0);
   }
-
-
-  MC.seed = (unsigned long) time(NULL);
 
   char *fin = argv[1];
   char *fout = argv[2];
@@ -117,23 +112,30 @@ int LoadProblem_TXT(char *fin){
   */
 
   int_fast64_t ii;
-  int_fast64_t Ne, Nb, Nr;
+  int_fast64_t Ne, Nb, Nr,sd1,sd2;
   int fsr; // return value for file open (for avoiding compiler warnings)
 
   FILE *fp = fopen(fin, "r");
   if(fp == NULL) return(1);
 
+
   fsr=fscanf(fp, "%li %li %li %li\n", &Ne, &Nb, &Nr, &MC.Nphoton);
-  fsr=fscanf(fp, "%lf %lf\n", &MC.f, &MC.phase0);
+  fsr=fscanf(fp, "%lf %lf %li %li\n", &MC.f, &MC.phase0, &sd1, &sd2);
+
+  if(sd2) {
+     MC.seed = sd1;
+  } else {
+     MC.seed = (unsigned long) time(NULL);
+  }
 
   char tmpline[5012]; // skip a line
   char *tmpbuf=fgets(tmpline, 5011, fp);
-   
+
   // make negative phase0 positive by adding a multiple of 2*pi
   if(MC.phase0 < 0) {
     MC.phase0 += 2*M_PI*ceil(-MC.phase0 / (2*M_PI));
   }
-     
+
   printf("Constants:\n");
   printf("  %10s   (%e)\n", "f", MC.f);
   printf("  %10s   (%e)\n", "phase0", MC.phase0);
@@ -141,6 +143,7 @@ int LoadProblem_TXT(char *fin){
   printf("  %10s   (%li)\n", "Nb", Nb);
   printf("  %10s   (%li)\n", "Nr", Nr);
   printf("  %10s   (%li)\n", "Nphoton", MC.Nphoton);
+  printf("  %10s   (%li)\n", "seed", MC.seed);
   printf("Arrays:\n");
 
   // make negative phase0 positive by adding a multiple of 2*pi
@@ -155,7 +158,7 @@ int LoadProblem_TXT(char *fin){
   readAndResize(fp, (int)Ne, 1, true, &MC.mua, &MC.mus, &MC.g, &MC.n, "mua", "mus", "g", "n");
   readAndResize(fp, (int)Nb, 1, true, &MC.BCType, "BCType");
   readAndResize(fp, (int)Nb, 1, false, &MC.BCn, "BCn");
-  readAndResize(fp, (int)Nb, 3, false, &MC.BCLNormal, "BCLNormal");
+  readAndResize(fp, (int)Nb, 3, false, &MC.BCLNormal, "BCLightDirection");
   readAndResize(fp, (int)Nb, 1, false, &MC.BCLightDirectionType, "BCLDirType");
   readAndResize(fp, (int)Nb, 1, false, &MC.BCIntensity, "BCIntensity");
 

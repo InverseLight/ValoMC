@@ -4,7 +4,12 @@ all:
 	cp MC2D.a ../..
 	cp MC2D*.mex* ../..
 
-debug:
+debugsymbols:
+	g++ MC2D.cpp -o MC2D.a -g -D_GLIBCXX_USE_CXX11_ABI=0 
+	cp MC2D.a ../.. 
+
+
+debugaddresses:
 	g++ MC2D.cpp -o MC2D.a -fsanitize=address -fno-omit-frame-pointer
 	cp MC2D.a ../.. 
 

@@ -6,12 +6,16 @@
 #include <limits>
 #include <inttypes.h>
 #include <string>
+#include <vector>
 
 #include "mex.h"
 #include "Array.hpp"
 #include "ArrayMEX.hpp"
 #include "MC3D.hpp"
 #include "../versionstring.h"
+
+#include "matrix.h"
+
 // Compiling (from MATLAB prompt):
 //   mex MC3Dmex.cpp
 //
@@ -98,10 +102,10 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   version_string(infobuf);
   mexPrintf("%s",infobuf);
   
-  if ((nrhs != 17) || ((nlhs != 4) && (nlhs != 5)))
+  if ((nrhs != 18) || ((nlhs != 5) && (nlhs != 6)))
   {
     mexPrintf("nrhs %i nlhs %i", nrhs, nlhs);
-    mexErrMsgTxt("Syntax:\n [vsol, bsol, ebsol, simulationtime, [HN]] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLNormal, BCn, mua, mus, g, n, f, phase0, Nphoton, disablepbar)\n");
+    mexErrMsgTxt("Syntax:\n [vsol, bsol, ebsol, simulationtime, rnseed, [HN]] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLNormal, BCn, mua, mus, g, n, f, phase0, Nphoton, disablepbar, rnseed)\n");
   }
   mexPrintf("Initializing MC3D...\n");
   
@@ -113,6 +117,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Array<int_fast64_t> Nphoton;
   Array<double> GaussianSigma;
   Array<int_fast64_t> disable_pbar;
+  Array<int_fast64_t> rndseed;
 
   Convert_mxArray(prhs[0], H);
   Convert_mxArray(prhs[1], HN);
@@ -131,6 +136,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Convert_mxArray(prhs[14], phase0);
   Convert_mxArray(prhs[15], Nphoton);
   Convert_mxArray(prhs[16], disable_pbar);
+  Convert_mxArray(prhs[17], rndseed);
 
 //  Convert_mxArray(prhs[15], GaussianSigma); 
 
@@ -154,15 +160,16 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   MC.phase0 = phase0[0];
   //MC.GaussianSigma = GaussianSigma;
   //make negative phase0 positive
-  
+
   if(MC.phase0 < 0) {
     MC.phase0 += 2*M_PI*ceil(-MC.phase0 / (2*M_PI));
-  }  
-
-  //Comment to use fixed seed
-  MC.seed = (unsigned long) time(NULL);
-  //Initialize
-
+  }
+  if(rndseed[1]) {
+     MC.seed = (unsigned long) rndseed[0];
+  } else {
+     MC.seed = (unsigned long) time(NULL);
+  }
+  // Initialize
   try {
     MC.ErrorChecks();
     MC.Init();
@@ -206,6 +213,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Convert_mxArray(&plhs[2], dbsolr, dbsoli, MC.DEBR.Nx, MC.DEBR.Ny);
   plhs[3]=mxCreateDoubleMatrix(1,1,mxREAL); // [AL]
   time(&now);
+
   *mxGetPr(plhs[3])=(double) difftime(now,starting_time);
 
   long ii;
@@ -222,10 +230,17 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
     dbsoli[ii] = MC.DEBI[ii];
   }
 
+  plhs[4]=mxCreateNumericMatrix(0, 0, mxINT64_CLASS, mxREAL); // [AL]
+  int_fast64_t *dynamicData = (int_fast64_t*) mxCalloc(1, sizeof(int_fast64_t));
+  dynamicData[0] = MC.seed;
+  mxSetData(plhs[4], dynamicData);
+  mxSetM(plhs[4], 1);
+  mxSetN(plhs[4], 1);
+
   // Copy topology neighbourhood
-  if(nlhs == 5){
+  if(nlhs == 6){
     Array<long> HNo;
-    Convert_mxArray(&plhs[4], HNo, MC.HN.Nx, MC.HN.Ny);
+    Convert_mxArray(&plhs[5], HNo, MC.HN.Nx, MC.HN.Ny);
     for(ii = 0; ii < MC.HN.N; ii++) HNo[ii] = MC.HN[ii];
   }
 

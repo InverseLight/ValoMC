@@ -72,7 +72,7 @@ exportValoMC('netgen_test_input.txt',vmcmesh, vmcmedium, vmcboundary, vmcoptions
 % This assumes the c++ code has been compiled.
 % In Windows, MC2D.a should be replaced with MC2D.exe
 
-!./MC2D.a netgen_test_input.txt netgen_test_output.txt
+!../MC2D netgen_test_input.txt netgen_test_output.txt
 
 %% Load the simulation output using importValoMC
 % importValoMC can be used to retrieve the problem definition and 

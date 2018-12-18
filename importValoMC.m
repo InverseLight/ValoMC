@@ -1,21 +1,26 @@
 function [vmcmesh vmcmedium vmcboundary options solution] = ...
         importValoMC(problemdefinition_filename, solution_filename)
-    
+
     dimension=getInputDimension(problemdefinition_filename);
-    
+
     if(dimension ~= 2  && dimension ~= 3)
         error('Could not read input.');
     end
-   
+
     if(~isempty(problemdefinition_filename));
-        fp = fopen(problemdefinition_filename, 'r');  
+
+        fp = fopen(problemdefinition_filename, 'r');
         A = fscanf(fp, '%d %d %d %d\n', 4);
-        Ne = A(1); Nb = A(2); Nr = A(3); 
+        Ne = A(1); Nb = A(2); Nr = A(3);
+
         options.photon_count = A(4);
-        timedep = fscanf(fp, '%e %e\n', 2);
+        timedep = fscanf(fp, '%e %e', 2);
         options.f = timedep(1);
         options.phase0 = timedep(2);
-                
+        timedep = fscanf(fp, '%d %d\n', 2);
+        options.seed = timedep(1);
+        solution.seed_used = options.seed;
+
         % medium dimensions for grid
         if(dimension == 2)
             B=fscanf(fp, '%i %i\n', 2);
@@ -35,68 +40,48 @@ function [vmcmesh vmcmedium vmcboundary options solution] = ...
                 vmcmedium.ny = ny;
                 vmcmedium.nz = nz;
             end
-        end       
-        if(dimension == 2) 
-            vmcmesh.H = fscanf(fp, '%d %d %d\n', [3 Ne])' + 1;
-            vmcmesh.BH = fscanf(fp, '%d %d\n', [2 Nb])' + 1;
-            vmcmesh.r = fscanf(fp, '%e %e\n', [2 Nr])';
-        else
-            vmcmesh.H = fscanf(fp, '%d %d %d %d\n', [4 Ne])' + 1;
-            vmcmesh.BH = fscanf(fp, '%d %d %d\n', [3 Nb])' + 1;
-            vmcmesh.r = fscanf(fp, '%e %e %e\n', [3 Nr])';            
         end
-       
-        A = fscanf(fp, '%e %e %e %e\n', [4 Ne])';
-      
-        vmcmedium.absorption_coefficient = A(:, 1);
-        vmcmedium.scattering_coefficient = A(:, 2);
-        vmcmedium.scattering_anisotropy = A(:, 3);
-        vmcmedium.refractive_index = A(:, 4);
-
-        BCType = fscanf(fp, '%c\n', Nb);
-        
-        if(~feof(fp))
-            BCn = fscanf(fp, '%e\n', Nb);
-            if(~feof(fp))
-                if(dimension == 2)
-                   BCLNormal = fscanf(fp, '%e %e\n', 2 * Nb)';
-                else
-                   BCLNormal = fscanf(fp, '%e %e %e\n', 3 * Nb)';
-                end
-            end;
-            if(~feof(fp))
-                BCLightDirectionType = fscanf(fp, '%c\n', Nb)';
-            end
-            if(~feof(fp))
-                BCLIntensity = fscanf(fp, '%e\n', Nb)';
-            end
-            if(~feof(fp))
-                if(dimension == 2)
-                   GaussianSigma = fscanf(fp, '%e\n', Nb)';
-                end
-            end
-        end;
-        fclose(fp);
-    end
-    
-    vmcboundary.lightsource = characterToControlString(BCType,1);
-    
-    if(exist('BCn'))
-       vmcboundary.exterior_refractive_index = BCn;    
-    end
-
-    if(exist('BCLNormal') && length(BCLNormal))
-       vmcboundary.lightsource_direction = BCLNormal;    
-    end
-    
-    if(exist('BCLightDirectionType')  && length(BCLightDirectionType))
-       vmcboundary.lightsource_direction_type = characterToControlString(BCType,2);    
-    end
-
-    if(exist('GaussianSigma')  && length(GaussianSigma))
-       vmcboundary.lightsource_gaussian_sigma = GaussianSigma;    
-    end
-
+	while(~feof(fp))
+		tline = fgetl(fp);
+        if(dimension == 2)
+            if(strcmp(tline, 'H'))
+                vmcmesh.H = getArrayFromFile(fp, '%d %d %d\n', Ne)+1;  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'BH'))
+                vmcmesh.BH = getArrayFromFile(fp, '%d %d\n', Nb)+1;  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'r'))
+                vmcmesh.r = getArrayFromFile(fp, '%e %e\n', Nr);  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'BCLightDirection'))
+                vmcboundary.lightsource_direction = getArrayFromFile(fp, '%e %e\n', Nb);  % not the same for 3d and 2d  
+            end                   
+        else
+            if(strcmp(tline, 'H'))
+                vmcmesh.H = getArrayFromFile(fp, '%d %d %d %d\n', Ne)+1;  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'BH'))
+                vmcmesh.BH = getArrayFromFile(fp, '%d %d %d\n', Nb)+1;  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'r'))
+                vmcmesh.r = getArrayFromFile(fp, '%e %e %e\n', Nr);  % not the same for 3d and 2d
+            elseif(strcmp(tline, 'BCLightDirection'))
+                vmcboundary.lightsource_direction = getArrayFromFile(fp, '%e %e %e\n', Nb);  % not the same for 3d and 2d   
+            end                  
+        end
+        if(strcmp(tline, 'mua mus g n'))
+            A = getArrayFromFile(fp, '%e %e %e %e', Ne);
+            vmcmedium.absorption_coefficient = A(:, 1);
+            vmcmedium.scattering_coefficient = A(:, 2);
+            vmcmedium.scattering_anisotropy = A(:, 3);
+            vmcmedium.refractive_index = A(:, 4);
+        elseif(strcmp(tline, 'BCType'))
+            vmcboundary.lightsource = characterToControlString(getArrayFromFile(fp, '%c\n', Nb), 1); 
+        elseif(strcmp(tline, 'BCn'))
+            vmcboundary.exterior_refractive_index = getArrayFromFile(fp, '%e', Nb);                         
+        elseif(strcmp(tline, 'BCLightDirectionType'))
+            vmcboundary.lightsource_direction_type = characterToControlString(getArrayFromFile(fp, '%c', Nb), 2);
+        elseif(strcmp(tline, 'BCLIntensity'))
+            vmcboundary.lightsource_irradiance = getArrayFromFile(fp, '%e', Nb);
+        elseif(strcmp(tline, 'GaussianSigma'))
+            vmcboundary.lightsource_gaussian_sigma  = getArrayFromFile(fp, '%e', Nb);
+        end
+	end
     
     if(nargin == 2)
         if(~isempty(solution_filename))

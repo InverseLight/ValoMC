@@ -31,22 +31,22 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
 %        BCn   Exterior index of refraction for each BDomain (optional)
 %          f   Frequency of modulation for the light source
 %    Nphoton   Number of photons to compute
+%     rnseed   Random number generator seed
 
     if (nargin < 3)
         error('Not enought input arguments.');
-    end 
-    
-    
+    end
+
     if(~isfield(vmcmesh, 'H'))
         error('Mesh does not contain element topology')
     end
-    
+
     dimensionality = 0;
-    
+
     if(size(vmcmesh.H,2) == 3)
-        dimensionality = 2;        
+        dimensionality = 2;
     else
-        dimensionality = 3;        
+        dimensionality = 3;
     end
     
     
@@ -106,7 +106,7 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
     if(~isfield(vmcboundary,'lightsource_direction_type'))
         error('Lightsource direction type is not set.');
     else
-        % make empty BCLightDirectionTypes 'n' so that BCLNormal won't be used
+        % make empty BCLightDirectionTypes 'n' so that it won't be used
         BCLightDirectionType = int8(arrayfun(@(x) controlStringToCharacter(x,'n'), vmcboundary.lightsource_direction_type));
     end
 
@@ -135,20 +135,30 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
                 disable_pbar = int64(1);
             end
         end
+	if(isfield(vmcoptions, 'seed'))
+	    rnseed(1) = vmcoptions.seed;
+	    rnseed(2) = 1;
+	end
     else
         vmcoptions = struct();
     end
-    
+
+    if(~exist('rnseed'))
+       rnseed(1) = 0;
+       rnseed(2) = 0;
+    end
+
     if(dimensionality == 2)
         if(any(find(BCType == int8('p'))))
             error('Pencil beam currently not supported in 2D.');
-        end           
+        end
+
 
         if(isfield(vmcoptions,'export_filename'))
             fp = fopen(vmcoptions.export_filename, 'w');
-            fprintf(fp, '%d %d %d %d\n', size(H, 1), size(BH, 1), size(r, ...
-                                                              1), Nphoton);   
-            fprintf(fp, '%e %e\n', f, phase0);
+            fprintf(fp, '%d %d %d %d %d %d\n', size(H, 1), size(BH, 1), size(r, ...
+                                                              1), Nphoton);
+            fprintf(fp, '%e %e %d %d\n', f, phase0, rnseed(1), rnseed(2));
 
             % write the array dimensions to the file so that import
             % can know them
@@ -158,38 +168,48 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
             else
                 fprintf(fp, '0 0\n');
             end
-
+            fprintf(fp, 'H\n');
             fprintf(fp, '%d %d %d\n', H');
+            fprintf(fp, 'BH\n');
             fprintf(fp, '%d %d\n', BH');
+            fprintf(fp, 'r\n');
             fprintf(fp, '%e %e\n', r');
+            fprintf(fp, 'mua mus g n\n');
             fprintf(fp, '%e %e %e %e\n', [ mua(:) mus(:) g(:) n(:) ]');
+            fprintf(fp, 'BCType\n');
             fprintf(fp, '%c\n', BCType);
 
             if exist('BCn')
+                fprintf(fp, 'BCn\n');
                 fprintf(fp, '%e\n', BCn);
             end
-            if exist('BCLNormal')
-                fprintf(fp, '%e %e\n', BCLNormal');
+            if exist('BCLightDirection')
+                fprintf(fp, 'BCLightDirection\n');
+                fprintf(fp, '%e %e\n', BCLightDirection');
             end
             if exist('BCLightDirectionType')
+                fprintf(fp, 'BCLightDirectionType\n');
                 fprintf(fp, '%c\n', BCLightDirectionType');
             end
             if exist('BCLIntensity')
+                fprintf(fp, 'BCLIntesity\n');
                 fprintf(fp, '%e\n', BCLIntensity');
             end
             if exist('GaussianSigma')
+                fprintf(fp, 'GaussianSigma\n');
                 fprintf(fp, '%e\n', GaussianSigma');
             end
+
             fclose(fp);
+
             return
         else
 
         if(~exist('GaussianSigma'))
-           GaussianSigma = [];        
+           GaussianSigma = [];
         end
-
         % Solve
-        [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time] = MC2Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton, GaussianSigma, disable_pbar);
+        [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time, solution.seed_used] = MC2Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton, GaussianSigma, disable_pbar, int64(rnseed));
             if(isfield(vmcmedium,'nx') && isfield(vmcmedium,'ny'))
                 % Two dimensional input
                 first = reshape(solution.element_fluence(1:length(vmcmesh.H)/2),vmcmedium.nx, vmcmedium.ny);
@@ -221,7 +241,7 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
             
             fp = fopen(vmcoptions.export_filename, 'w');
             fprintf(fp, '%d %d %d %d\n', size(H, 1), size(BH, 1), size(r, 1), Nphoton);    
-            fprintf(fp, '%18.10f %18.10f\n', f, phase0);
+            fprintf(fp, '%18.10f %18.10f %d %d\n', f, phase0, rnseed(1), rnseed(2));
 
             if(isfield(vmcmedium,'nx') && isfield(vmcmedium,'ny') && ...
                isfield(vmcmedium,'nz'))
@@ -229,35 +249,40 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
             else 
                 fprintf(fp, '0 0 0\n');
             end 
-
+            fprintf(fp, 'H\n');
             fprintf(fp, '%d %d %d %d\n', H');
+            fprintf(fp, 'BH\n');    
             fprintf(fp, '%d %d %d\n', BH');
+            fprintf(fp, 'r\n');
             fprintf(fp, '%18.10f %18.10f %18.10f\n', r');
+            fprintf(fp, 'mua mus g n\n');
             fprintf(fp, '%18.10f %18.10f %18.10f %18.10f\n', [ mua(:) mus(:) g(:) n(:) ]');
+            fprintf(fp, 'BCType\n');
             fprintf(fp, '%c\n', BCType);
-
             if exist('BCn')
+                fprintf(fp, 'BCn\n');
                 fprintf(fp, '%18.10f\n', BCn);
             end
-            if exist('BCLNormal')
-                fprintf(fp, '%18.10f %18.10f %18.10f\n', BCLNormal');
-            end
             if exist('BCLightDirection')
+                fprintf(fp, 'BCLightDirection\n');
                 fprintf(fp, '%18.10f %18.10f %18.10f\n', BCLightDirection');
             end
             if exist('BCLightDirectionType')
+                fprintf(fp, 'BCLightDirectionType\n');
                 fprintf(fp, '%c\n', char(BCLightDirectionType'));
             end
             if exist('BCLIntensity')
+                fprintf(fp, 'BCLIntesity\n');
                 fprintf(fp, '%18.10f\n', BCLIntensity');
             end
             if exist('GaussianSigma')
+                fprintf(fp, 'GaussianSigma\n');
                 fprintf(fp, '%18.10f\n', GaussianSigma');
             end
             fclose(fp);
-            return 
+            return
         else
-            [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton,disable_pbar);
+            [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time, solution.seed_used] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton,disable_pbar, int64(rnseed));
         end
         if(isfield(vmcmedium,'nx') && isfield(vmcmedium,'ny') && isfield(vmcmedium,'nz'))
             % Three dimensional input
@@ -278,8 +303,8 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
     if(f == 0)
         solution.element_fluence = real(solution.element_fluence);
         solution.boundary_fluence = real(solution.boundary_fluence);
-        solution.boundary_exitance = real(solution.boundary_exitance);       
+        solution.boundary_exitance = real(solution.boundary_exitance);
     end
-    
+
 end
 

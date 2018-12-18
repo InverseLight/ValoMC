@@ -128,17 +128,26 @@ int LoadProblem_TXT(char *fin)
 */
 
   int_fast64_t ii;
-  int_fast64_t Ne, Nb, Nr;
+  int_fast64_t Ne, Nb, Nr, sd1,sd2;
   int fsr;
 
   FILE *fp = fopen(fin, "r");
   if (fp == NULL)
     return (1);
+   
 
   fsr = fscanf(fp, "%li %li %li %li\n", &Ne, &Nb, &Nr, &MC.Nphoton);
-  fsr = fscanf(fp, "%lf %lf\n", &MC.f, &MC.phase0); // [AL]
+  fsr = fscanf(fp, "%lf %lf %li %li\n", &MC.f, &MC.phase0, &sd1, &sd2); // [AL]
+
   char line[5012]; // skip a line
   char *tmpbuf = fgets(line, 5011, fp);
+
+  if(sd2) {
+     MC.seed = sd1;
+  } else {
+     MC.seed = (unsigned long) time(NULL);
+  }
+
 
   printf("Constants:\n");
   printf("  %10s   (%e)\n", "f", MC.f);
@@ -147,6 +156,7 @@ int LoadProblem_TXT(char *fin)
   printf("  %10s   (%li)\n", "Nb", Nb);
   printf("  %10s   (%li)\n", "Nr", Nr);
   printf("  %10s   (%li)\n", "Nphoton", MC.Nphoton);
+  printf("  %10s   (%li)\n", "seed", MC.seed);
   printf("Arrays:\n");
 
   // make negative phase0 positive by adding a multiple of 2*pi
@@ -154,15 +164,15 @@ int LoadProblem_TXT(char *fin)
   {
     MC.phase0 += 2 * M_PI * ceil(-MC.phase0 / (2 * M_PI));
   }
-
+  // read the arrays
   readAndResize(fp, Ne, 3, true, &MC.H, "H");
   readAndResize(fp, Nb, 2, true, &MC.BH, "BH");
   readAndResize(fp, Nr, 2, true, &MC.r, "r");
   readAndResize(fp, Ne, 1, true, &MC.mua, &MC.mus, &MC.g, &MC.n, "mua", "mus", "g", "n");
   readAndResize(fp, Nb, 1, true, &MC.BCType, "BCType");
   readAndResize(fp, Nb, 1, false, &MC.BCn, "BCn");
-  readAndResize(fp, Nb, 2, false, &MC.BCLNormal, "BCLNormal");
-  readAndResize(fp, Nb, 1, false, &MC.BCLightDirectionType, "BCLDirType");
+  readAndResize(fp, Nb, 2, false, &MC.BCLNormal, "BCLightDirection");
+  readAndResize(fp, Nb, 1, false, &MC.BCLightDirectionType, "BCLightDirectionType");
   readAndResize(fp, Nb, 1, false, &MC.BCIntensity, "BCIntensity");
   readAndResize(fp, Nb, 1, false, &MC.GaussianSigma, "GaussianSigma");
 

@@ -101,10 +101,10 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   version_string(infobuf);
   mexPrintf("%s",infobuf);
 
-  if ((nrhs != 18) || ((nlhs != 4) && (nlhs != 5)))
+  if ((nrhs != 19) || ((nlhs != 5) && (nlhs != 6)))
   {
     mexPrintf("nrhs %i nlhs %i", nrhs, nlhs);
-    mexErrMsgTxt("Syntax:\n [vsol, bsol, ebsol, simulationtime, [HN]] = MC2Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLNormal, BCn, mua, mus, g, n, f, phase0, Nphoton, GaussianSigma, disablepbar)\n");
+    mexErrMsgTxt("Syntax:\n [vsol, bsol, ebsol, simulationtime, seed, [HN]] = MC2Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLNormal, BCn, mua, mus, g, n, f, phase0, Nphoton, GaussianSigma, disablepbar, rndseed)\n");
   }
 
   // Parse input
@@ -115,7 +115,8 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Array<int_fast64_t> Nphoton;
   Array<double> GaussianSigma;
   Array<int_fast64_t> disable_pbar;
-  
+  Array<int_fast64_t> rndseed;
+
   Convert_mxArray(prhs[0], H);
   Convert_mxArray(prhs[1], HN);
   Convert_mxArray(prhs[2], BH);
@@ -134,10 +135,11 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Convert_mxArray(prhs[15], Nphoton);
   Convert_mxArray(prhs[16], GaussianSigma);
   Convert_mxArray(prhs[17], disable_pbar);
+  Convert_mxArray(prhs[18], rndseed);
 
   // make negative phase0 positive by adding a multiple of 2*pi
-  
   // Set parameters to MC
+
   MC2D MC;
   MC.H = H;
   MC.HN = HN;
@@ -161,10 +163,12 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
     MC.phase0 += 2*M_PI*ceil(-MC.phase0 / (2*M_PI));
     mexPrintf("Transformed negative phase0 to positive %f\n", MC.phase0);
   }
-  
-  // Comment to use fixed seed
-  MC.seed = (unsigned long) time(NULL);
 
+  if(rndseed[1]) {
+     MC.seed = rndseed[0];
+  } else {
+     MC.seed = (unsigned long) time(NULL);
+  }
   // Initialize
   mexPrintf("Initializing MC2D...\n");
   try {
@@ -210,6 +214,9 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   time(&now);
   *mxGetPr(plhs[3])=(double) difftime(now,starting_time);
 
+  const size_t dim = 1;
+  plhs[4]=mxCreateNumericArray(1, &dim, mxINT32_CLASS, mxREAL); // [AL]
+  *mxGetPr(plhs[4])= MC.seed;
 
   long ii;
   for(ii = 0; ii < MC.ER.N; ii++){
@@ -226,9 +233,9 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   }
 
   // Copy topology neighbourhood
-  if(nlhs == 5){
+  if(nlhs == 6){
     Array<long> HNo;
-    Convert_mxArray(&plhs[4], HNo, MC.HN.Nx, MC.HN.Ny);
+    Convert_mxArray(&plhs[5], HNo, MC.HN.Nx, MC.HN.Ny);
     for(ii = 0; ii < MC.HN.N; ii++) HNo[ii] = MC.HN[ii]; 
   }
 

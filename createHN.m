@@ -1,21 +1,28 @@
 function [HN] = createHN(H);
 %CREATEHN Creates topology neighbourhood HN for topology H
 %
+% USAGE:
+%
+%       HN = createHN(H)
 %
 % DESCRIPTION:
+%
 %       This can function can be used to create a neighborhood
 %       matrix for a given element topology
 %
-% USAGE:
-%       HN = createHN(H)
+% INPUT:
 %
-% INPUTS:
 %       H           - Element topology
 %
-% OUTPUTS:
+% OPTIONAL INPUT:
+%
+%       optarg1     - Description of the first optional argument [J/m3]
+%
+% OUTPUT:
+%
 %       HN          - Neighborhood topology
-
-
+%
+% This function is provided with ValoMC
 
 if(size(H,2) > 3)
    error('Three dimensional meshes not yet supported');

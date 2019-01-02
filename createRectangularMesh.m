@@ -1,22 +1,29 @@
 function vmcmesh = createRectangularMesh(xsize, ysize, dh)
-% Create a mesh structure with a rectangular geometry
+% CREATERECTANGULARMESH Creates a mesh structure with a rectangular geometry
 %
-% vmcmesh = createRectangularMesh(xsize, ysize, step)
+% DESCRIPTION:
 %
-% INPUT
+%       This can function can be used to create a rectangular mesh (2D)
 %
-%  xsize:       the radius of the rectangle [mm]
-%  ysize:       discretisation step size [mm]
-%  dh:          step size [mm]
+% USAGE:
 %
-% OUTPUT
+%       vmcmesh = createRectangularMesh(xsize, ysize, step)
+%       
+% INPUT:
 %
-%  vmcmesh:        structure that contains the geometry (triangles,
-%                                                     boundary
-%                                                     lines etc.)
+%       xsize        - rectangle width [mm]
+%       ysize        - rectangle height [mm]
+%       dh           - width and height of each triangle in the mesh
 %
-% See also createCircularMesh
+% OUTPUT:
 %
+%       vmcmesh      - mesh structure, contains the geometry of the system
+%
+% SEE ALSO:
+% 
+%                      createCircularMesh, createGridMesh
+%
+% This function is provided with ValoMC
 
    vmcmesh = createGridMesh(-xsize/2+dh/2:dh:xsize/2-dh/2,-ysize/2+dh/2:dh:ysize/2-dh/2);
 

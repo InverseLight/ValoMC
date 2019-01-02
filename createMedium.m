@@ -1,45 +1,54 @@
 function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
-%CREATEMEDIUM Creates a 'vmcmedium' structure array
+%CREATEMEDIUM Creates a vmcmedium structure
 %
-% DESCRIPTION:
-%        
-%       Creates a 'vmcmedium' structure array (see https://inverselight.github.io/ValoMC/structures.html)
-%       or turns the existing fields in a given medium into arrays that are compatible in size with a
-%       given mesh.
-%    
 % USAGE:
+%
 %       vmcmedium = createMedium(vmcmesh);
 %
-%           returns the following structure
-%    
-%                   vmcmedium.refractive_index(:) = 1;               
-%                   vmcmedium.scattering_coefficient(:) = 0; 
-%                   vmcmedium.absorption_coefficient(:) = 0; 
+%           Returns
+%
+%                   vmcmedium.refractive_index(:) = 1;
+%                   vmcmedium.scattering_coefficient(:) = 0;
+%                   vmcmedium.absorption_coefficient(:) = 0;
 %                   vmcmedium.scattering_anisotropy(:) = 0;
 %
-%           The size of each array is equal to the number of elements
+%           where the size of each array is equal to the number of elements
 %           in the mesh.
 %
 %       vmcmedium_out = createMedium(vmcmesh, vmcmedium);
 %
-%           returns the structure as above but each existing field in
-%           vmcmedium is copied to vmcmedium_out by repeating it until
-%           the size matches the number of elements in the mesh
+%           Repeats the entries in vmcmedium so that the size of each array
+%           is equal to the number of elements in the mesh.
 %
-% INPUTS:
-%       vmcmesh       -  see https://inverselight.github.io/ValoMC/structures.html  
 %
-% OPTIONAL INPUTS:
-%       vmcmedium     -  incomplete structure array for medium (see https://inverselight.github.io/ValoMC/structures.html)
+% DESCRIPTION:
 %
-% OUTPUTS:
-%       vmcmedium_out -  structure array for medium
+%       The purpose of this function is to help to initialize the medium structure.
+%       It is used to set the optical coefficients of each element.
+%
+% INPUT:
+%
+%       vmcmesh       -  mesh structure, contains the geometry of the system
+%
+% OPTIONAL INPUT:
+%
+%       vmcmedium     -  medium structure, used to set e. g. optical coefficients
+%
+% OUTPUT:
+%
+%       vmcmedium_out -  formatted medium structure
+%
+% SEE ALSO:
+%
+%       https://inverselight.github.io/ValoMC/structures.html
+%
+% This function is provided with ValoMC
 
     if(~exist('vmcmedium'))
-         vmcmedium.refractive_index = 1;               
+         vmcmedium.refractive_index = 1;
          vmcmedium.scattering_coefficient = 0;
-         vmcmedium.absorption_coefficient = 0; 
-         vmcmedium.scattering_anisotropy = 0;        
+         vmcmedium.absorption_coefficient = 0;
+         vmcmedium.scattering_anisotropy = 0;
     end
     vmcmedium_out = vmcmedium;
 
@@ -125,4 +134,21 @@ function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
     vmcmedium_out.absorption_coefficient = duplicateArray(vmcmedium.absorption_coefficient(:), size(vmcmesh.H,1));
     vmcmedium_out.scattering_anisotropy = duplicateArray(vmcmedium.scattering_anisotropy(:), size(vmcmesh.H,1));
    
+end
+
+
+function array_out = duplicateArray(array_in, desired_size, defaultvalue)
+   % convert to column vector
+   if(size(array_in,2) > size(array_in,1))
+       array_in = transpose(array_in);
+   end
+
+   if(size(array_in,1) > desired_size)
+      tmp = array_in(1:desired_size);
+   else
+      tmp = repmat(array_in,ceil(desired_size/size(array_in,1)),1);
+   end
+
+   array_out = tmp(1:desired_size,:);
+
 end

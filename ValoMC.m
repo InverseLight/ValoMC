@@ -1,16 +1,71 @@
 function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
-% Run a photon transport simulation.
-% The input/output structures are documented in detail in
-% documentation/structure reference.
+% VALOMC Runs a photon transport simulation
+%
+% USAGE:
+%
+%       solution = ValoMC(vmcmesh, vmcmedium, vmcboundary)
+%       solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
+%
+% DESCRIPTION:
+%
+%       This main function used to initiate simulations.
+%       The input structures are documented in more detail
+%       in the homepage (see below).
+%
+% INPUT:
+%
+%       vmcmesh                   - contains the geometry of the system
+%         .H                      - element topology
+%         .BH                     - boundary element topology
+%         .r                      - node coordinates
+%       vmcmedium                 - contains the optical properties of the medium
+%         .absorption_coefficient   all have same size as size(H,1)
+%         .scattering_coefficient
+%         .scattering_anisotropy
+%         .refractive_index
+%       vmcboundary
+%         .lightsource            - type of the lightsource (e.g. {'cosinic'}. {'gaussian'})
+%         .lightsource_direction  - size(H, Ndim)
+%         .lightsource_direction_type  - {'relative'} or {'absolute'}, direction with respect to normal or an absolute direction
+%
+% OPTIONAL INPUT:
+%       vmcoptions
+%         .photon_count
+%         .disable_progressbar    - true or false
+%         .seed                   - random number generator seed
+%
+%
+% OUTPUT:
+%
+%       output
+%         .element_fluence         - size(H,1)
+%         .boundary_exitance       - size(BH,1)
+%         .seed_used
+%         .simulation_time
+%
+% OPTIONAL OUTPUT
+%
+%         .grid_fluece             - per pixel/voxel fluence if the mesh was created using createGridMesh
+%
+% This function is provided with ValoMC
+
+
+% VALOMC Runs a photon transport simulation.
 %
 % INPUT
 %
-%          see documentation/structure reference
+%   vmcmesh   : 
 %
 % OUTPUT
 %
 %          see documentation/structure reference
 %
+% SEE ALSO
+%
+%
+
+
+
 
 
 % Gather the input for the mex code.
@@ -307,4 +362,87 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
     end
 
 end
+
+function array_out = duplicateArray(array_in, desired_size, defaultvalue)
+%
+% INPUT
+%
+%  array_in:            incomplete array
+%  desired_size:        desired size for the array
+%
+% OUTPUT
+%
+%  array_out:           completed array [size]
+%
+   % convert to column vector
+   if(size(array_in,2) > size(array_in,1))
+       array_in = transpose(array_in);
+   end
+
+   if(size(array_in,1) > desired_size)
+      tmp = array_in(1:desired_size);
+   else
+      tmp = repmat(array_in,ceil(desired_size/size(array_in,1)),1);
+   end
+
+   array_out = tmp(1:desired_size,:);
+
+end
+
+
+function array_out  = extendCellArray(array_in, desired_size)
+%
+% DESCRIPTION:
+%       A helper function to quicky take take content of one
+%       array and make another, bigger cell array with it.
+%
+% INPUTS:
+%       array_in      Input array
+%       desired_size  Desired size for the array
+%
+%
+% OUTPUTS:
+%       array_out      Extended array
+
+  if(length(array_in) > desired_size)
+     warning('extendCellArray is intended only for extending arrays.');
+  end
+  array_out = cell(desired_size, 1);
+  array_out(1:length(array_in)) = array_in(1:length(array_in));
+end
+
+function c = controlStringToCharacter(string, default)
+%CONTROLSTRINGTOCHARACTER Convert a control string to a single character for the C++ code 
+%
+%
+% DESCRIPTION:
+%       (ValoMC internal use only) 
+%       Converts strings that are used in the ValoMC Matlab interface like 'cosinic'
+%       into a single byte character. For example 'gaussian' -> 'g'
+%   
+% USAGE:
+%       output = controlStringToCharacter('gaussian', 'n')
+%
+% INPUTS:
+%       string     - Control string to convert
+%       default    - If no character is found for conversion, return this value
+%
+% OUTPUTS:
+%       c          - Converted character
+    
+      if(strcmp(string,'none')) c = 'a';
+      elseif(strcmp(string,'direct')) c = 'l';
+      elseif(strcmp(string,'cosinic')) c = 'c';
+      elseif(strcmp(string,'gaussian')) c = 'g';
+      elseif(strcmp(string,'isotropic')) c = 'i';
+      elseif(strcmp(string,'absolute')) c = 'a';
+      elseif(strcmp(string,'relative')) c = 'r';
+      elseif(strcmp(string,'pencil')) c = 'p';
+      else c = default;
+      end
+    
+end
+    
+    
+
 

@@ -1,7 +1,42 @@
 function elements = findBoundaries(vmcmesh, querystring, varargin)
-% Finds elements
+%FINDBOUNDARIES Finds boundary elements from the mesh
 %
-% See "Finding elements" in documentation
+% USAGE:
+%
+%       elements = findBoundaries(vmcmesh, querystring, varargin)
+%
+% DESCRIPTION:
+%
+%       This function can be used to find boundary elements from the mesh.
+%       A complete description of this function is given in the homepage (see below)
+%
+% INPUT:
+%
+%       vmcmesh       - mesh structure, contains the geometry of the system
+%
+%       querystring, optional arguments
+%
+%       2D mesh (row size)
+%
+%          'arc', origin (2), startangle (1), endangle (1)
+%          'direction', origin (2), waypoint (2), width (1), maxdist (1, optional)
+%          'inverse', elements (number of boundary elements)
+%          'location', coordinate (2)
+%
+%       3D mesh (row size)
+%
+%          'direction', origin (3), waypoint (3), shape ('circle','rectangle', 'arbitrary') width (1), coordinates for the shape (optional)
+%          'halfspace', location (3), normal (3)
+%          'inverse', elements (number of boundary elements)
+%          'location', nearestlocation (3)
+%
+% SEE ALSO:
+%
+% Detailed documentation of the function is given in
+%
+% https://inverselight.github.io/ValoMC/findingboundaries.html
+%
+% This function is provided with ValoMC
     if(size(vmcmesh.H,2) == 3)
         % 2D
         if(strcmp(querystring, 'direction'))
@@ -109,6 +144,98 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
             error('Could not recognize mesh');  
     end
 
+end
+
+
+function [segments, totallength] = findBoundariesByDirection(vmcmesh, start, waypoint, width, maxdist)
+% Finds line segments at a given direction from a point
+%
+%
+% INPUT
+%
+%  vmcmesh:      (described in documentation/list of structures)
+%  start:        starting point vector for the line definies the region
+%  waypoint:     waypoint for the line that defines the region
+%  width:        total width of the region
+%  maxdist:      maximum distance from origin
+%
+% OUTPUT
+%
+%  segments:     the indices of the line segments within the region
+%  totallength:  total lengths of the the line segments
+%
+    if(~exist('maxdist'))
+        maxdist = 1e38; % big number
+    end
+    segments = [];
+    width=width/2;
+%    for j=1:size(start,1)
+        match=1;
+        for i=1:size(vmcmesh.BH, 1)
+            % check if the two ends of the linesegment are within a
+            % perpendicular distance 'width'
+            if(distanceFromLine(start(:),waypoint(:),vmcmesh.r(vmcmesh.BH(i,1),:)) <= width)
+                if(distanceFromLine(start(:),waypoint(:),vmcmesh.r(vmcmesh.BH(i,2),:)) <= width)
+                    % if yes, check that the normal points outwards from the direction
+                    direction = vmcmesh.r(vmcmesh.BH(i,2),:) - vmcmesh.r(vmcmesh.BH(i,1),:);
+                    normal = [-direction(2) direction(1)];
+                    
+                    if((dot(normal, waypoint - start) > 0) ...
+                    && (norm(vmcmesh.r(vmcmesh.BH(i,2),:) - start) < maxdist) ...
+                    && (norm(vmcmesh.r(vmcmesh.BH(i,1),:) - start)  < maxdist))
+                        segments = [segments; i]; 
+                        match = match+1;
+                    end
+                end
+            end
+        end
+%   end
+    if(match == 1) 
+        warning('Did not find any boundaries matching the criteria.');
+    end
+end
+
+
+function [segments] = findLineSegmentsNearest(vmcmesh, locations)
+%
+% Finds line segments nearest to each position
+%
+% INPUT
+%
+%  vmcmesh:         (described in documentation/list of structures)
+%  locations:    an array that contains a position vector in each row.
+%
+% OUTPUT
+%
+%  segments:     the indices of the line segments nearest to the positions
+%    
+        avgx = (vmcmesh.r(vmcmesh.BH(:,1),1) + vmcmesh.r(vmcmesh.BH(:,2),1))/2.0;
+        avgy = (vmcmesh.r(vmcmesh.BH(:,1),2) + vmcmesh.r(vmcmesh.BH(:,2),2))/2.0;
+        pos = [avgx avgy];
+        segments = zeros(size(locations,1),1);
+        for ii=1:size(locations,1)
+           m=(pos - locations(ii,:)) .^2;
+           norms=sum(m')';
+           [minvalue minindex] = min(norms);
+           segments(ii) = minindex; 
+        end
+    
+    end
+    
+    
+    
+
+    
+    
+function distance = distanceFromLine(p1,p2,p3)
+% calculates the distance from point p3 from a line that goes trough points p1 and p2
+  x0 = p3(1);
+  y0 = p3(2);
+  x1 = p1(1);
+  y1 = p1(2);
+  x2 = p2(1);
+  y2 = p2(2);
+  distance = abs(((y2-y1)*x0 - (x2-x1)*y0 +x2*y1- y2*x1))/norm(p2-p1);
 end
 
 

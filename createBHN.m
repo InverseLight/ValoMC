@@ -1,20 +1,26 @@
 function [BHN] = createBHN(BH);
-%CREATEHN Creates topology neighbourhood BHN for boundary topology BH
+%createBHN Creates topology neighbourhood BHN for boundary topology BH
 %
+%
+% USAGE:
+%
+%       BHN = createBHN(BH)
 %
 % DESCRIPTION:
+%
 %       This can function can be used to create a neighborhood
 %       matrix for a given element topology
 %
-% USAGE:
-%       BHN = createBHN(BH)
+% INPUT:
 %
-% INPUTS:
 %       BH           - Element topology
 %
-% OUTPUTS:
+% OUTPUT:
+%
 %       BHN          - Neighborhood topology
-
+%
+% This function is provided with ValoMC
+%
 
 
 if(size(BH,2) > 2)

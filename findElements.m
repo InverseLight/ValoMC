@@ -1,7 +1,45 @@
 function elements = findElements(vmcmesh, querystring, varargin)
-% Finds elements
+%FINDELEMENTS Finds boundary elements from the mesh
 %
-% See https://inverselight.github.io/ValoMC/findingelements.html
+% USAGE:
+%
+%       elements = findElements(vmcmesh, querystring, varargin)
+%
+% DESCRIPTION:
+%
+%       This function can be used to find elements from the mesh.
+%       A complete description is given in the homepage (see below).
+%
+% INPUT:
+%
+%       vmcmesh       - mesh structure, contains the geometry of the system
+%
+%       querystring, optional arguments
+%
+%       2D mesh (row size)
+%
+%          'rectangle', position(2), width (1), height (1)
+%          'circle', location (2), radius (1)
+%          'inverse', elements (number of elements in the selection)
+%          'location', location (2)
+%          'region', region_BH (2)
+%
+%       3D mesh (row size)
+%
+%          'cylinder', origin (3), direction (3), radius (1)
+%          'box', origin (2), xsize (1), ysize (1), zsize (1)
+%          'sphere', location (3), radius (1)
+%          'inverse', elements (number of elements in the selection)
+%          'location', location (3)
+%          'region', region_BH (3)
+%
+% SEE ALSO:
+%
+% Detailed documentation of the function is given in
+% https://inverselight.github.io/ValoMC/findingelements.html
+%
+% This function is provided with ValoMC
+
     if(size(vmcmesh.H,2) == 3)
         % 2D
         if(strcmp(querystring, 'rectangle'))
@@ -80,4 +118,72 @@ function elements = findElements(vmcmesh, querystring, varargin)
 
 end
 
+
+function elements = findElementsInsideCircle(vmcmesh, radius, center)
+    %FINDELEMENTSINSIDECIRCLE Returns indices to elements within a given radius from a location
+    %
+    % DESCRIPTION:
+    %       Returns elements within given radius from a location
+    %
+    % USAGE:
+    %       elements = findElementsInsideCircle(vmcmesh, center, radius)
+    %
+    % INPUTS:
+    %       vmcmesh     - https://inverselight.github.io/ValoMC/structures.html
+    %       radius      - radius of the circle
+    %       center      - location vector of the circle
+    %                     
+    % OUTPUTS:
+    %       elements    - elements within the circle
+    
+       v1 = ((vmcmesh.r(vmcmesh.H(:,1),1)-center(1)).*(vmcmesh.r(vmcmesh.H(:, 1),1)- ...
+                                                 center(1))+ ...
+             (vmcmesh.r(vmcmesh.H(:,1),2)-center(2)).*(vmcmesh.r(vmcmesh.H(:,1),2)- ...
+                                                 center(2)) < radius*radius);
+             
+       v2 = ((vmcmesh.r(vmcmesh.H(:,2),1)-center(1)).*(vmcmesh.r(vmcmesh.H(:, 2),1)- ...
+                                                 center(1))+ ...
+             (vmcmesh.r(vmcmesh.H(:,2),2)-center(2)).*(vmcmesh.r(vmcmesh.H(:,2),2)- ...
+                                                 center(2)) < radius*radius);
+    
+       v3 = ((vmcmesh.r(vmcmesh.H(:,3),1)-center(1)).*(vmcmesh.r(vmcmesh.H(:, 3),1)- ...
+                                                 center(1))+ ...
+             (vmcmesh.r(vmcmesh.H(:,3),2)-center(2)).*(vmcmesh.r(vmcmesh.H(:,3),2)- ...
+                                                 center(2)) < radius*radius);
+    
+       elements = find(v1==true & v2==true & v3 ==true);
+    
+end
+
+
+function elements = findElementsInsideRectangle(vmcmesh, width, height, center)
+    % Finds elements inside a rectangle
+    %
+    % function elements = findElementsInsideRectangle(vmcmesh, radius, center)
+    %
+    % INPUT
+    %
+    %  vmcmesh:      the vmcmesh containing the elements (described in documentation/list of structures)
+    %  width:        the width of the circle
+    %  height:       the height of the circle
+    %  center:       the center of the circle
+    %
+    % OUTPUT
+    %
+    %  elements:     the elements of the rectangle
+    
+       maxx = center(1)+width/2;
+       minx = center(1)-width/2;
+       maxy = center(2)+height/2;
+       miny = center(2)-height/2;
+     
+       elements = find(vmcmesh.r(vmcmesh.H(:,1),1) <= maxx & vmcmesh.r(vmcmesh.H(:,1),1) >= minx & ...
+                       vmcmesh.r(vmcmesh.H(:,2),1) <= maxx & vmcmesh.r(vmcmesh.H(:,2),1) >= minx & ...
+                       vmcmesh.r(vmcmesh.H(:,3),1) <= maxx & vmcmesh.r(vmcmesh.H(:,3),1) >= minx & ...
+                       vmcmesh.r(vmcmesh.H(:,1),2) <= maxy & vmcmesh.r(vmcmesh.H(:,1),2) >= miny & ...
+                       vmcmesh.r(vmcmesh.H(:,2),2) <= maxy & vmcmesh.r(vmcmesh.H(:,2),2) >= miny & ...
+                       vmcmesh.r(vmcmesh.H(:,3),2) <= maxy & vmcmesh.r(vmcmesh.H(:,3),2) >= miny);
+
+end
+    
 

@@ -1,5 +1,7 @@
 function exportX3D(filename, vertices, mesh, value, colormap)
-%EXPORTX3D Export the mesh into X3D format.
+%EXPORTX3D Export the mesh into X3D format
+%
+%       exportX3D(filename, vertices, mesh, value, colormap)
 %
 % DESCRIPTION:
 %
@@ -25,6 +27,7 @@ function exportX3D(filename, vertices, mesh, value, colormap)
 %                        color of each triangle from 'value'
 %
 %
+%  This function is provided with ValoMC
 
 % determine if xhtml header is needed
 

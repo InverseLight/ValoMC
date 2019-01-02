@@ -49,16 +49,20 @@ function output = createGridMesh(xvec, yvec, zvec)
 %       2*size(xvec)*size(yvec)*size(xvec)+1:th tetrahedron and so on
 %
 % USAGE:
+%
 %       vmcmesh = createGridMesh(xvec, yvec);
 %       vmcmesh = createGridMesh(xvec, yvec);
 %
-% INPUTS:
+% INPUT:
+%
 %       xvec       - x coordinates for the center location of each pixel/cube
 %       yvec       - y coordinates for the center location of each pixel/cube
 %
-% OPTIONAL INPUTS:
+% OPTIONAL INPUT:
+%
 %       zvec       - z coordinates for the center location of each pixel/cube 
-
+%
+% This function is provided with ValoMC
 
     if(nargin==2)
    

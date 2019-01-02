@@ -1,7 +1,9 @@
 function [vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
-% Imports NetGen .vol files
+% IMPORTNETGENMESH Imports NetGen .vol files
 %
-% function [mesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
+% USAGE
+%
+%  function [mesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
 %
 % INPUT
 %
@@ -29,6 +31,8 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
 %   indices_for_lightsource = cell2mat(boundaries(2));
 %   vmcmedium.refractive_index(indices_for_circles)=1.6;
 %   vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};
+%
+%   This function is provided with ValoMC
 
     fid = -1;
     errmsg = '';
@@ -116,3 +120,40 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
         error('Could not read dimensionality!');
     end
 end 
+
+
+function [arr_out] = readNetgenEntry(entryname, fid, tline)
+    arr_out = [];
+    value = [];
+    if(strcmp(tline, entryname))
+        number_of_entries = str2num(fgetl(fid));
+        for i=1:number_of_entries
+            curline = fgetl(fid);
+            linevector = str2num(curline);
+            if(isempty(linevector))
+                [value] = strsplit(curline);
+                arr_out{uint32(str2num(value{1}))} = value{2};
+            else
+                arr_out = [arr_out; linevector];
+            end
+        end
+        if(not(ischar(tline)))
+            error('Could not read file');
+        end
+    end
+end
+
+
+function [value] = readNetgenValue(entryname, fid, tline)
+% Auxiliary function for importNetGenmesh
+%
+%  This function is used to extract scalars from the vol files
+%  (like the dimensionality).
+%
+    value = [];
+    if(strcmp(tline, entryname))
+        value = str2num(fgetl(fid));
+    end
+end
+
+

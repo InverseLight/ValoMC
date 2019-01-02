@@ -1,25 +1,32 @@
 function [BH, BMother] = createBH(H, HN);
-%createBH Create a boundary topology
+%createBH Creates a boundary topology
+%
+% USAGE:
+%
+%       [BH, BMother] = createBH(H, HN);
+%
+%       [BH, BMother] = createBH(H, createHN(H));
+%
 %
 % DESCRIPTION:
 %
 %       Given topology H and its neighbourhood HN, will create
 %       boundary topology BH.  Can also produce BMother which defines
-%       index into H to which boundary element belongs to.  
+%       index into H to which boundary element belongs to.
 %
 %
-% USAGE:
-%       [BH, BMother] = createBH(H, createHN(H));
-%       [BH, BMother] = createBH(H, HN);
+% INPUT:
 %
-% INPUTS:
-%       H           - Topology matrix (see article)
-%       HN          - Neighborhood topology matrix (see article)
+%       H           - Topology matrix
+%       HN          - Neighborhood topology matrix
 %
-% OUTPUTS:
+% OUTPUT:
+%
 %       BH          - Boundary topology matrix
 %       BMother     - Vector in which each row defines an index in H to which the
 %                     boundary element belongs to
+%
+% This function is provided with ValoMC
 
 if(size(H,2) > 3)
     if(exist('createBH3') == 0)

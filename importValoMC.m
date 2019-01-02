@@ -1,5 +1,40 @@
 function [vmcmesh vmcmedium vmcboundary options solution] = ...
         importValoMC(problemdefinition_filename, solution_filename)
+%IMPORTVALOMC Imports simulation results that are generated using the external executable
+%
+% USAGE:
+%
+%       [vmcmesh vmcmedium vmcboundary options solution]  ...
+%       = importValoMC(problemdefinition_filename, solution_filename)
+%
+% DESCRIPTION:
+%
+%       Used to load results from simulations ran using the external executable of ValoMC
+%
+% INPUT:
+%
+%       problemdefinition_filename    - name of the file that contains the problem definition
+%       solution_filename             - name of the output file from the external executable
+%
+% OUTPUT:
+%
+%       vmcmesh                       - mesh structure, contains the geometry of the system
+%       vmcmedium                     - medium structure, used to set e. g. optical coefficients
+%       vmcboundary                   - boundary structure, used to set e. g. light sources
+%
+% EXAMPLE:
+%
+%       exportValoMC('problem_in.txt',vmcmesh, vmcmedium, vmcboundary, vmcoptions);
+%       ... exit matlab run the simulation ....
+%       MC2D problem_in.txt problem_out.txt
+%       ... return to matlab ...
+%       [vmcmesh vmcmedium vmcboundary options solution] = importValoMC('problem_in.txt', 'problem_out.txt')
+%
+% SEE ALSO:
+%
+%       https://inverselight.github.io/ValoMC/structures.html
+%
+% This function is provided with ValoMC
 
     dimension=getInputDimension(problemdefinition_filename);
 
@@ -156,3 +191,22 @@ function array = getArrayFromFile(fp, formatspec, isize)
    end
 
 end
+
+function dimension = getInputDimension(filename)
+   fileID = fopen(filename,'r');
+   tline = fgets(fileID);
+   tline = fgets(fileID);
+   tline = fgets(fileID);
+   tline = fgets(fileID);
+   tline = fgets(fileID);
+   C = find(~cellfun(@isempty,strsplit(tline)));
+   fclose(fileID);
+   dimension=0;
+   if(size(C,2)==3) 
+       dimension=2;
+   else if(size(C,2)==4) 
+       dimension=3;
+   end
+end
+
+

@@ -93,16 +93,15 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
         boundary_names = bcnames;
         num_boundaries = max(edgesegments(:,1));
         num_domains = max(surface_elements(:,2));
-        
+
         for i = 1:num_boundaries
             boundaries{i} = find(edgesegments(:,1)==i);
         end 
-        
         for i = 1:num_domains
             regions{i} = find(surface_elements(:,2)==i);
         end 
 
-    else if(dimensionality == 3)
+    elseif(dimensionality == 3)
         vmcmesh.H = volume_elements(:,3:6);
         vmcmesh.r = points(:,1:3);
         vmcmesh.BH = surface_elements(:,6:8);
@@ -119,7 +118,7 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
     else
         error('Could not read dimensionality!');
     end
-end 
+end
 
 
 function [arr_out] = readNetgenEntry(entryname, fid, tline)

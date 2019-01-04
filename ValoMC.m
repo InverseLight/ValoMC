@@ -29,6 +29,7 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
 %         .lightsource_direction_type  - {'relative'} or {'absolute'}, direction with respect to normal or an absolute direction
 %
 % OPTIONAL INPUT:
+%
 %       vmcoptions
 %         .photon_count
 %         .disable_progressbar    - true or false
@@ -43,33 +44,20 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
 %         .seed_used
 %         .simulation_time
 %
-% OPTIONAL OUTPUT
+% OPTIONAL OUTPUT:
 %
 %         .grid_fluece             - per pixel/voxel fluence if the mesh was created using createGridMesh
+%
+% SEE ALSO:
+%
+%         https://inverselight.github.io/ValoMC/structures.html
+%         https://inverselight.github.io/ValoMC/structures3d.html
 %
 % This function is provided with ValoMC
 
 
-% VALOMC Runs a photon transport simulation.
-%
-% INPUT
-%
-%   vmcmesh   : 
-%
-% OUTPUT
-%
-%          see documentation/structure reference
-%
-% SEE ALSO
-%
-%
 
 
-
-
-
-% Gather the input for the mex code.
-%
 % Structure of input:
 %          H   Triangular topology matrix [Ne x 3]
 %         HN   Topology neighbourhood (optional) [Ne x 3]

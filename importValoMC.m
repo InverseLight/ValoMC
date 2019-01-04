@@ -42,7 +42,7 @@ function [vmcmesh vmcmedium vmcboundary options solution] = ...
         error('Could not read input.');
     end
 
-    if(~isempty(problemdefinition_filename));
+    if(~isempty(problemdefinition_filename))
 
         fp = fopen(problemdefinition_filename, 'r');
         A = fscanf(fp, '%d %d %d %d\n', 4);
@@ -204,7 +204,7 @@ function dimension = getInputDimension(filename)
    dimension=0;
    if(size(C,2)==3) 
        dimension=2;
-   else if(size(C,2)==4) 
+   elseif(size(C,2)==4) 
        dimension=3;
    end
 end

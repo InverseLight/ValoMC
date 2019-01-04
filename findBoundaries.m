@@ -21,7 +21,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
 %          'arc', origin (2), startangle (1), endangle (1)
 %          'direction', origin (2), waypoint (2), width (1), maxdist (1, optional)
 %          'inverse', elements (number of boundary elements)
-%          'location', coordinate (2)
+%          'location', coordinate (2) | if a third argument is given, returns nearest nodes (in the boundary) instead
 %
 %       3D mesh (row size)
 %
@@ -66,7 +66,11 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
             belements=find(angle1 >= startangle & angle1 <= endangle & angle2 >= startangle & angle2 <= endangle)
 
         elseif(strcmp(querystring, 'location'))
-            elements = findLineSegmentsNearest(vmcmesh, varargin{1});
+            if(size(varargin, 2) == 1)
+               elements = findLineSegmentsNearest(vmcmesh, varargin{1});
+            else
+               elements = findNodesNearest(vmcmesh, varargin{1});
+            end
         elseif(strcmp(querystring, 'rectangle'))
              
         elseif(strcmp(querystring, 'circle'))
@@ -220,13 +224,23 @@ function [segments] = findLineSegmentsNearest(vmcmesh, locations)
            segments(ii) = minindex; 
         end
     
-    end
-    
-    
-    
+ end
 
-    
-    
+
+function [nodes] = findNodesNearest(vmcmesh, locations)
+        boundary_indices = unique([vmcmesh.BH(:,1) vmcmesh.BH(:,2)]);
+
+        pos = vmcmesh.r(boundary_indices,:);
+        nodes = zeros(size(locations,1),1);
+
+        for ii=1:size(locations,1)
+           m=(pos - locations(ii,:)) .^2;
+           norms=sum(m')';
+           [minvalue minindex] = min(norms);
+           nodes(ii) = boundary_indices(minindex); 
+        end
+ end
+
 function distance = distanceFromLine(p1,p2,p3)
 % calculates the distance from point p3 from a line that goes trough points p1 and p2
   x0 = p3(1);

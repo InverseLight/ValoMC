@@ -33,7 +33,7 @@ vmcmedium = createMedium(vmcmesh,vmcmedium);
 % centre coordinates
 radius = 2.5;                 % [mm]
 centercoord = [0.0  0.0];     % [mm]
-elements_of_the_circle = findElements(vmcmesh, 'circle', radius, centercoord);
+elements_of_the_circle = findElements(vmcmesh, 'circle', centercoord, radius);
 
 % Assign a unique absorption coefficient to the circle
 vmcmedium.absorption_coefficient(elements_of_the_circle) = 0.25;

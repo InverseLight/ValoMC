@@ -46,7 +46,7 @@ function elements = findElements(vmcmesh, querystring, varargin)
             elements = findElementsInsideRectangle(vmcmesh, varargin{2}, varargin{3}, varargin{1});
             % input is (vmcmesh, width, height, location)
         elseif(strcmp(querystring, 'circle'))
-   	        elements = findElementsInsideCircle(vmcmesh, varargin{1}, varargin{2});
+   	        elements = findElementsInsideCircle(vmcmesh, varargin{2}, varargin{1});
         elseif(strcmp(querystring, 'inverse'))
             arr = 1:size(vmcmesh.H);
             elements = setdiff(arr, [varargin{1}]);

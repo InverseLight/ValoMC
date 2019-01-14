@@ -1,4 +1,8 @@
+
+![ValoMC logo](https://inverselight.github.io/ValoMC/ValoMC_logo.png)
+
 Please see the full documentation at https://inverselight.github.io/ValoMC/
+
 
 Introduction
 ============
@@ -46,6 +50,8 @@ The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a
 	% Plot the solution using MATLAB 
 	patch('Faces',vmcmesh.H,'Vertices',vmcmesh.r,'FaceVertexCData', solution.element_fluence, 'FaceColor', 'flat', 'LineWidth',1.5);
 
+
+![ValoMC logo](https://inverselight.github.io/ValoMC/minimalexample.png)
 
 
 Simple installation

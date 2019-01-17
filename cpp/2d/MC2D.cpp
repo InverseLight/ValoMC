@@ -30,6 +30,8 @@ MC2D MC;
 int LoadProblem(char *fin);
 int SaveProblem(char *fout, int time);
 bool Progress(double perc);
+bool suppress_progressbar;
+
 
 void FinalChecks(int, int) {}; // [AL] finalize is intentionally left empty
 
@@ -40,19 +42,28 @@ int main(int argc, char **argv)
   char infobuf[5012];
   version_string(infobuf);
   printf("%s",infobuf);
-
+  suppress_progressbar = false;
 
   // Display help
   if ((argc < 3))
   {
     printf("Use syntax:\n");
     printf(" MC2D inputfile outputfile\n");
+    printf(" or \n");
+    printf(" MC2D inputfile outputfile -s\n");
+    printf(" to suppress progressbar.\n");
     printf("\n");
     printf("Authors: Aki Pulkkinen, Aleksi Leino and Tanja Tarvainen (2018).\n");
     printf("The simulation code is originally written by Aki Pulkkinen.\n");
     printf("\n");
     return (0);
   }
+
+  if(argc == 4) {
+    std::string param = std::string(argv[3]);
+    if(param.compare("-s") == 0) suppress_progressbar = true;
+  }
+
 
   MC.seed = (unsigned long)time(NULL);
 
@@ -211,7 +222,9 @@ int SaveProblem(char *fin, int time)
 
 bool Progress(double perc)
 {
-  printf("  %f %%\r", perc);
-  fflush(stdout);
+  if(!suppress_progressbar) {
+     printf("  %f %%\r", perc);
+     fflush(stdout);
+  }
   return true;
 }

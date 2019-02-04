@@ -87,7 +87,7 @@ vmcboundary.lightsource(elements_of_the_lightsource) = {'direct'};
 solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 
 %% Visualize the solution
-% Note how sphere acts as a lens 
+
 halfspace_elements = findElements(vmcmesh, 'halfspace', [0 0 0], [0 1 0]);
 figure
 tetramesh(vmcmesh.H(halfspace_elements,:), vmcmesh.r, solution.element_fluence(halfspace_elements));

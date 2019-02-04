@@ -214,6 +214,8 @@ MC3D &MC3D::operator=(const MC3D &ref)
     g2 = ref.g2;
     BCType = ref.BCType;
     BCLNormal = ref.BCLNormal;
+    BCIntensity = ref.BCIntensity;
+
     BCLightDirectionType = ref.BCLightDirectionType;
     BCn = ref.BCn;
     f = ref.f;
@@ -236,8 +238,20 @@ MC3D &MC3D::operator=(const MC3D &ref)
     DEBR.resize(ref.DEBR.N); // [AL]
     DEBI.resize(ref.DEBI.N); // [AL]
 
+
     for (ii = 0; ii < DEBR.N; ii++) // [AL]
       DEBR[ii] = DEBI[ii] = 0.0;    // [AL]
+
+
+    // Initialize BCIntensity to one if not given
+    if (!BCIntensity.N)
+    {
+      BCIntensity.resize(BCType.N);
+      int ii;
+      for (ii = 0; ii < BCIntensity.N; ii++)
+        BCIntensity[ii] = 1.0;
+    }
+
 
     LightSources = ref.LightSources;
     LightSourcesMother = ref.LightSourcesMother;
@@ -956,6 +970,9 @@ void MC3D::BuildLightSource()
     }
   }
 
+  for (ii = 0; ii < NLightSource; ii++)
+    LightSourcesCDF[ii] *= BCIntensity[LightSources[ii]]; // [AL]
+    
   // Compute cumsum of LightSourcesCDF and normalize -- Ie. form cumulated distribution function
   for (ii = 1; ii < NLightSource; ii++)
     LightSourcesCDF[ii] += LightSourcesCDF[ii - 1];

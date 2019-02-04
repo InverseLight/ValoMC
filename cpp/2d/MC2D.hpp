@@ -903,7 +903,6 @@ void MC2D::BuildLightSource()
 
   for (ii = 0; ii < NLightSource; ii++)
     LightSourcesCDF[ii] *= BCIntensity[LightSources[ii]]; // [AL]
-
   // Compute cumsum of LightSourcesCDF and normalize -- Ie. form cumulated distribution function
   for (ii = 1; ii < NLightSource; ii++)
     LightSourcesCDF[ii] += LightSourcesCDF[ii - 1];

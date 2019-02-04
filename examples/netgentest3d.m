@@ -83,6 +83,9 @@ vmcmedium.refractive_index(elements_of_the_sphere) = 1.7;
 vmcboundary = createBoundary(vmcmesh, vmcmedium);
 vmcboundary.lightsource(elements_of_the_lightsource) = {'direct'};
 
+
+
+
 %% Run the simulation
 solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 

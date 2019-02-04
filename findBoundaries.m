@@ -19,7 +19,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
 %       2D mesh (row size)
 %
 %          'arc', origin (2), startangle (1), endangle (1)
-%          'direction', origin (2), waypoint (2), width (1), maxdist (1, optional)
+%          'direction', origin (2), waypoint (2), width (1)
 %          'inverse', elements (number of boundary elements)
 %          'location', coordinate (2) | if a third argument is given, returns nearest nodes (in the boundary) instead
 %
@@ -45,7 +45,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
             else
                 maxdist = varargin{4};
             end
-            elements = findBoundariesByDirection(vmcmesh, varargin{1}, varargin{2}, varargin{3}, maxdist);
+            elements = findBoundariesByDirection(vmcmesh, varargin{1}, varargin{2}, varargin{3});
         elseif(strcmp(querystring, 'arc'))
 
             origin = varargin{1};

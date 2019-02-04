@@ -8,7 +8,7 @@ Introduction
 ============
 
 ValoMC is an open source Monte Carlo code that can simulate the
-passage of visible and near infrared range photons through matter. The
+passage of visible and near infrared range photons through biological tissue. The
 implementation follows the Monte Carlo model by Prahl et al.,
 Proc. SPIE, 5, 102-111 (1989) and later developments. The
 simulation geometry is defined using triangular or tetrahedral

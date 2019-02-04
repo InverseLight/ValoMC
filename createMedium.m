@@ -5,34 +5,32 @@ function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
 %
 %       vmcmedium = createMedium(vmcmesh);
 %
-%           Returns
+%          returns
 %
 %                   vmcmedium.refractive_index(:) = 1;
 %                   vmcmedium.scattering_coefficient(:) = 0;
 %                   vmcmedium.absorption_coefficient(:) = 0;
 %                   vmcmedium.scattering_anisotropy(:) = 0;
 %
-%           where the size of each array is equal to the number of elements
-%           in the mesh.
-%
 %       vmcmedium_out = createMedium(vmcmesh, vmcmedium);
 %
-%           Repeats the entries in vmcmedium so that the size of each array
+%           repeats the entries in vmcmedium so that the size of each array
 %           is equal to the number of elements in the mesh.
-%
 %
 % DESCRIPTION:
 %
-%       The purpose of this function is to help to initialize the medium structure.
-%       It is used to set the optical coefficients of each element.
+%       The purpose of this function is to create or resize the arrays in
+%       vmcmedium so that they match the number of elements in the mesh.
 %
 % INPUT:
 %
-%       vmcmesh       -  mesh structure, contains the geometry of the system
+%       vmcmesh       -  mesh structure, contains the geometry of the
+%       system
 %
 % OPTIONAL INPUT:
 %
-%       vmcmedium     -  medium structure, used to set e. g. optical coefficients
+%       vmcmedium     -  medium structure, used to set optical
+%                        coefficients
 %
 % OUTPUT:
 %
@@ -42,7 +40,7 @@ function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
 %
 %       https://inverselight.github.io/ValoMC/structures.html
 %
-% This function is provided with ValoMC
+% This function is part of ValoMC toolbox
 
     if(~exist('vmcmedium'))
          vmcmedium.refractive_index = 1;
@@ -127,7 +125,6 @@ function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
            end
         end
     end
-
 
     vmcmedium_out.refractive_index = duplicateArray(vmcmedium.refractive_index(:), size(vmcmesh.H,1));
     vmcmedium_out.scattering_coefficient = duplicateArray(vmcmedium.scattering_coefficient(:), size(vmcmesh.H,1));

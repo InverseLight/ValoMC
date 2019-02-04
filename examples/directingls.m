@@ -23,7 +23,7 @@ vmcmedium = createMedium(vmcmesh, vmcmedium);
 
 rectangle_width = 1.9;
 rectangle_height = 1.9;
-rectangle_position=[-2.5 2.5];
+rectangle_position=[-xsize/4 ysize/4];
 
 % Find elements that are inside of a rectangle.
 % The rectangle is shown in the figure below.
@@ -46,20 +46,19 @@ vmcboundary = createBoundary(vmcmesh);
 % Set up 4 lightsources using 4 lines. The lines are shown in the 
 % figure below.
 
-line1_start = [-3/4*xsize -ysize/2];
+line1_start = [-3/4*xsize -ysize*1/4];
 line1_end = rectangle_position;
 
 rectangle_diameter = sqrt(rectangle_width^2+rectangle_height^2);
 line_width=rectangle_diameter;
 
-
-line2_start = [0 -3/2*ysize];
+line2_start = [0 -3/5*ysize];
 line2_end = [0 0];
 
-line3_start = [3/4*xsize 0];
+line3_start = [3/5*xsize 0];
 line3_end = [0 0];
 
-line4_start = [0 3/2*ysize];
+line4_start = [0 3/5*ysize];
 line4_end = [0 0];
 
 lightsource1 = findBoundaries(vmcmesh, 'direction', ...
@@ -154,8 +153,7 @@ text(0, -ysize/2+0.4, 'gaussian tilted by 22.5 deg', 'HorizontalAlignment', 'cen
 text(xsize/2-0.4, 0, 'cosinic', 'HorizontalAlignment', 'right');
 text(0, ysize/2-0.4, 'isotropic', 'HorizontalAlignment', 'center');
 
-
-c = colorbar;                       % create a colorbar
+c = colorbar;                   
 c.Label.String = 'Fluence [J/mm^2]';
 hold off
 

@@ -130,7 +130,7 @@ public:
   // BCLNormal = Main direction the light propagates towards
   // BCn = Index of refraction on the outside of the boundary
 
-  Array<char> BCLightDirectionType; // [AL] Sets the intensity of the light source
+  Array<char> BCLightDirectionType; // [AL]
 
   // BCLightDirectionType =   n - No direction provided, use surface normal
   //                          a - Absolute
@@ -631,6 +631,27 @@ void MC3D::Init()
 
   for (ii = 0; ii < BH.Nx; ii++)
     DEBR[ii] = DEBI[ii] = 0.0;
+
+
+  // Initialize BCIntensity to one if not given
+  if (!BCIntensity.N)
+  {
+    BCIntensity.resize(BCType.N);
+    int ii;
+    for (ii = 0; ii < BCIntensity.N; ii++)
+      BCIntensity[ii] = 1.0;
+  }
+
+  // [AL] Initialize BCLightDirectionType if not given
+  if (!BCLightDirectionType.N)
+  {
+    int ii;
+    BCLightDirectionType.resize(BCType.N);
+    for (ii = 0; ii < BCLightDirectionType.N; ii++)
+    {
+      BCLightDirectionType[ii] = 'n';
+    }
+  }
 
   // Build lightsources
   BuildLightSource();

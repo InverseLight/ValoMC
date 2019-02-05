@@ -33,7 +33,7 @@ surface_of_the_sphere = createBH(vmcmesh.H(elements_of_the_sphere,:));
 %% Set constant background coefficients
 vmcmedium.absorption_coefficient = 0.01;     % absorption coefficient [1/mm]
 vmcmedium.scattering_coefficient = 0.01;     % scattering coefficient [1/mm]
-vmcmedium.scattering_anisotropy = 0.9;       % anisotropy parameter g of
+vmcmedium.scattering_anisotropy = 0.9;       % anisotropy parameter g of 
                                              % the Heneye-Greenstein scattering
                                              % phase function [unitless]
 vmcmedium.refractive_index = 1.0;            % refractive index [unitless]
@@ -82,23 +82,14 @@ vmcboundary = createBoundary(vmcmesh, vmcmedium);
 vmcboundary.lightsource(elements_of_the_lightsource) = {'direct'};
 
 
+vmcoptions.seed = 5;
+exportValoMC('problem_in.txt',vmcmesh, vmcmedium, vmcboundary, vmcoptions);
+
 %% Run the simulation
-solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+solution_fixed = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions);
 
-solution_using_previous_version = solution.boundary_exitance;
+solution_using_fixed_version = solution_fixed.boundary_exitance;
 
+save('new_version.mat');
 
-save('previous_version.mat');
-
-%% Visualize the solution
-
-halfspace_elements = findElements(vmcmesh, 'halfspace', [0 0 0], [0 1 0]);
-figure
-tetramesh(vmcmesh.H(halfspace_elements,:), vmcmesh.r, solution.element_fluence(halfspace_elements));
-view(-10,10);
-%
-%hold
-xlabel('x [mm]');
-ylabel('y [mm]');
-zlabel('z [mm]');
 

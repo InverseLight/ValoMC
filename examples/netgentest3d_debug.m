@@ -33,7 +33,7 @@ surface_of_the_sphere = createBH(vmcmesh.H(elements_of_the_sphere,:));
 %% Set constant background coefficients
 vmcmedium.absorption_coefficient = 0.01;     % absorption coefficient [1/mm]
 vmcmedium.scattering_coefficient = 0.01;     % scattering coefficient [1/mm]
-vmcmedium.scattering_anisotropy = 0.9;       % anisotropy parameter g of 
+vmcmedium.scattering_anisotropy = 0.9;       % anisotropy parameter g of
                                              % the Heneye-Greenstein scattering
                                              % phase function [unitless]
 vmcmedium.refractive_index = 1.0;            % refractive index [unitless]

@@ -15,10 +15,17 @@ sphere.mat("sphere")
 # a cylindrical inclusion
 
 infcylinder = Cylinder(Pnt(-5, 0, 0), Pnt(5, 0, 0), 1.0); # infinite cylinder along x = -5 ... 5
-# Create two planes to make that cut the cylinder to make it finite
+
+# Create two planes that cut the cylinder to make it finite
 plane1 = infcylinder*Plane (Pnt(-5,0,0), Vec(-1,0,0) );
 plane2 = infcylinder*Plane (Pnt(-4,0,0), Vec(1,0,0) );
-cylinder = (plane1*plane2*infcylinder).bc("cylinder");
+
+cylinder = (plane1*plane2*infcylinder);
+
+# Boundary conditions can be set using e.g.
+# geo.Add(brick.bc("lightsource"));. See NetGen documentation for more details.
+# However, it is currently difficult apply them to a domain of a face
+# hence not done in this example
 
 geo.Add(cylinder+brick-sphere);
 geo.Add(sphere);

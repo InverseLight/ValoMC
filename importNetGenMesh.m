@@ -3,7 +3,7 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
 %
 % USAGE
 %
-%  function [mesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol)
+%  function [mesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol, preserve_boundary)
 %
 % INPUT
 %
@@ -11,18 +11,28 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
 %
 % OPTIONAL INPUT
 %
-%  preserve_boundary:   Set to false to build a new boundary (BH) for the mesh. 
-%                       This ignores the boundary definition in the file. 
-%                       The new boundary is build so that there no boundary elements between elements. 
+%  preserve_boundary:   Set to false to build a new boundary (BH) for the
+%                       mesh.
+%
+%                       This ignores the boundary definition in the file.
+%                       The new boundary is build so that there no boundary
+%                       elements between elements. If a region of the
+%                       boundary cannot be found from the new boundary, the
+%                       corresponding entry in 'boundaries' contains indices
+%                       to nodes instead.
 %
 % OUTPUT
 %
-%  mesh:                a structure that contains coordinates (r), elements (H, indices to r) 
-%                       and boundary elements (BH, indices to r) of the mesh
+%  mesh:                a structure that contains coordinates (r), 
+%                       elements (H, indices to r) and
+%                       boundary elements (BH, indices to r)
+%                       
 %
-%  regions: 		    the regions (indices to H) in the vol file as cell array
+%  regions:             the regions (indices to H) in the vol file as cell
+%                       array
 %
-%  region_names:        names of the regions as a cell array. Indexing is the same as in 'regions'.
+%  region_names:        names of the regions as a cell array. Indexing is
+%                       the same as in 'regions'.
 %
 %  boundaries: 		    same as regions, but for boundaries (indices to BH)
 %
@@ -31,14 +41,16 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
 %
 %  EXAMPLE:
 %
-%   [mesh regions region_names boundaries boundary_names] = importNetGenMesh('mymesh.vol');
-%   indices_for_background = cell2mat(regions(1));
-%   indices_for_circles = cell2mat(regions(2));
-%   indices_for_lightsource = cell2mat(boundaries(2));
-%   vmcmedium.refractive_index(indices_for_circles)=1.6;
-%   vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};
+% [vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh('square_with_two_circles.vol', false);
+% background = cell2mat(regions(find(strcmp(region_names,'background'))));
+% circles = cell2mat(regions(find(strcmp(region_names,'circles'))));
+% lightsource1 = cell2mat(boundaries(find(strcmp(boundary_names,'lightsource'))));
 %
-%   This function is provided with ValoMC
+% vmcboundary.lightsource(lightsource1) = {'cosinic'};
+% vmcboundary.absorption_coefficient(background) = 0.01;
+% vmcboundary.absorption_coefficient(circles) = 0.02;
+%
+% This function is provided with ValoMC
     
 
     fid = -1;
@@ -109,12 +121,21 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
         end 
 
         if(exist('preserve_boundary'))
-            if(~preserve_boundary)              
+            if(~preserve_boundary)
+               oldBH = vmcmesh.BH;
                vmcmesh.BH = sort(createBH(vmcmesh.H,createHN(vmcmesh.H)),2); 
                for i = 1:num_boundaries 
-                  cur_elements=sort(cell2mat(boundaries{i}),2);
+                  cur_elements=sort(oldBH(boundaries{i},:),2);
                   [~,~,new_indices] = intersect(cur_elements,vmcmesh.BH,'rows');
-                  boundaries{i} = new_indices;
+                  if(length(new_indices) ~= size(cur_elements,1))
+                     % the segment could not be found from the new boundary
+                     boundaries{i} = oldBH(boundaries{i},:);
+		          else
+                     boundaries{i} = new_indices;
+                  end
+                  if(isempty(boundaries{i}))
+                     boundary_names{i} = {};
+                  end
                end
             end
         end    
@@ -135,14 +156,24 @@ function [vmcmesh regions region_names boundaries boundary_names] = importNetGen
         end         
         if(exist('preserve_boundary'))
             if(~preserve_boundary)              
+               oldBH = vmcmesh.BH;
                vmcmesh.BH = sort(createBH(vmcmesh.H),2); 
                for i = 1:num_boundaries 
-                  cur_elements=sort(cell2mat(boundaries{i}),2);
+                  cur_elements=sort(oldBH(boundaries{i},:),2);
                   [~,~,new_indices] = intersect(cur_elements,vmcmesh.BH,'rows');
                   boundaries{i} = new_indices;
+                  if(length(new_indices) ~= size(cur_elements,1))
+                    % the segment could not be found from the new boundary
+                    boundaries{i} = oldBH(boundaries{i},:);
+                  else
+                    boundaries{i} = new_indices;
+                  end
+                  if(isempty(boundaries{i}))
+                     boundary_names{i} = {};
+                  end
                end
             end
-        end    
+        end
     else
         error('Could not read dimensionality!');
     end

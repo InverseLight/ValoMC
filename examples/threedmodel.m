@@ -58,7 +58,6 @@ vmcboundary.lightsource(surface_above_heart) = {'cosinic'};
 %% Run the simulation
 solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 
-
 %% Fill the mesh region with a grid for plotting
 % Create a grid and obtain values from the mesh to the grid
 mincoord = min(vmcmesh.r);
@@ -104,6 +103,7 @@ zlabel('z [mm]');
 c=colorbar;
 c.Label.String = 'Fluence [W/mm^2]';
 
+[v i] = max(solution.element_fluence(:));
 
 
 

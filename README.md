@@ -1,4 +1,3 @@
-
 ![ValoMC logo](https://inverselight.github.io/ValoMC/ValoMC_logo.png)
 
 Please see the full documentation at https://inverselight.github.io/ValoMC/
@@ -8,16 +7,29 @@ Introduction
 ============
 
 ValoMC is an open source Monte Carlo code that can simulate the
-passage of visible and near infrared range photons through matter. The
-implementation follows the Monte Carlo model by Prahl et al.,
-Proc. SPIE, 5, 102-111 (1989) and later developments. The
-simulation geometry is defined using triangular or tetrahedral
-meshes. The model solves for boundary and volumetric data and supports
-various boundary conditions, types of light sources, as well as
-intensity modulated light. While the model is capable of simulating
-complex measurement geometries, attention is given to ease of use and
-fast problem set up with a MATLAB (TM) interface. The simulation code
+passage of visible and near infrared range photons through a
+medium. The implementation is based on photon packet method. The
+simulation geometry is defined using unstructured (triangular or
+tetrahedral) mesh. The program solves the photon fluence in the
+computation domain and the exitance at the domain boundary. It is
+capable of simulating complex measurement geometries with spatially
+varying optical parameter distributions and supports several types of
+light sources as well as intensity modulated light. Furthermore,
+attention is given to ease of use and fast problem set up with a
+MATLAB (The MathWorks Inc., Natick, MA) interface. The simulation code
 is written in C++ and parallelized using OpenMP.
+
+ValoMC is being developed by Aleksi Leino, Aki Pulkkinen, Tuomas
+Lunttila and Tanja Tarvainen at University of Eastern Finland, Kuopio,
+Finland.
+
+If you use ValoMC in your work, please reference it with the following
+citation:
+
+A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: A Monte Carlo
+software and MATLAB toolbox for simulating light transport in
+biological tissue, OSA Continuum, Accepted for publication, 2019.
+
 
 
 Minimal example

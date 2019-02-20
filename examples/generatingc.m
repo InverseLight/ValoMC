@@ -16,34 +16,18 @@
 clear all;
 
 %% Perform simulation initialization as in the Netgen example
-% Import the NetGen file
-% Netgen meshes can be imported using 'importNetGenMesh'. In addition
-% to the mesh structure, it returns the regions in the vol file as
-% cell arrays. Each row in these arrays contains a vector that holds the
-% indices of a region (in the medium or in the boundary). Netgen files
-% may also contain names for the regions. These are returned in
-% 'region_names' and 'boundary_names' and can be used to find the
-% correct indices for each region (see 'Set optical parameters and light sources').
 
-[vmcmesh regions region_names boundaries vmcboundary_names] = importNetGenMesh('square_with_two_circles.vol');
+[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh('square_with_two_circles.vol', false);
 
-% Set optical parameters and light sources
-% The return values can be used to assign optical coefficients, 
-% lightsources and other conditions.
 
-indices_for_background = cell2mat(regions(1));
-indices_for_circles = cell2mat(regions(2));
-indices_for_outer_boundary = [cell2mat(boundaries(2)); cell2mat(boundaries(1))];
+%% Find indices
 
-vmcmesh.BH = vmcmesh.BH(indices_for_outer_boundary,:); 
-indices_for_lightsource=1:size(cell2mat(boundaries(2)),1);
+indices_for_background = cell2mat(regions(find(strcmp(region_names,'background'))));
+indices_for_circles = cell2mat(regions(find(strcmp(region_names,'circles'))));
+indices_for_lightsource = cell2mat(boundaries(find(strcmp(boundary_names,'lightsource'))));
 
-% In Matlab 2016b and later it is possible to find indices using
-%
-% indices_for_lightsource = cell2mat(boundaries(find(contains(boundary_names,'lightsource'))));
-% indices_for_circles = cell2mat(regions(find(contains(region_names,'circles'))));
-%
-% i.e. strings can be used to extract regions.
+
+%% Set optical parameters and light sources using the indices
 
 vmcmedium.absorption_coefficient(indices_for_background) = 0.01;   % absorption coefficient [1/mm]
 vmcmedium.scattering_coefficient(indices_for_background) = 1.3;    % scattering coefficient [1/mm]
@@ -55,7 +39,8 @@ vmcmedium.scattering_coefficient(indices_for_circles) = 1.3;
 vmcmedium.scattering_anisotropy(indices_for_circles) = 0.5;
 vmcmedium.refractive_index(indices_for_circles) = 1.5;
 
-vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};    % cosine directed light profile
+vmcboundary.lightsource(indices_for_lightsource) = {'cosinic'};   
+
 
 vmcoptions.photon_count = 2e6; % set the desired photon count
 

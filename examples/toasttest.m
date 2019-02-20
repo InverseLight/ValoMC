@@ -115,7 +115,6 @@ detector_boundary_elements = findBoundaries(vmcmesh, 'location', M);
 
 
 %% Plot the source/detector arrangement
-%
 % Note that the lightsources have a finite width in ValoMC, which introduces
 % a small discretisation error in the comparison.
 
@@ -210,7 +209,6 @@ hold off;
 
 
 %% Plot the measurement profile as a function of source-detector separation
-%
 % Note that because of the differences between the diffusion approximation
 % and radiative transport theory, discretization errors as well as the
 % stochastic nature of the Monte Carlo simulations, the 16 measurement

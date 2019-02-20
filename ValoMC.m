@@ -1,5 +1,5 @@
 function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
-% VALOMC Runs a photon transport simulation
+% Runs a photon transport simulation
 %
 % USAGE:
 %

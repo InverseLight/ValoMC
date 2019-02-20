@@ -1,5 +1,5 @@
 function [vmcboundary, vmcmesh_out] = createBoundary(vmcmesh, vmcmedium_in, vmcboundary_in)
-% CREATEBOUNDARY Creates a boundary structure for a mesh
+% Creates a boundary structure for a mesh
 %
 %  USAGE:
 %

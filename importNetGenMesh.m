@@ -1,5 +1,5 @@
 function [vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(filename_vol, preserve_boundary)
-% IMPORTNETGENMESH Imports NetGen .vol files
+% Imports NetGen .vol files
 %
 % USAGE
 %

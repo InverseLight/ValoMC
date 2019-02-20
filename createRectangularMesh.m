@@ -1,5 +1,5 @@
 function vmcmesh = createRectangularMesh(xsize, ysize, dh)
-% CREATERECTANGULARMESH Creates a mesh structure with a rectangular geometry
+% Creates a mesh structure with a rectangular geometry
 %
 % DESCRIPTION:
 %

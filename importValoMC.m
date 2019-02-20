@@ -1,6 +1,5 @@
-function [vmcmesh vmcmedium vmcboundary options solution] = ...
-        importValoMC(problemdefinition_filename, solution_filename)
-%IMPORTVALOMC Imports simulation results that are generated using the external executable
+function [vmcmesh vmcmedium vmcboundary options solution] = importValoMC(problemdefinition_filename, solution_filename)
+% Imports simulation results that are generated using the external executable
 %
 % USAGE:
 %

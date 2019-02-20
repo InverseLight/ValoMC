@@ -1,5 +1,5 @@
 function elements = findElements(vmcmesh, querystring, varargin)
-%FINDELEMENTS Finds boundary elements from the mesh
+%FINDELEMENTS Finds elements from the mesh
 %
 % USAGE:
 %

@@ -3,10 +3,7 @@
 % This example demonstrates how to give custom directions to the light
 % sources and how to use different built-in directivity patterns.
 
-
 %% Set up the mesh and the medium
-
-% A circular region with optical parameters is set up.
 
 % Create a rectangular mesh
 xsize =  10;    % width of the region [mm]
@@ -20,128 +17,143 @@ vmcmedium.scattering_coefficient = 0.3;      % scattering coefficient [1/mm]
 vmcmedium.scattering_anisotropy = 0.9;       % scattering anisotropy parameter [unitless] 
 vmcmedium.refractive_index = 1.3;            % refractive index [unitless]
 
-% Create arrays of the coefficients
-vmcmedium = createMedium(vmcmesh, vmcmedium);  
-                                     
-% Create a rectangle and find the elements inside                                   
+% Turn the fields in vmcmedium into arrays so that each coefficient can be
+% set individually for each element
+vmcmedium = createMedium(vmcmesh, vmcmedium);
+
 rectangle_width = 1.9;
 rectangle_height = 1.9;
-rectangle_position=[-2.5 2.5];
+rectangle_position=[-xsize/4 ysize/4];
 
+% Find elements that are inside of a rectangle.
+% The rectangle is shown in the figure below.
 elements_of_the_rectangle = findElements(vmcmesh, 'rectangle', ...
                                          rectangle_position, ...
                                          rectangle_width, ...
                                          rectangle_height);
 
-% Set coefficients of the rectangle                                                 
-vmcmedium.absorption_coefficient(elements_of_the_rectangle) = 0.0;
+% Set the optical coefficients inside the rectangle
+vmcmedium.absorption_coefficient(elements_of_the_rectangle) = 0.5;
 vmcmedium.scattering_anisotropy(elements_of_the_rectangle) = 0.0;
-vmcmedium.refractive_index(elements_of_the_rectangle) = 1.1;
 
-%% Find boundary elements on segment(s) of the boundary
-
-% 'createBoundary' forms the boundary structure of the mesh
+%% Set up the boundary and create light sources
+%
+% createBoundary returns a structure which can be used to set the
+% properties of each boundary element individually
 vmcboundary = createBoundary(vmcmesh);
 
 %%
-% Function 'findBoundaries' is used to find boundary elements. 
-% The lines are demonstrated in the figure below.
-%
-% <<linesegments.png>>
-%
+% Set up 4 lightsources using 4 lines. The lines are shown in the 
+% figure below.
 
-line1_start = rectangle_position;
-line2_start = [0 0]; 
-line3_start = [0 0]; 
-line4_start = [0 0];
-
-line1_end = [-xsize/2 0];
-line2_end = [0 -xsize/2];
-line3_end = [xsize/2 0];
-line4_end = [0 xsize/2];
+line1_start = [-3/4*xsize -ysize*1/4];
+line1_end = rectangle_position;
 
 rectangle_diameter = sqrt(rectangle_width^2+rectangle_height^2);
+line_width=rectangle_diameter;
 
-line_width=rectangle_diameter; 
+line2_start = [0 -3/5*ysize];
+line2_end = [0 0];
 
-lightsource1_boundaryelements = findBoundaries(vmcmesh, 'direction', ...
-                                               line1_start, ...
-                                               line1_end,  ...
-                                               line_width);
-lightsource2_boundaryelements = findBoundaries(vmcmesh, 'direction', ...
-                                               line2_start, ...
-                                               line2_end,  ...
-                                               line_width);
-lightsource3_boundaryelements = findBoundaries(vmcmesh, 'direction', ...
-                                               line3_start, ...
-                                               line3_end,  ...
-                                               line_width);
-lightsource4_boundaryelements = findBoundaries(vmcmesh, 'direction', ...
-                                               line4_start, ...
-                                               line4_end,  ...
-                                               line_width);
+line3_start = [3/5*xsize 0];
+line3_end = [0 0];
 
+line4_start = [0 3/5*ysize];
+line4_end = [0 0];
 
-%% Use different built-in light directivity patterns
+lightsource1 = findBoundaries(vmcmesh, 'direction', ...
+                              line1_start, ...
+                              line1_end,  ...
+                              line_width);
 
-% The return value of 'findBoundaries' constains the indices of the
-% boundary elements found within the line segments.
-% Four distinct light sources are created.
+lightsource2 = findBoundaries(vmcmesh, 'direction', ...
+                              line2_start, ...
+                              line2_end,  ...
+                              line_width);
 
-% an inward directed light source
-vmcboundary.lightsource(lightsource1_boundaryelements) = {'gaussian'};   
-vmcboundary.lightsource_gaussian_sigma(lightsource1_boundaryelements) = 0.1;
+lightsource3 = findBoundaries(vmcmesh, 'direction', ...
+                              line3_start, ...
+                              line3_end,  ...
+                              line_width);
 
-
-% a light source with a cosine shape directivity profile
-vmcboundary.lightsource(lightsource2_boundaryelements) = {'cosinic'};
-vmcboundary.lightsource_direction(lightsource2_boundaryelements,1) = -1; 
-vmcboundary.lightsource_direction(lightsource2_boundaryelements,2) = 1; 
-vmcboundary.lightsource_direction_type(lightsource2_boundaryelements) = {'relative'};
+lightsource4 = findBoundaries(vmcmesh, 'direction', ...
+                              line4_start, ...
+                              line4_end,  ...
+                              line_width);
+                          
+% <<directingls.jpg>>
 
 
-vmcboundary.lightsource(lightsource3_boundaryelements) = {'direct'};
-% a light source with an equal irradiance to all (inward) directions
-vmcboundary.lightsource(lightsource4_boundaryelements) = {'isotropic'};
+%% Create and direct lightsources using different directivity patterns
 
-%% Directing the light sources
+% 1: Direct light source
+%
+% The 'lightsource' -field in vmcboundary sets the directivity pattern of
+% the lightsource. By 'direct' keyword, all photons are launched in the
+% same direction.
 
-% The difference between 'absolute' and 'relative' direction type is demonstrated below.
+vmcboundary.lightsource(lightsource1) = {'direct'};
 
-% Here the 'absolute' direction type is used. This means that the direction is
-% given in the position coordinates. To direct the light source
-% towards the rectangle, the vector that was used to obtain line
-% segments from the boundary is reversed (see the figure above) and
-% used as a direction 
+% Create a direction vector for the light using the line that was used to
+% search boundary elements
+lightsource_direction = line1_end - line1_start;
 
-vmcboundary.lightsource_direction_type(lightsource1_boundaryelements) = {'absolute'};
-absolute_direction = line1_start-line1_end;
-vmcboundary.lightsource_direction(lightsource1_boundaryelements,1) = absolute_direction(1); 
-vmcboundary.lightsource_direction(lightsource1_boundaryelements,2) = absolute_direction(2); 
+% x-component of the direction
+vmcboundary.lightsource_direction(lightsource1,1) = lightsource_direction(1);
+% y-component of the dircetion
+vmcboundary.lightsource_direction(lightsource1,2) = lightsource_direction(2);
+% This means that the direction vector is given in the coordinate space of
+% the mesh
+vmcboundary.lightsource_direction_type(lightsource1) = {'absolute'};
 
-% The 'relative' direction type is used here. The third light source is tilted
-% by angle alpha relative to the normal. The angle is calculated from
-% simple geometric considerations to direct it towards the rectangle
+% 2: A Gaussian light source
+%
+% Create a light source with a Gaussian directivity profile. The initial
+% angles with respect to a given direction (by default, normal of the
+% boundary element) follow a Gaussian with sigma = 0.1
 
-vmcboundary.lightsource_direction_type(lightsource3_boundaryelements) = {'relative'};
+vmcboundary.lightsource(lightsource2) = {'gaussian'};
+vmcboundary.lightsource_gaussian_sigma(lightsource2) = 0.1;
 
-% lightsource 3 is located at line3_end.
+% Tilt the lightsource by 22.5 degrees. This time, the direction is given in
+% the coordinate system of the boundary element: (0, 1) is the normal
+% direction and (1, 0) is directed along the boundary element
+vmcboundary.lightsource_direction(lightsource2,1) = sin(-pi/8);
+vmcboundary.lightsource_direction(lightsource2,2) = cos(-pi/8);
 
-lightsource_to_rectangle =  rectangle_position - line3_end;
-alpha = tan(lightsource_to_rectangle(2)/lightsource_to_rectangle(1));
+% this direction was given with respect to the surface normal
+vmcboundary.lightsource_direction_type(lightsource2) = {'relative'};
 
-vmcboundary.lightsource_direction(lightsource3_boundaryelements,1) = sin(alpha);
-vmcboundary.lightsource_direction(lightsource3_boundaryelements,2) = cos(alpha);
+% 3: Cosinic light source
+%
+% The initial angles follow a cosine distribution. Cosinic light sources
+% are useful to create light sources that are not unidirectional without
+% having to set any extra parameters.
+
+vmcboundary.lightsource(lightsource3) = {'cosinic'};
+
+% 4: Isotropic light source
+%
+% Photons are launched to all inward directions with an equal probability.
+
+vmcboundary.lightsource(lightsource4) = {'isotropic'};
 
 %% Run the Monte Carlo simulation
 solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 
 %% Plot the solution
 hold on;
+
 patch('Faces',vmcmesh.H,'Vertices',vmcmesh.r,'FaceVertexCData', solution.element_fluence, 'FaceColor', 'flat','EdgeColor','none');
 xlabel('[mm]');
 ylabel('[mm]');
-c = colorbar;                       % create a colorbar
+
+text(-xsize/2+0.4, 0, 'direct lightsource');
+text(0, -ysize/2+0.4, 'gaussian tilted by 22.5 deg', 'HorizontalAlignment', 'center');
+text(xsize/2-0.4, 0, 'cosinic', 'HorizontalAlignment', 'right');
+text(0, ysize/2-0.4, 'isotropic', 'HorizontalAlignment', 'center');
+
+c = colorbar;                   
 c.Label.String = 'Fluence [J/mm^2]';
 hold off
 

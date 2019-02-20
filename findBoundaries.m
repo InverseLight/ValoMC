@@ -19,7 +19,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
 %       2D mesh (row size)
 %
 %          'arc', origin (2), startangle (1), endangle (1)
-%          'direction', origin (2), waypoint (2), width (1), maxdist (1, optional)
+%          'direction', origin (2), waypoint (2), width (1)
 %          'inverse', elements (number of boundary elements)
 %          'location', coordinate (2) | if a third argument is given, returns nearest nodes (in the boundary) instead
 %
@@ -45,7 +45,7 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
             else
                 maxdist = varargin{4};
             end
-            elements = findBoundariesByDirection(vmcmesh, varargin{1}, varargin{2}, varargin{3}, maxdist);
+            elements = findBoundariesByDirection(vmcmesh, varargin{1}, varargin{2}, varargin{3});
         elseif(strcmp(querystring, 'arc'))
 
             origin = varargin{1};
@@ -151,52 +151,59 @@ function elements = findBoundaries(vmcmesh, querystring, varargin)
 end
 
 
-function [segments, totallength] = findBoundariesByDirection(vmcmesh, start, waypoint, width, maxdist)
-% Finds line segments at a given direction from a point
-%
-%
-% INPUT
-%
-%  vmcmesh:      (described in documentation/list of structures)
-%  start:        starting point vector for the line definies the region
-%  waypoint:     waypoint for the line that defines the region
-%  width:        total width of the region
-%  maxdist:      maximum distance from origin
-%
-% OUTPUT
-%
-%  segments:     the indices of the line segments within the region
-%  totallength:  total lengths of the the line segments
-%
-    if(~exist('maxdist'))
-        maxdist = 1e38; % big number
-    end
-    segments = [];
-    width=width/2;
-%    for j=1:size(start,1)
-        match=1;
-        for i=1:size(vmcmesh.BH, 1)
-            % check if the two ends of the linesegment are within a
-            % perpendicular distance 'width'
-            if(distanceFromLine(start(:),waypoint(:),vmcmesh.r(vmcmesh.BH(i,1),:)) <= width)
-                if(distanceFromLine(start(:),waypoint(:),vmcmesh.r(vmcmesh.BH(i,2),:)) <= width)
-                    % if yes, check that the normal points outwards from the direction
-                    direction = vmcmesh.r(vmcmesh.BH(i,2),:) - vmcmesh.r(vmcmesh.BH(i,1),:);
-                    normal = [-direction(2) direction(1)];
-                    
-                    if((dot(normal, waypoint - start) > 0) ...
-                    && (norm(vmcmesh.r(vmcmesh.BH(i,2),:) - start) < maxdist) ...
-                    && (norm(vmcmesh.r(vmcmesh.BH(i,1),:) - start)  < maxdist))
-                        segments = [segments; i]; 
-                        match = match+1;
-                    end
-                end
+function wn = windnum(line_strip, point)
+   line_strip = [line_strip ; line_strip(1,:)];
+   wn = 0;
+   for ii=1:size(line_strip,1)-1
+      if(line_strip(ii, 2) <= point(2))
+         if (line_strip(ii+1, 2) > point(2))             
+             if ((line_strip(ii+1, 1) - line_strip(ii, 1)) * (point(2) - line_strip(ii, 2))  - (point(1) - line_strip(ii, 1)) * (line_strip(ii+1, 2) - line_strip(ii, 2)) > 0.0)
+                wn=wn+1;
+             end
+         end
+      else
+        if (line_strip(ii+1, 2) <= point(2))             
+            if ((line_strip(ii+1, 1) - line_strip(ii, 1)) * (point(2) - line_strip(ii, 2))  - (point(1) - line_strip(ii, 1)) * (line_strip(ii+1, 2) - line_strip(ii, 2)) < 0.0)
+                wn=wn-1;
             end
         end
-%   end
-    if(match == 1) 
+      end 
+   end
+end
+
+
+
+function [segments, totallength] = findBoundariesByDirection(vmcmesh, start, waypoint, width)
+    segments = [];
+
+    direction = (waypoint - start);
+    prpdir = zeros(1,2);
+    prpdir(1) = -direction(2);
+    prpdir(2) =  direction(1);
+    prpdir = prpdir / norm(prpdir);
+    quad = zeros(4, 2);
+    wh = width/2;
+    % form a quad
+    quad(1,:) = start + wh*prpdir;
+    quad(2,:) = start + wh*prpdir + direction;
+    quad(3,:) = start + wh*prpdir + direction - 2*wh*prpdir;
+    quad(4,:) = start - wh*prpdir;
+    match=1;
+
+    for i=1:size(vmcmesh.BH, 1)
+        % compute the winding number for both nodes of BH
+        wn1 = windnum(quad, vmcmesh.r(vmcmesh.BH(i,1),:));
+        wn2 = windnum(quad, vmcmesh.r(vmcmesh.BH(i,2),:));
+        if(wn1 || wn2)
+           segments = [segments; i]; 
+           match = match+1;
+        end
+    end
+
+    if(match == 1)
         warning('Did not find any boundaries matching the criteria.');
     end
+
 end
 
 

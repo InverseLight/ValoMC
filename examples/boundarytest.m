@@ -1,6 +1,6 @@
 %% Setting boundary conditions and visualising the boundary solution: boundarytest.m
-% This example demonstrates how to set the exterior refractive index
-% outside the mesh and how to plot the fluence and the exitance on the boundary.
+% This example demonstrates how to set the refractive index as a boundary
+% condition and how to plot the fluence and the exitance on the boundary.
 
 %% Initialisation
 
@@ -15,12 +15,7 @@ vmcmedium.scattering_coefficient = 0.1;      % scattering coefficient [1/mm]
 vmcmedium.scattering_anisotropy = 0.0;       % scattering anisotropy parameter [unitless]
 vmcmedium.refractive_index = 1.3;            % refractive index [unitless]
 
-%% Find boundary elements on segment(s) of the boundary
-
-% The arrays define four lines, drawn in the figure below, that are used 
-% to obtain indices of the boundary elements. The first three are used to 
-% set up light sources. The fourth line is used to set up a region with 
-% a custom exterior refractive index. 
+%% Find boundary elements 
 
 radius = xsize/2.0;
 

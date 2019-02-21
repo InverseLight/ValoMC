@@ -45,6 +45,9 @@ vmcboundary = createBoundary(vmcmesh);
 %%
 % Set up 4 lightsources using 4 lines. The lines are shown in the 
 % figure below.
+%
+% <<directingls_lines.png>>
+
 
 line1_start = [-3/4*xsize -ysize*1/4];
 line1_end = rectangle_position;
@@ -81,7 +84,6 @@ lightsource4 = findBoundaries(vmcmesh, 'direction', ...
                               line4_end,  ...
                               line_width);
                           
-% <<directingls.jpg>>
 
 
 %% Create and direct lightsources using different directivity patterns

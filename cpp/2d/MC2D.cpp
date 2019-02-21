@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     printf(" MC2D inputfile outputfile\n");
     printf(" or \n");
     printf(" MC2D inputfile outputfile -s\n");
-    printf(" to suppress progressbar.\n");
+    printf(" to suppress progress bar.\n");
     printf("\n");
     printf("Authors: Aki Pulkkinen, Aleksi Leino and Tanja Tarvainen (2018).\n");
     printf("The simulation code is originally written by Aki Pulkkinen.\n");

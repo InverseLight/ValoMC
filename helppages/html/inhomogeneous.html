@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Creating an inhomogeneous medium: inhomogeneous.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="inhomogeneous.m"><style type="text/css">
+      --><title>inhomogeneous</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-21"><meta name="DC.source" content="inhomogeneous.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,39 +66,44 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Creating an inhomogeneous medium: inhomogeneous.m</h1><!--introduction--><p>This example demonstrates how to set up optical parameters that vary as a function of position into a medium.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Give varying optical parameters</a></li><li><a href="#3">A plot of the parameter distribution</a></li><li><a href="#4">Create a light source</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Plot the solution</a></li></ul></div><pre class="codeinput">xsize =  10;	<span class="comment">% width of the region [mm]</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Creating an inhomogeneous medium: inhomogeneous.m</a></li><li><a href="#2">Give varying optical parameters</a></li><li><a href="#3">Plot the parameter distribution</a></li><li><a href="#4">Create a light source</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Plot the solution</a></li></ul></div><h2 id="1">Creating an inhomogeneous medium: inhomogeneous.m</h2><p>This example demonstrates how define inhomogeneous optical properties</p><pre class="codeinput">xsize =  10;	<span class="comment">% width of the region [mm]</span>
 ysize =  10;	<span class="comment">% height of the region [mm]</span>
 dh = 1;         <span class="comment">% discretisation size [mm]</span>
 vmcmesh = createRectangularMesh(xsize, ysize, dh);
-</pre><h2 id="2">Give varying optical parameters</h2><p>The function 'createMedium' is a convenience function provided by ValoMC that turns the fields in 'medium' into arrays. The sizes of the arrays are equal to the number of elements in the mesh, so that the optical parameters of each element can be set individually. 'findElementsInsideCircle' is an another convenience function provided to find the elements from the arrays.</p><pre class="codeinput"><span class="comment">% Set constant background coefficients</span>
+</pre><h2 id="2">Give varying optical parameters</h2><pre class="codeinput"><span class="comment">% Set constant background coefficients</span>
+
 vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
 vmcmedium.scattering_coefficient = 1.0;      <span class="comment">% scattering coefficient [1/mm]</span>
 vmcmedium.scattering_anisotropy = 0.9;       <span class="comment">% anisotropy parameter g of</span>
-                                          <span class="comment">% the Heneye-Greenstein scattering</span>
-                                          <span class="comment">% phase function [unitless]</span>
+                                             <span class="comment">% the Heneye-Greenstein scattering</span>
+                                             <span class="comment">% phase function [unitless]</span>
 vmcmedium.refractive_index = 1.3;            <span class="comment">% refractive index [unitless]</span>
 
-<span class="comment">% Create arrays of the coefficients</span>
+<span class="comment">% Resize the fields in vmcmedium so that they match the number of elements in the mesh</span>
 vmcmedium = createMedium(vmcmesh,vmcmedium);
 
-<span class="comment">% Find the elements that are inside a circle with a given radius and</span>
-<span class="comment">% centre coordinates</span>
+<span class="comment">% Select elements from the mesh</span>
 radius = 2.5;                 <span class="comment">% [mm]</span>
 centercoord = [0.0  0.0];     <span class="comment">% [mm]</span>
-elements_of_the_circle = findElements(vmcmesh, <span class="string">'circle'</span>, radius, centercoord);
+elements_of_the_circle = findElements(vmcmesh, <span class="string">'circle'</span>, centercoord, radius);
 
-<span class="comment">% Assign a unique absorption coefficient to the circle</span>
+<span class="comment">% Assign a unique absorption coefficient to the selected elements</span>
 vmcmedium.absorption_coefficient(elements_of_the_circle) = 0.25;
-</pre><h2 id="3">A plot of the parameter distribution</h2><p>The resulting absorption coefficient distribution is shown in the figure below, along with the indices that are contained in "elements_of_the_circle". Shown is also a fictious circle with a radius of 2.5 mm. Note how some triangles intersect the circle, resulting in a poor representation of the circular shape. The representation can be improved by a better mesh or by incresing the discretisation size.</p><p><img vspace="5" hspace="5" src="circle.png" alt=""> </p><h2 id="4">Create a light source</h2><p>Set a light source from boundary elements 4 to 7 with a cosinic directivity pattern</p><pre class="codeinput">vmcboundary.lightsource(4:7) = {<span class="string">'cosinic'</span>};
-</pre><h2 id="5">Run the Monte Carlo simulation</h2><p>Use the parameters that were generated to run the simulation in the mesh</p><pre class="codeinput">options.photon_count = 1e7;
-
-solution = ValoMC(vmcmesh, vmcmedium, vmcboundary,options);
-</pre><pre class="codeoutput">Initializing MC2D using 16 threads...
+</pre><h2 id="3">Plot the parameter distribution</h2><p>The resulting absorption coefficient distribution is shown in the figure below. Shown is also the circle that was used to select the elements.</p><p>Note that some triangles intersect the circle, resulting in a poor representation of the circular shape. The representation can be improved by a better mesh or by incresing the discretisation size.</p><p><img vspace="5" hspace="5" src="circle.png" alt=""> </p><h2 id="4">Create a light source</h2><pre class="codeinput">vmcboundary.lightsource(4:7) = {<span class="string">'cosinic'</span>};
+</pre><h2 id="5">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-</pre><h2 id="6">Plot the solution</h2><p>Note how the area with the higher absorption coefficient affects the fluence distribution (cf. 'Simple Example')</p><pre class="codeinput">hold <span class="string">on</span>;
+</pre><h2 id="6">Plot the solution</h2><p>Note how the area with the higher absorption coefficient affects the fluence distribution (c.f. 'Simple Example')</p><pre class="codeinput">hold <span class="string">on</span>;
 patch(<span class="string">'Faces'</span>,vmcmesh.H,<span class="string">'Vertices'</span>,vmcmesh.r,<span class="string">'FaceVertexCData'</span>, solution.element_fluence, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'LineWidth'</span>,1.5);
 xlabel(<span class="string">'[mm]'</span>);
 ylabel(<span class="string">'[mm]'</span>);
@@ -108,11 +113,7 @@ hold <span class="string">off</span>
 </pre><img vspace="5" hspace="5" src="inhomogeneous_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Creating an inhomogeneous medium: inhomogeneous.m
-% This example demonstrates how to set up optical parameters that vary 
-% as a function of position into a medium.  
-
-
-%%
+% This example demonstrates how define inhomogeneous optical properties
 
 xsize =  10;	% width of the region [mm]
 ysize =  10;	% height of the region [mm]
@@ -120,58 +121,48 @@ dh = 1;         % discretisation size [mm]
 vmcmesh = createRectangularMesh(xsize, ysize, dh);
 
 %% Give varying optical parameters
-% The function 'createMedium' is a convenience function provided by 
-% ValoMC that turns the fields in 'medium' into arrays. The sizes
-% of the arrays are equal to the number of elements in the mesh, so that
-% the optical parameters of each element can be set individually.
-% 'findElementsInsideCircle' is an another convenience function provided
-% to find the elements from the arrays.
 
 % Set constant background coefficients
+
 vmcmedium.absorption_coefficient = 0.01;     % absorption coefficient [1/mm]
 vmcmedium.scattering_coefficient = 1.0;      % scattering coefficient [1/mm]
 vmcmedium.scattering_anisotropy = 0.9;       % anisotropy parameter g of 
-                                          % the Heneye-Greenstein scattering 
-                                          % phase function [unitless]
+                                             % the Heneye-Greenstein scattering 
+                                             % phase function [unitless]
 vmcmedium.refractive_index = 1.3;            % refractive index [unitless]
 
-% Create arrays of the coefficients
+% Resize the fields in vmcmedium so that they match the number of elements in the mesh
 vmcmedium = createMedium(vmcmesh,vmcmedium);
 
-% Find the elements that are inside a circle with a given radius and
-% centre coordinates
+% Select elements from the mesh
 radius = 2.5;                 % [mm]
 centercoord = [0.0  0.0];     % [mm]
-elements_of_the_circle = findElements(vmcmesh, 'circle', radius, centercoord);
+elements_of_the_circle = findElements(vmcmesh, 'circle', centercoord, radius);
 
-% Assign a unique absorption coefficient to the circle
+% Assign a unique absorption coefficient to the selected elements
 vmcmedium.absorption_coefficient(elements_of_the_circle) = 0.25;
 
-%% A plot of the parameter distribution
+%% Plot the parameter distribution
 % The resulting absorption coefficient distribution is shown in the figure
-% below, along with the indices that are contained in "elements_of_the_circle".
-% Shown is also a fictious circle with a radius of 2.5 mm.
-% Note how some triangles intersect the circle, resulting in a poor
+% below. Shown is also the circle that was used to select the elements.
+%
+% Note that some triangles intersect the circle, resulting in a poor
 % representation of the circular shape. The representation can be improved
 % by a better mesh or by incresing the discretisation size.
 %
 % <<circle.png>>
 
 %% Create a light source
-% Set a light source from boundary elements 4 to 7 with a cosinic directivity pattern 
 
 vmcboundary.lightsource(4:7) = {'cosinic'};
 
 %% Run the Monte Carlo simulation
-% Use the parameters that were generated to run the simulation in the mesh
 
-options.photon_count = 1e7;
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 
-solution = ValoMC(vmcmesh, vmcmedium, vmcboundary,options);
-
-%% Plot the solution 
+%% Plot the solution
 % Note how the area with the higher absorption coefficient
-% affects the fluence distribution (cf. 'Simple Example')
+% affects the fluence distribution (c.f. 'Simple Example')
 
 hold on;
 patch('Faces',vmcmesh.H,'Vertices',vmcmesh.r,'FaceVertexCData', solution.element_fluence, 'FaceColor', 'flat', 'LineWidth',1.5);

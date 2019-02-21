@@ -82,9 +82,8 @@ solution = ValoMC(vmcmesh, vmcmedium, vmcboundary,options);
 % more details.
 
 figure
-
+hold on
 halfspace_elements = findElements(vmcmesh, 'halfspace', [0 0 0], [0 1 0]);
-figure
 tetramesh(vmcmesh.H(halfspace_elements,:), vmcmesh.r, solution.element_fluence(halfspace_elements));
 view(-10,10);
 %

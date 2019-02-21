@@ -17,37 +17,32 @@ vmcmedium.refractive_index = 1.3;            % refractive index [unitless]
 
 %% Find boundary elements 
 
-radius = xsize/2.0;
+line1_start = [-10 0];
+line2_start = [-10 0];
+line3_start = [-10 0];
 
-line1_start = [0 5]; 
-line2_start = [5 0]; 
-line3_start = [0 -5];
+line1_end = [-2.5 3.75];
+line2_end = [-2.5 0];
+line3_end = [-2.5 -3.75];
 
-line1_end = [-5 2.5];
-line2_end = [-5 0]; 
-line3_end = [-5 -2.5];
-
-line_width = 1.0; 
+line_width = 1.0;
 
 boundary1 = findBoundaries(vmcmesh, 'direction', line1_start, line1_end, line_width);
 boundary2 = findBoundaries(vmcmesh, 'direction', line2_start, line2_end, line_width);
 boundary3 = findBoundaries(vmcmesh, 'direction', line3_start, line3_end, line_width);
-boundary4 = findBoundaries(vmcmesh, 'direction', line1_end, line1_start, line_width);
-
-%%
-% <<linesegments_boundary.png>>
+boundary4 = findBoundaries(vmcmesh, 'direction', line1_end, [2.5 6.25], line_width);
 
 %% Create the boundary and set boundary conditions
-
-% 'createBoundary' forms the boundary structure of the mesh.   
-% If the medium is given as a third argument, 'createBoundary' will build 
-% an array 'exterior_refractive_index' with no change in the refractive index 
-% when the photon packets encounter a boundary (i.e. a boundary condition 
+% 'createBoundary' creates a boundary condition structure for a given mesh.
+% If the medium is given as the second argument, 'createBoundary' will build
+% an array 'exterior_refractive_index' with no change in the refractive index
+% when the photon packets encounter a boundary (i.e. a boundary condition
 % with a matching reafractive index).
 
 vmcboundary = createBoundary(vmcmesh, vmcmedium);
 
-% Set the exterior refractive index at the third boundary segment to be higher than elsewhere
+% Set the exterior refractive index at the third boundary segment to be higher than elsewhere 
+% so that light will be reflected from it
 vmcboundary.exterior_refractive_index(boundary4) = 1.8;
 
 
@@ -61,11 +56,11 @@ vmcboundary.lightsource(boundary2) = {'direct'};
 vmcboundary.lightsource(boundary3) = {'direct'};
 
 % Calculate and normalise a direction vector for two of the lightsources
-% from the lines.
-dir1 = (line1_start - line1_end);
-dir2 = (line3_start - line3_end);
-dir1 = dir1/norm(dir1);
-dir2 = dir2/norm(dir2);
+dir1 = (line1_end - line1_start);
+dir2 = (line3_end - line3_start);
+dir1 = dir1 / norm(dir1);
+dir2 = dir2 / norm(dir2);
+
 
 % Use the line to set the direction vectors of the lines
 vmcboundary.lightsource_direction(boundary1,1) = dir1(1);

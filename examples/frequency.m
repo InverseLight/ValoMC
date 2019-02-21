@@ -24,8 +24,8 @@ lightsource1 = findBoundaries(vmcmesh, 'location', [-10 -15]);
 lightsource2 = findBoundaries(vmcmesh, 'location', [10  -15]);
 
 % Obtain the indices of the opposite wall for plotting the results
-opposite_wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 60], 60);
-wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 -60], 60);
+opposite_wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 60], 59);
+wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 -60], 59);
 
 vmcboundary = createBoundary(vmcmesh);
 vmcmedium.absorption_coefficient = 0.01;     % absorption coefficient [1/mm]
@@ -37,7 +37,7 @@ vmcmedium.refractive_index = 1.37;           % refractive index [unitless]
 
 % Increase the default photon count to get reasonable statistics
 % at the detector
-options.photon_count = 1e7; 
+options.photon_count = 3e7; 
 
 %% Run the simulations
 % Two simulations are used to simulate two modified lightsources.

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Frequency domain calculation: frequency.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="frequency.m"><style type="text/css">
+      --><title>Frequency domain calculation: frequency.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-21"><meta name="DC.source" content="frequency.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -78,8 +78,8 @@ lightsource1 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [
 lightsource2 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [10  -15]);
 
 <span class="comment">% Obtain the indices of the opposite wall for plotting the results</span>
-opposite_wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 60], 60);
-wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 -60], 60);
+opposite_wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 60], 59);
+wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 -60], 59);
 
 vmcboundary = createBoundary(vmcmesh);
 vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
@@ -91,7 +91,7 @@ vmcmedium.refractive_index = 1.37;           <span class="comment">% refractive 
 
 <span class="comment">% Increase the default photon count to get reasonable statistics</span>
 <span class="comment">% at the detector</span>
-options.photon_count = 1e8;
+options.photon_count = 3e7;
 </pre><h2 id="2">Run the simulations</h2><p>Two simulations are used to simulate two modified lightsources. The solutions are added together to form the complete solution.</p><pre class="codeinput">options.frequency = 200e6;
 options.phase0=-pi/2;
 vmcboundary.lightsource(lightsource1) = {<span class="string">'cosinic'</span>};
@@ -101,13 +101,27 @@ options.phase0=pi/2; <span class="comment">% put the second light 180 degree out
 vmcboundary.lightsource(lightsource1) = {<span class="string">'none'</span>}; <span class="comment">% shut down the first lightsource</span>
 vmcboundary.lightsource(lightsource2) = {<span class="string">'cosinic'</span>};
 solution2 = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
-</pre><pre class="codeoutput">Transformed negative phase0 to positive 4.712389
-Initializing MC2D using 16 threads...
+</pre><pre class="codeoutput">                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Transformed negative phase0 to positive 4.712389
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
@@ -163,8 +177,8 @@ lightsource1 = findBoundaries(vmcmesh, 'location', [-10 -15]);
 lightsource2 = findBoundaries(vmcmesh, 'location', [10  -15]);
 
 % Obtain the indices of the opposite wall for plotting the results
-opposite_wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 60], 60);
-wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 -60], 60);
+opposite_wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 60], 59);
+wall = findBoundaries(vmcmesh, 'direction', [0  0], [0 -60], 59);
 
 vmcboundary = createBoundary(vmcmesh);
 vmcmedium.absorption_coefficient = 0.01;     % absorption coefficient [1/mm]
@@ -176,7 +190,7 @@ vmcmedium.refractive_index = 1.37;           % refractive index [unitless]
 
 % Increase the default photon count to get reasonable statistics
 % at the detector
-options.photon_count = 1e8; 
+options.photon_count = 3e7; 
 
 %% Run the simulations
 % Two simulations are used to simulate two modified lightsources.

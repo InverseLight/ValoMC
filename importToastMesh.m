@@ -6,7 +6,7 @@ function vmcmesh = importToastMesh(toastMesh)
 %       vmcmesh = importToastMesh(toastmesh)
 %
 % EXAMPLE:
-%
+%cd
 %       rad = 25;
 %       nsect = 6;
 %       nring = 32;

@@ -3,43 +3,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>Getting started</title>
 <style type="text/css">
 
 body {
-	margin-top: 1cm;
-	margin-left: 4cm;
-	margin-right: 4cm;
-	padding: 0;
-        font-size: 15px;
+        margin-top: 5vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+       	padding: 0;
+        font-size: 100%;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
 
-
-   ul.tree a {
-    color: back;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-   }
-   ul.tree a:hover {
-    background: lightgray;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-   }
-
-   li {
-     list-style-type: square;
-     background:  repeat-y;
-     padding: 0;
-   }
-
-li::before {
-  color: green; /* or whatever color you prefer */
+#introduction {
+   text-align: justify;
 }
 
+
+table.maintable {
+   table-layout: fixed;
+   border: 0px solid black;
+}
+
+table.maintable td {
+   padding-right: 2vw;
+   padding-left: 0.2vw;
+}
 
 
    ul.tree, ul.tree ul {
@@ -47,21 +37,18 @@ li::before {
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
-   }
-
-  li {
-     list-style-type: square;
+     margin-left: 5vw;
    }
 
 
   ol li {
      list-style-type: decimal;
+     margin-left: 0px;
    }
 
 a {
@@ -69,14 +56,14 @@ a {
 }
 
    ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
+     margin: 1vw;
+     padding: 0 5vw;
+     line-height: 5vw;
      color: #369;
    }
 
    ul.tree li.last {
-     background: #fff url(images/lastnode.png) no-repeat;
+     background: no-repeat;
    }
 
 ul.topnav {
@@ -85,7 +72,7 @@ ul.topnav {
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
 }
 
@@ -97,27 +84,26 @@ ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
-ul.topnav li a:hover:not(.active) {background-color: #111;color: rgb(251, 255, 0)}
-ul.topnav li a:hover {color: rgb(251, 255, 0)}
+
+
+ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
+ul.topnav li a:hover {color: white}
 
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
 
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+img.logo {max-width: 25vw;}
 
-img.logo {max-width: 300px;}
-
-pre, code { font-size:12px; background:#eeeeee; }
-tt { font-size: 1.2em; }
-pre { margin:0px 0px 20px; white-space: pre-wrap;}
-pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre, code { font-size:100%; background:#eeeeee; margin:5vw 0px 5vw; }
+tt { font-size: 0.5cm; }
+pre { margin:0px 1vw 1vw; white-space: pre-wrap;}
+pre.codeinput { padding:5vw; border:0.1vw margin:5vw 0px 5vw; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:5vw; 5vw; margin:5vw 0px 5vw; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -128,19 +114,52 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer {  width: 100%;  padding:5vw 0px; margin:5vw 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
 .footer a:visited { color:#878787; }
 
+   li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
 
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
-table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+   ul {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+     margin-left: 2vw;
+   }
+
+
+
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+
+table th { padding:1.2vw 1vw; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:1.2vw 1vw; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:1.2vw 1vw;  align:center; vertical-align:middle;  border:0px solid #d6d4d4; }
 ul {
     list-style-type: circle;
 }
+
+ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+  li {
+     list-style-type: square;
+   }
 
 
 </style>

@@ -87,11 +87,11 @@ vmcmedium.gruneisen_parameter = 0.02*ones(Nx, Ny);      % [unitless]
 %% Create a light source 
 
 % Set a light source with a width of 2 mm and cosinic directional profile 
-% at the bottom of the computation domain
+% in -x direction
 boundary_with_lightsource = findBoundaries(vmcmesh, 'direction', ...
-                                        [0 0], ...
-                                        [-1 0], ...
-                                        2);
+                                           [0 0], ...
+                                           [-10 0], ...
+                                           2);
                                     
 vmcboundary.lightsource(boundary_with_lightsource) = {'cosinic'};
 
@@ -105,10 +105,10 @@ solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 % the output is also given as a two-dimensional array.
 
 % Compute the absorbed optical energy density
-% 1e3 converts [J/mm^2] to [J/m^2]  
+% 1e3 converts [J/mm^2] to [J/m^2]
 vmcmedium.absorbed_energy = vmcmedium.absorption_coefficient .* solution.grid_fluence*1e3; % [J/m3]
 
-% Compute the initial pressure distribution 
+% Compute the initial pressure distribution
 source.p0 = vmcmedium.gruneisen_parameter .* vmcmedium.absorbed_energy;  % [Pa]
 
 %% Define the k-Wave sensor mask

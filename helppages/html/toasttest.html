@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Working with Toast++: toastest.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-28"><meta name="DC.source" content="toasttest.m"><style type="text/css">
+      --><title>Working with Toast++: toastest.m</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-21"><meta name="DC.source" content="toasttest.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,196 +66,326 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Working with Toast++: toastest.m</h1><!--introduction--><p>This example is based on a simple Toast usage example found on the Toast web site. See <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html">http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html</a>. It simulates a steady state diffuse optical tomogarphy (DOT) measurement in a circular geometry that has 16 detectors and 16 light sources located on the baoundary of the object. Each source is used to illuminate light into the domain and the amount of light is measured at all detectors. This is repated for all source locations. In the example, the measurement matrix (photon fluence at detectors) is simulated both with Toast (as in the original example) and with ValoMC. Note that the results are not equal since Toast uses diffusion approximation (DA) as the model for light propagation. The DA can be regarded as a good approximation for photon transport in a highly scattering medium with distances further than a few scattering lengths from the source.</p><p>Toast++ is a software for image reconstruction in diffuse optical tomography. It contains a forward solver module using the finite element method for simulating the propagation of light in highly scattering, inhomogeneous biological tissues. The inverse solver module uses an iterative, model-based approach to reconstruct the unknown distributions of absorption and scattering coefficients in the volume of interest from boundary measurements of transmitted light.</p><p>Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge (University College London) and the copyright of the original code belongs to them.</p><p>Toast homepage: <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/index.html">http://web4.cs.ucl.ac.uk/research/vis/toast/index.html</a>. M. Schweiger and S. R. Arridge, "The Toast++ software suite for forward and inverse modeling in optical tomography", Journal of Biomedical Optics, 19(4):040801, 2014.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create meshes</a></li><li><a href="#2">Set the optical coefficients</a></li><li><a href="#3">Create the source and detector positions for Toast</a></li><li><a href="#4">Create the source and detector positions for ValoMC</a></li><li><a href="#5">Plot the source/detector arrangement</a></li><li><a href="#6">Create the source and boundary projection vectors for Toast</a></li><li><a href="#7">Solve the FEM system with Toast</a></li><li><a href="#8">Solve the photon transport problem with ValoMC</a></li><li><a href="#9">Plot the solutions</a></li><li><a href="#10">Plot the measurement profile as a function of source-detector separation</a></li></ul></div><h2 id="1">Create meshes</h2><p>A circular mesh is created as in the original example and imported to ValoMC.</p><pre class="codeinput">rad = 25;
-nsect = 6;
-nring = 32;
+  </style></head><body><div class="content"><h1>Working with Toast++: toastest.m</h1><!--introduction--><p>This example is based on a simple Toast++ usage example found on the Toast++ web site. The original example can be found from <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html">http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html</a>. It simulates a steady state diffuse optical tomography (DOT) measurement in a circular geometry that has 16 detectors and 16 light sources located on the boundary of the object.</p><p>Each source is used to illuminate light into the domain and the amount of light is measured at all detectors. This is repeated for all source locations. In the example, the measurement matrix (signal intensity at each detector) is simulated both with Toast (as in the original example) and with ValoMC. Note that the results are not equal since Toast uses DA as the model for light propagation. DA can be regarded as a good approximation for photon transport in a highly scattering medium with distances further than a few scattering lengths from the source.</p><p>Toast++ is a software for image reconstruction in diffuse optical tomography. It contains a forward solver module using the finite element method for simulating the propagation of light in highly scattering, inhomogeneous biological tissues. The inverse solver module uses an iterative, regularized least-squares approach to reconstruct the unknown distributions of absorption and scattering coefficients in the volume of interest from boundary measurements of transmitted light.</p><p>Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge (University College London) and the copyright of the original code belongs to them.</p><p>Toast homepage: <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/index.html">http://web4.cs.ucl.ac.uk/research/vis/toast/index.html</a>. M. Schweiger and S. R. Arridge, "The Toast++ software suite for forwards and inverse modeling in optical tomography", Journal of Biomedical Optics, 19(4):040801, 2014.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create the geometry</a></li><li><a href="#2">Set the optical coefficients</a></li><li><a href="#3">Create the source and detector positions</a></li><li><a href="#4">Plot the source/detector arrangement</a></li><li><a href="#5">Solve the FEM system with Toast</a></li><li><a href="#6">Solve the photon transport problem with ValoMC</a></li><li><a href="#7">Plot the solutions</a></li><li><a href="#8">Plot the measurement profile as a function of source-detector separation</a></li></ul></div><h2 id="1">Create the geometry</h2><p>Create a circular mesh using Toast++ and import it to ValoMC</p><pre class="codeinput">rad = 25;
+nsect = 8;
+nring = 34;
 nbnd = 2;
+
+
 [vtx,idx,eltp] = mkcircle(rad,nsect,nring,nbnd);
-toast_mesh = toastMesh(vtx,idx,eltp);
 
-<span class="comment">% Use a convenience function provided by ValoMC to import the Toast</span>
-<span class="comment">% finite element mesh.</span>
-photonmc_mesh = importToastMesh(toast_mesh);
-</pre><h2 id="2">Set the optical coefficients</h2><pre class="codeinput">mua_bkg = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
-mus_bkg = 1.0;      <span class="comment">% reduced scattering coefficient [1/mm]</span>
-ref_bkg = 1.4;      <span class="comment">% refractive index [unitless]</span>
+toastmesh = toastMesh(vtx,idx,eltp);
+vmcmesh = importToastMesh(toastmesh);
+</pre><h2 id="2">Set the optical coefficients</h2><p>Note that the optical coefficients are given for each node in Toast, whereas in ValoMC they are uniform values for each element.</p><pre class="codeinput"><span class="comment">% absorption coefficient [1/mm]</span>
+mua_bkg = 0.01;
+<span class="comment">% scattering coefficient [1/mm]</span>
+mus_bkg = 1.0;
+<span class="comment">% scattering anisotropy parameter [unitless]</span>
+scattering_anisotropy_bkg = 0.0;
+<span class="comment">% reduced scattering coefficient [1/mm]</span>
+mus_reduced = mus_bkg*(1-scattering_anisotropy_bkg);
 
-<span class="comment">% In Toast, the optical coefficients are defined for each node</span>
-nnd = toast_mesh.NodeCount;
+<span class="comment">% Set optical coefficients for Toast.</span>
+
+nnd = toastmesh.NodeCount;
 toast_mua = ones(nnd,1) * mua_bkg;  <span class="comment">% absorption coefficient [1/mm]</span>
-toast_mus = ones(nnd,1) * mus_bkg;  <span class="comment">% reduced scattering coefficient [1/mm]</span>
-toast_ref = ones(nnd,1) * ref_bkg;  <span class="comment">% refractive index [unitless]</span>
+toast_mus = ones(nnd,1) * mus_reduced; <span class="comment">% reduced scattering coefficient [1/mm]</span>
 
-<span class="comment">% For ValoMC, the optical coefficients are for each element</span>
-nne = size(photonmc_mesh.H,1); <span class="comment">% number of elements</span>
-photonmc_medium.absorption_coefficient = ones(nne,1)*mua_bkg; <span class="comment">% absorption coefficient [1/mm]</span>
-photonmc_medium.scattering_coefficient = ones(nne,1)*mus_bkg; <span class="comment">% scattering coefficient [1/mm]</span>
-photonmc_medium.refractive_index = ones(nne,1)*ref_bkg;       <span class="comment">% refractive index [unitless]</span>
+<span class="comment">% Set optical coefficients for ValoMC. The refractive index is set but it</span>
+<span class="comment">% does not affect the solution as there is no mismatch on the boundary.</span>
 
-<span class="comment">% The scattering anisotropy parameter g of the Henyey-Greenstein scattering</span>
-<span class="comment">% phase function is set to zero so that the scattering coefficient (used by</span>
-<span class="comment">% ValoMC) and the reduced scattering coefficient (used by Toast) are equal</span>
-photonmc_medium.scattering_anisotropy = ones(nne,1)*0.0;      <span class="comment">% scattering anisotropy parameter [unitless]</span>
-</pre><h2 id="3">Create the source and detector positions for Toast</h2><pre class="codeinput"><span class="comment">% Sources and detectors are attached to nodes</span>
+nne = size(vmcmesh.H,1); <span class="comment">% number of elements</span>
+
+<span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.absorption_coefficient = ones(nne,1)*mua_bkg;
+ <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = ones(nne,1)*mus_bkg;
+ <span class="comment">% refractive index [unitless]</span>
+vmcmedium.refractive_index = ones(nne,1)*1;
+<span class="comment">% scattering anisotropy parameter [unitless]</span>
+vmcmedium.scattering_anisotropy = ones(nne,1)*scattering_anisotropy_bkg;
+
+<span class="comment">% Create the boundary so that there is no mismatch</span>
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+</pre><h2 id="3">Create the source and detector positions</h2><p>A collimated lightsoure (pencil beam) can be approximated in DA by placing an isotropic source at a distance 1/mus' from the surface, where mus' is the reduced scattering coefficient.</p><pre class="codeinput"><span class="comment">% Build source/detector locations for Toast</span>
+
 nq = 16;
 <span class="keyword">for</span> ii=1:nq
-  phi_q = 2*pi*(ii-1)/nq;
-  Q(ii,:) = rad * [cos(phi_q) sin(phi_q)];
-  phi_m = 2*pi*(ii-0.5)/nq;
-  M(ii,:) = rad * [cos(phi_m) sin(phi_m)];
+  phi_q = 2*pi*(ii-1)/nq + pi / 256;
+  Q(ii,:) = (rad - 1/mus_reduced) * [cos(phi_q) sin(phi_q)]; <span class="comment">% source position</span>
+  phi_m = 2*pi*(ii-0.5)/nq + pi / 256;
+  M(ii,:) = rad * [cos(phi_m) sin(phi_m)]; <span class="comment">% detector position</span>
 <span class="keyword">end</span>
-toast_mesh.SetQM(Q,M);
-</pre><h2 id="4">Create the source and detector positions for ValoMC</h2><pre class="codeinput"><span class="comment">% The sources and detectors are attached to boundary elements.</span>
-<span class="comment">% Keyword 'location' can be used to find the elements that</span>
-<span class="comment">% are nearest to the corresponding location vector.</span>
-photonmc_source_indices = findBoundaries(photonmc_mesh, <span class="string">'location'</span>, Q);
-photonmc_detector_indices = findBoundaries(photonmc_mesh, <span class="string">'location'</span>, M);
-photonmc_boundary = createBoundary(photonmc_mesh, photonmc_medium);
-</pre><h2 id="5">Plot the source/detector arrangement</h2><pre class="codeinput"><span class="comment">% Note that while the figures resemble closely each other, the sources/detectors</span>
-<span class="comment">% in ValoMC are represented by boundary elements, whereas in Toast setup</span>
-<span class="comment">% they are element vertices. The difference becomes smaller with a finer mesh.</span>
 
-figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
-h = subplot(1,2,1);
+toastmesh.SetQM(Q,M);
+
+
+<span class="comment">% Build source/detector locations for ValoMC</span>
+
+<span class="comment">% Sources and detectors are placed to the nearest boundary elements</span>
+
+source_boundary_elements = findBoundaries(vmcmesh, <span class="string">'location'</span>, Q);
+detector_boundary_elements = findBoundaries(vmcmesh, <span class="string">'location'</span>, M);
+</pre><h2 id="4">Plot the source/detector arrangement</h2><p>Note that the lightsources have a finite width in ValoMC, which introduces a small discretisation error in the comparison.</p><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1000 1000])
 hold <span class="string">on</span>
-toast_mesh.Display;
-h1 = plot(Q(:,1),Q(:,2),<span class="string">'ro'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>);
-h2 = plot(M(:,1),M(:,2),<span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>);
-legend([h1 h2], {<span class="string">'Sources'</span>, <span class="string">'Detectors'</span>});
-title(<span class="string">'Toast source/detector setup'</span>);
+patch(<span class="string">'Faces'</span>, vmcmesh.H, <span class="string">'Vertices'</span>,vmcmesh.r, <span class="string">'FaceVertexCData'</span>, 0, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'LineWidth'</span>, 0.1);
 
-hold <span class="string">off</span>
-subplot(1,2,2)
-hold <span class="string">on</span>
-toast_mesh.Display;
-<span class="keyword">for</span> ii=1:16 <span class="comment">% size(photonmc_source_indices,1)</span>
-    h3=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),1), <span class="keyword">...</span>
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),2), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>,4.0);
-    h4=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),1), <span class="keyword">...</span>
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),2), <span class="string">'b'</span>, <span class="string">'LineWidth'</span>,4.0);
-<span class="keyword">end</span>
-legend([h3 h4], {<span class="string">'Sources'</span>, <span class="string">'Detectors'</span>});
-title(<span class="string">'ValoMC source/detector setup'</span>);
-hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="toasttest_01.png" alt=""> <h2 id="6">Create the source and boundary projection vectors for Toast</h2><pre class="codeinput">gaussian_width = 2;
-
-qvec = toast_mesh.Qvec(<span class="string">'Neumann'</span>, <span class="string">'Gaussian'</span>, gaussian_width);
-mvec = toast_mesh.Mvec(<span class="string">'Gaussian'</span>, gaussian_width,toast_ref);
-</pre><h2 id="7">Solve the FEM system with Toast</h2><pre class="codeinput">K = dotSysmat (toast_mesh,toast_mua,toast_mus,toast_ref,0);
-Phi = K\(2*qvec);
-Y = mvec.' * Phi;
-</pre><h2 id="8">Solve the photon transport problem with ValoMC</h2><p>The source is relocated 16 times to simulate photon transport for each source</p><pre class="codeinput">Y2 = ones(nq,nq);
 <span class="keyword">for</span> ii=1:nq
+    h1=plot(vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),1), <span class="keyword">...</span>
+            vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),2), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>,4.0);
+    h2=plot(vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),1), <span class="keyword">...</span>
+            vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),2), <span class="string">'b'</span>, <span class="string">'LineWidth'</span>,4.0);
+<span class="keyword">end</span>
+
+h3 = plot(Q(:, 1),Q(:,2),<span class="string">'ro'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>);
+h4 = plot(M(:, 1),M(:,2),<span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>);
+
+title(<span class="string">'Source/detector setup'</span>);
+legend([h1 h2 h3 h4], {<span class="string">'ValoMC source'</span>, <span class="string">'ValoMC detector'</span>, <span class="string">'Toast source'</span>, <span class="string">'Toast detector'</span>});
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="toasttest_01.png" alt=""> <h2 id="5">Solve the FEM system with Toast</h2><p>The system matrix is constructed manually using 2D coefficients (by default, Toast uses formulas derived from the radiative transfer equation for 3D geometry). For more detailed information about 2D and 3D coefficients, see e.g. T. Tarvainen: Computational Methods for Light Transport in Optical Tomography, PhD thesis, University of Kuopio, 2006.</p><pre class="codeinput"><span class="comment">% Create isotropic sources</span>
+qvec = toastmesh.Qvec(<span class="string">'Isotropic'</span>,<span class="string">'Point'</span>);
+
+<span class="comment">% To obtain comparable results, the measurement vectors have a sharp</span>
+<span class="comment">% Gaussian profile (a narrow detector). Conversion factor between fluence</span>
+<span class="comment">% and exitance is 2/pi in 2D</span>
+mvec = 2/pi*toastmesh.Mvec(<span class="string">'Gaussian'</span>,0.5,0);
+
+<span class="comment">% 2D diffusion coefficient</span>
+toast_kap = 1./(2.*(toast_mua+toast_mus));
+
+S1 = toastmesh.SysmatComponent(<span class="string">'PFF'</span>,toast_mua);
+S2 = toastmesh.SysmatComponent(<span class="string">'PDD'</span>,toast_kap);
+
+<span class="comment">% The boundary term is multiplied by 2/pi in 2D</span>
+S3 = toastmesh.SysmatComponent (<span class="string">'BndPFF'</span>, ones(nnd,1)*2/pi);
+K = S1+S2+S3;
+
+Phi = K\(qvec);                <span class="comment">% solve the fluence</span>
+Y_toast  = mvec.' * Phi;       <span class="comment">% compute the exitance on each detector</span>
+</pre><h2 id="6">Solve the photon transport problem with ValoMC</h2><p>The source is relocated 16 times and the exitance at each 16 detector is stored to build a similar source/detector matrix as in the original example.</p><pre class="codeinput">Y_vmc = ones(nq,nq);
+<span class="keyword">for</span> ii=1:16
    disp([<span class="string">'Starting simulation '</span> num2str(ii) <span class="string">' out of '</span> num2str(nq)]);
-   options.photon_count = 1e6;                  <span class="comment">% number of photon packets</span>
-   photonmc_boundary.lightsource(:) = {<span class="string">'none'</span>}; <span class="comment">% erase all light sources</span>
-   photonmc_boundary.lightsource(photonmc_source_indices(ii)) = {<span class="string">'gaussian'</span>};
-   photonmc_boundary.lightsource_gaussian_sigma(photonmc_source_indices(ii)) = gaussian_width;
-   photonmc_solution = ValoMC(photonmc_mesh, photonmc_medium, photonmc_boundary,options);
+   options.photon_count = 1e8;            <span class="comment">% number of photon packets</span>
+   vmcboundary.lightsource(:) = {<span class="string">'none'</span>}; <span class="comment">% erase all previous light sources</span>
+   <span class="comment">% use a collimated light source</span>
+   vmcboundary.lightsource(source_boundary_elements(ii)) = {<span class="string">'direct'</span>};
+   vmcsolution = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
    <span class="comment">% build the solution matrix column by column</span>
-   <span class="comment">% Factor of two follows from the boundary conditions</span>
-   Y2(:,ii) = photonmc_solution.boundary_fluence(photonmc_detector_indices(:));
+   Y_vmc(:,ii) = vmcsolution.boundary_exitance(detector_boundary_elements(:));
 <span class="keyword">end</span>
 </pre><pre class="codeoutput">Starting simulation 1 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 2 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 3 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 4 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 5 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 6 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 7 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 8 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 9 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 10 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 11 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 12 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 13 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 14 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 15 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 16 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-</pre><h2 id="9">Plot the solutions</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
+</pre><h2 id="7">Plot the solutions</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
 
 subplot(1,2,1)
-imagesc(log(Y));
+imagesc(log(Y_toast));
 xlabel(<span class="string">'source index q'</span>);
 ylabel(<span class="string">'detector index m'</span>);
 axis <span class="string">equal</span> <span class="string">tight</span>;
@@ -263,202 +393,229 @@ colorbar
 title(<span class="string">'Toast result'</span>);
 
 <span class="comment">% Display boundary profile</span>
+
 subplot(1,2,2)
-imagesc(log(Y2));
+imagesc(log(Y_vmc));
 xlabel(<span class="string">'source index q'</span>);
 ylabel(<span class="string">'detector index m'</span>);
 axis <span class="string">equal</span> <span class="string">tight</span>;
 colorbar
 title(<span class="string">'ValoMC result'</span>);
-
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="toasttest_02.png" alt=""> <h2 id="10">Plot the measurement profile as a function of source-detector separation</h2><pre class="codeinput"><span class="comment">% Note that because of the differences between the diffusion approximation</span>
-<span class="comment">% and photon transport as well as the stochastic nature of the Monte Carlo</span>
-<span class="comment">% simulations, the 16 measurement profiles do not fully coincide.</span>
-
-figure;
+</pre><img vspace="5" hspace="5" src="toasttest_02.png" alt=""> <h2 id="8">Plot the measurement profile as a function of source-detector separation</h2><p>Note that because of the differences between the diffusion approximation and radiative transport theory, discretization errors as well as the stochastic nature of the Monte Carlo simulations, the 16 measurement profiles do not fully coincide.</p><pre class="codeinput">figure
 hold <span class="string">on</span>
-angle = 360/32:360/16:360;
-<span class="keyword">for</span> ii=1:1
-    ywrap = [Y(ii:end,ii); Y(1:ii-1,ii)];
-    h=plot(angle,log(ywrap),<span class="string">'o-'</span>);
-<span class="keyword">end</span>
-axis([0 360 -15 -2]);
-xlabel(<span class="string">'angular source-detector separation'</span>);
-ylabel(<span class="string">'log irradiance'</span>);
 
 angle = 360/32:360/16:360;
-<span class="comment">%for ii=1:size(Y,2)</span>
-<span class="keyword">for</span> ii=1:1
-    ywrap = [Y2(ii:end,ii); Y2(1:ii-1,ii)];
-    h2=plot(angle,log(ywrap),<span class="string">'*-'</span>);
+
+<span class="keyword">for</span> profile_number=1:16
+
+   h1=plot(angle, log(circshift((Y_vmc(:,profile_number)),-(profile_number-1))),<span class="string">'x-'</span>);
+   h2=plot(angle, log(circshift((Y_toast(:,profile_number)),-(profile_number-1))),<span class="string">'o-'</span>);
+
+   axis([10 350 -15 -2]);
+   xlabel(<span class="string">'angular source-detector separation'</span>);
+   ylabel(<span class="string">'exitance log(W/mm)'</span>);
+
 <span class="keyword">end</span>
-axis([0 360 -15 -2]);
-xlabel(<span class="string">'angular source-detector separation'</span>);
-ylabel(<span class="string">'log irradiance'</span>);
-legend([h h2], {<span class="string">'Toast'</span>, <span class="string">'ValoMC'</span>});
+
+legend([h1 h2], {<span class="string">'ValoMC exitance'</span>, <span class="string">'Toast exitance'</span>});
+
 
 hold <span class="string">off</span>
 </pre><img vspace="5" hspace="5" src="toasttest_03.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %%  Working with Toast++: toastest.m
-% This example is based on a simple Toast usage example found on the
-% Toast web site.
-% See http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html.
-% It simulates a steady state diffuse optical tomogarphy (DOT) measurement
-% in a circular geometry that has 16 detectors and 16 light sources located
-% on the baoundary of the object.
-% Each source is used to illuminate light into the domain and the amount of
-% light is measured at all detectors. This is repated for all source locations.
-% In the example, the measurement matrix (photon fluence at detectors) is
-% simulated both with Toast (as in the original example) and with ValoMC.
-% Note that the results are not equal since Toast uses diffusion
-% approximation (DA) as the model for light propagation. The DA can be
-% regarded as a good approximation for photon transport in a highly scattering
-% medium with distances further than a few scattering lengths from the source.
+%
+% This example is based on a simple Toast++ usage example found on the
+% Toast++ web site. The original example can be found from
+% http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html. It
+% simulates a steady state diffuse optical tomography (DOT)
+% measurement in a circular geometry that has 16 detectors and 16
+% light sources located on the boundary of the object.
+%
+% Each source is used to illuminate light into the domain and the
+% amount of light is measured at all detectors. This is repeated for
+% all source locations. In the example, the measurement matrix (signal
+% intensity at each detector) is simulated both with Toast (as in the
+% original example) and with ValoMC. Note that the results are not
+% equal since Toast uses DA as the model for light propagation. DA
+% can be regarded as a good approximation for photon transport in a
+% highly scattering medium with distances further than a few
+% scattering lengths from the source.
 %
 % Toast++ is a software for image reconstruction in diffuse optical
-% tomography. It contains a forward solver module using the finite element
-% method for simulating the propagation of light in highly scattering,
-% inhomogeneous biological tissues. The inverse solver module uses an iterative,
-% model-based approach to reconstruct the unknown distributions of absorption
-% and scattering coefficients in the volume of interest from boundary
-% measurements of transmitted light.
+% tomography. It contains a forward solver module using the finite
+% element method for simulating the propagation of light in highly
+% scattering, inhomogeneous biological tissues. The inverse solver
+% module uses an iterative, regularized least-squares approach to reconstruct the
+% unknown distributions of absorption and scattering coefficients in
+% the volume of interest from boundary measurements of transmitted
+% light.
 %
-% Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge
-% (University College London) and the copyright of the original code
-% belongs to them.
+% Toast++ toolbox is being developed by Martin Schweiger and Simon
+% Arridge (University College London) and the copyright of the
+% original code belongs to them.
 %
-% Toast homepage: http://web4.cs.ucl.ac.uk/research/vis/toast/index.html.
-% M. Schweiger and S. R. Arridge, "The Toast++ software suite for forward
-% and inverse modeling in optical tomography", Journal of Biomedical Optics,
-% 19(4):040801, 2014.
+% Toast homepage:
+% http://web4.cs.ucl.ac.uk/research/vis/toast/index.html.
+% M. Schweiger and S. R. Arridge, "The Toast++ software suite for
+% forwards and inverse modeling in optical tomography", Journal of
+% Biomedical Optics, 19(4):040801, 2014.
 
-
-%% Create meshes
-% A circular mesh is created as in the original example and imported
-% to ValoMC.
+%% Create the geometry
+% Create a circular mesh using Toast++ and import it to ValoMC
 
 rad = 25;
-nsect = 6;
-nring = 32;
+nsect = 8;
+nring = 34;
 nbnd = 2;
-[vtx,idx,eltp] = mkcircle(rad,nsect,nring,nbnd);
-toast_mesh = toastMesh(vtx,idx,eltp);
 
-% Use a convenience function provided by ValoMC to import the Toast 
-% finite element mesh.
-photonmc_mesh = importToastMesh(toast_mesh);
+
+[vtx,idx,eltp] = mkcircle(rad,nsect,nring,nbnd);
+
+toastmesh = toastMesh(vtx,idx,eltp);
+vmcmesh = importToastMesh(toastmesh);
 
 
 %% Set the optical coefficients
+% Note that the optical coefficients are given for each node in Toast,
+% whereas in ValoMC they are uniform values for each element.
 
-mua_bkg = 0.01;     % absorption coefficient [1/mm]
-mus_bkg = 1.0;      % reduced scattering coefficient [1/mm]
-ref_bkg = 1.4;      % refractive index [unitless]
+% absorption coefficient [1/mm]
+mua_bkg = 0.01;  
+% scattering coefficient [1/mm]
+mus_bkg = 1.0;                   	        
+% scattering anisotropy parameter [unitless]
+scattering_anisotropy_bkg = 0.0; 	        
+% reduced scattering coefficient [1/mm]
+mus_reduced = mus_bkg*(1-scattering_anisotropy_bkg); 
 
-% In Toast, the optical coefficients are defined for each node
-nnd = toast_mesh.NodeCount;
+% Set optical coefficients for Toast.
+
+nnd = toastmesh.NodeCount;
 toast_mua = ones(nnd,1) * mua_bkg;  % absorption coefficient [1/mm]
-toast_mus = ones(nnd,1) * mus_bkg;  % reduced scattering coefficient [1/mm]
-toast_ref = ones(nnd,1) * ref_bkg;  % refractive index [unitless]
+toast_mus = ones(nnd,1) * mus_reduced; % reduced scattering coefficient [1/mm]
 
-% For ValoMC, the optical coefficients are for each element
-nne = size(photonmc_mesh.H,1); % number of elements 
-photonmc_medium.absorption_coefficient = ones(nne,1)*mua_bkg; % absorption coefficient [1/mm]
-photonmc_medium.scattering_coefficient = ones(nne,1)*mus_bkg; % scattering coefficient [1/mm]
-photonmc_medium.refractive_index = ones(nne,1)*ref_bkg;       % refractive index [unitless]
+% Set optical coefficients for ValoMC. The refractive index is set but it
+% does not affect the solution as there is no mismatch on the boundary.
 
-% The scattering anisotropy parameter g of the Henyey-Greenstein scattering 
-% phase function is set to zero so that the scattering coefficient (used by 
-% ValoMC) and the reduced scattering coefficient (used by Toast) are equal
-photonmc_medium.scattering_anisotropy = ones(nne,1)*0.0;      % scattering anisotropy parameter [unitless]
+nne = size(vmcmesh.H,1); % number of elements
 
+% absorption coefficient [1/mm]
+vmcmedium.absorption_coefficient = ones(nne,1)*mua_bkg;
+ % scattering coefficient [1/mm]
+vmcmedium.scattering_coefficient = ones(nne,1)*mus_bkg;
+ % refractive index [unitless]
+vmcmedium.refractive_index = ones(nne,1)*1;
+% scattering anisotropy parameter [unitless]
+vmcmedium.scattering_anisotropy = ones(nne,1)*scattering_anisotropy_bkg;
 
-%% Create the source and detector positions for Toast
+% Create the boundary so that there is no mismatch
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
 
-% Sources and detectors are attached to nodes 
+%% Create the source and detector positions
+%
+% A collimated lightsoure (pencil beam) can be approximated in DA
+% by placing an isotropic source at a distance 1/mus' from the surface,
+% where mus' is the reduced scattering coefficient.
+
+% Build source/detector locations for Toast
+
 nq = 16;
 for ii=1:nq
-  phi_q = 2*pi*(ii-1)/nq;
-  Q(ii,:) = rad * [cos(phi_q) sin(phi_q)];
-  phi_m = 2*pi*(ii-0.5)/nq;
-  M(ii,:) = rad * [cos(phi_m) sin(phi_m)];
+  phi_q = 2*pi*(ii-1)/nq + pi / 256;
+  Q(ii,:) = (rad - 1/mus_reduced) * [cos(phi_q) sin(phi_q)]; % source position
+  phi_m = 2*pi*(ii-0.5)/nq + pi / 256;
+  M(ii,:) = rad * [cos(phi_m) sin(phi_m)]; % detector position
 end
-toast_mesh.SetQM(Q,M);
 
-%% Create the source and detector positions for ValoMC
+toastmesh.SetQM(Q,M);
 
-% The sources and detectors are attached to boundary elements.
-% Keyword 'location' can be used to find the elements that 
-% are nearest to the corresponding location vector.
-photonmc_source_indices = findBoundaries(photonmc_mesh, 'location', Q);
-photonmc_detector_indices = findBoundaries(photonmc_mesh, 'location', M);
-photonmc_boundary = createBoundary(photonmc_mesh, photonmc_medium);
+
+% Build source/detector locations for ValoMC
+
+% Sources and detectors are placed to the nearest boundary elements
+
+source_boundary_elements = findBoundaries(vmcmesh, 'location', Q);
+detector_boundary_elements = findBoundaries(vmcmesh, 'location', M);
 
 
 %% Plot the source/detector arrangement
+% Note that the lightsources have a finite width in ValoMC, which introduces
+% a small discretisation error in the comparison.
 
-% Note that while the figures resemble closely each other, the sources/detectors 
-% in ValoMC are represented by boundary elements, whereas in Toast setup 
-% they are element vertices. The difference becomes smaller with a finer mesh. 
-
-figure('rend','painters','pos',[10 10 1200 400])
-h = subplot(1,2,1);
+figure('rend','painters','pos',[10 10 1000 1000])
 hold on
-toast_mesh.Display;
-h1 = plot(Q(:,1),Q(:,2),'ro','MarkerFaceColor','r');
-h2 = plot(M(:,1),M(:,2),'bs','MarkerFaceColor','b');
-legend([h1 h2], {'Sources', 'Detectors'});
-title('Toast source/detector setup');
+patch('Faces', vmcmesh.H, 'Vertices',vmcmesh.r, 'FaceVertexCData', 0, 'FaceColor', 'flat', 'LineWidth', 0.1);
 
-hold off
-subplot(1,2,2)
-hold on
-toast_mesh.Display;
-for ii=1:16 % size(photonmc_source_indices,1)
-    h3=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),1), ...
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),2), 'r', 'LineWidth',4.0);
-    h4=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),1), ...
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),2), 'b', 'LineWidth',4.0);
+for ii=1:nq
+    h1=plot(vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),1), ...
+            vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),2), 'r', 'LineWidth',4.0);
+    h2=plot(vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),1), ...
+            vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),2), 'b', 'LineWidth',4.0);
 end
-legend([h3 h4], {'Sources', 'Detectors'});
-title('ValoMC source/detector setup');
-hold off 
+
+h3 = plot(Q(:, 1),Q(:,2),'ro','MarkerFaceColor','r');
+h4 = plot(M(:, 1),M(:,2),'bs','MarkerFaceColor','b');
+
+title('Source/detector setup');
+legend([h1 h2 h3 h4], {'ValoMC source', 'ValoMC detector', 'Toast source', 'Toast detector'});
+hold off
 
 
-%% Create the source and boundary projection vectors for Toast
-gaussian_width = 2;
-
-qvec = toast_mesh.Qvec('Neumann', 'Gaussian', gaussian_width);
-mvec = toast_mesh.Mvec('Gaussian', gaussian_width,toast_ref);
 
 %% Solve the FEM system with Toast
-K = dotSysmat (toast_mesh,toast_mua,toast_mus,toast_ref,0);
-Phi = K\(2*qvec);
-Y = mvec.' * Phi;
+% The system matrix is constructed manually using 2D coefficients (by
+% default, Toast uses formulas derived from the radiative transfer equation
+% for 3D geometry). For more detailed information about 2D and 3D
+% coefficients, see e.g. T. Tarvainen: Computational Methods for Light
+% Transport in Optical Tomography, PhD thesis, University of Kuopio, 2006.
+
+
+% Create isotropic sources 
+qvec = toastmesh.Qvec('Isotropic','Point');
+
+% To obtain comparable results, the measurement vectors have a sharp
+% Gaussian profile (a narrow detector). Conversion factor between fluence
+% and exitance is 2/pi in 2D
+mvec = 2/pi*toastmesh.Mvec('Gaussian',0.5,0);
+
+% 2D diffusion coefficient
+toast_kap = 1./(2.*(toast_mua+toast_mus));
+
+S1 = toastmesh.SysmatComponent('PFF',toast_mua);
+S2 = toastmesh.SysmatComponent('PDD',toast_kap);
+
+% The boundary term is multiplied by 2/pi in 2D
+S3 = toastmesh.SysmatComponent ('BndPFF', ones(nnd,1)*2/pi);
+K = S1+S2+S3;
+
+Phi = K\(qvec);                % solve the fluence
+Y_toast  = mvec.' * Phi;       % compute the exitance on each detector
 
 %% Solve the photon transport problem with ValoMC
-% The source is relocated 16 times to simulate photon transport for each
-% source
-Y2 = ones(nq,nq);
-for ii=1:nq
+% The source is relocated 16 times and the exitance at each 16 detector is stored
+% to build a similar source/detector matrix as in the original example.
+
+Y_vmc = ones(nq,nq);
+for ii=1:16
    disp(['Starting simulation ' num2str(ii) ' out of ' num2str(nq)]);
-   options.photon_count = 1e6;                  % number of photon packets
-   photonmc_boundary.lightsource(:) = {'none'}; % erase all light sources 
-   photonmc_boundary.lightsource(photonmc_source_indices(ii)) = {'gaussian'};
-   photonmc_boundary.lightsource_gaussian_sigma(photonmc_source_indices(ii)) = gaussian_width;
-   photonmc_solution = ValoMC(photonmc_mesh, photonmc_medium, photonmc_boundary,options);
+   options.photon_count = 1e8;            % number of photon packets
+   vmcboundary.lightsource(:) = {'none'}; % erase all previous light sources
+   % use a collimated light source
+   vmcboundary.lightsource(source_boundary_elements(ii)) = {'direct'};
+   vmcsolution = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
    % build the solution matrix column by column
-   % Factor of two follows from the boundary conditions
-   Y2(:,ii) = photonmc_solution.boundary_fluence(photonmc_detector_indices(:));
+   Y_vmc(:,ii) = vmcsolution.boundary_exitance(detector_boundary_elements(:));
 end
 
+
 %% Plot the solutions
+
 figure('rend','painters','pos',[10 10 1200 400])
 
 subplot(1,2,1)
-imagesc(log(Y));
+imagesc(log(Y_toast));
 xlabel('source index q');
 ylabel('detector index m');
 axis equal tight;
@@ -466,43 +623,42 @@ colorbar
 title('Toast result');
 
 % Display boundary profile
+
 subplot(1,2,2)
-imagesc(log(Y2));
+imagesc(log(Y_vmc));
 xlabel('source index q');
 ylabel('detector index m');
 axis equal tight;
 colorbar
 title('ValoMC result');
-
 hold off;
 
+
 %% Plot the measurement profile as a function of source-detector separation
+% Note that because of the differences between the diffusion approximation
+% and radiative transport theory, discretization errors as well as the
+% stochastic nature of the Monte Carlo simulations, the 16 measurement
+% profiles do not fully coincide.
 
-% Note that because of the differences between the diffusion approximation 
-% and photon transport as well as the stochastic nature of the Monte Carlo
-% simulations, the 16 measurement profiles do not fully coincide.
 
-figure;
+figure
 hold on
-angle = 360/32:360/16:360;
-for ii=1:1
-    ywrap = [Y(ii:end,ii); Y(1:ii-1,ii)];
-    h=plot(angle,log(ywrap),'o-');
-end
-axis([0 360 -15 -2]);
-xlabel('angular source-detector separation');
-ylabel('log irradiance');
 
 angle = 360/32:360/16:360;
-%for ii=1:size(Y,2)
-for ii=1:1
-    ywrap = [Y2(ii:end,ii); Y2(1:ii-1,ii)];
-    h2=plot(angle,log(ywrap),'*-');
+
+for profile_number=1:16
+   
+   h1=plot(angle, log(circshift((Y_vmc(:,profile_number)),-(profile_number-1))),'x-');
+   h2=plot(angle, log(circshift((Y_toast(:,profile_number)),-(profile_number-1))),'o-');
+
+   axis([10 350 -15 -2]);
+   xlabel('angular source-detector separation');
+   ylabel('exitance log(W/mm)');
+
 end
-axis([0 360 -15 -2]);
-xlabel('angular source-detector separation');
-ylabel('log irradiance');
-legend([h h2], {'Toast', 'ValoMC'});
+
+legend([h1 h2], {'ValoMC exitance', 'Toast exitance'});
+
 
 hold off
 

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"> 
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125261808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125261808-1');
+</script>
+<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<style>
+
+body {
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+
+   ul.tree a {
+    color: back;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+   }
+   ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+img.logo {max-width: 300px;}
+
+   li {
+     list-style-type: none;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
+   ul.tree, ul.tree ul {
+     list-style-type: none;
+     background:  repeat-y;
+     margin: 0;
+     padding: 0;
+     margin: 0.1vw;
+   }
+
+   ul.tree ul {
+     list-style-type: none;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
+   }
+
+
+a {
+    color: black;
+}
+
+
+   ul.tree li.last {
+     background: #fff url(images/lastnode.png) no-repeat;
+   }
+
+   ul.topnav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+ul.topnav li {float: left;
+     list-style-type: none;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
+</style>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body> 
+<img class="logo" src="ValoMC_logo.png">
+<ul class="topnav">
+<font size="4">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="download.html">Download</a></li>
+  <li><a href="features.html">Features</a></li>
+  <li><a href="installation.html">Installation</a></li>
+  <li><a class="active" href="documentation.html">Documentation</a></li>
+  <li class="right"><a href="about.html">About</a></li>
+</font>
+</ul>
+
+<div style="padding:0 0vw; width: auto;">
+  <h2></h2>
+  <p></p>
+  <p></p>
+<font size="4">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
+<br> 
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
+</ul>
+    </div>
+    <div style="margin-left: 20%; padding: 1vw;"> 
+<div class="content">
+<pre>
+IMPORTTOASTMESH Imports a mesh from the Toast++ software suite
+
+ USAGE:
+
+       vmcmesh = importToastMesh(toastmesh)
+
+ EXAMPLE:
+cd
+       rad = 25;
+       nsect = 6;
+       nring = 32;
+       nbnd = 2;
+       [vtx,idx,eltp] = mkcircle(rad,nsect,nring,nbnd);
+       toastmesh = toastMesh(vtx,idx,eltp);
+       vmcmesh = importToastMesh(toastmesh);
+
+ DESCRIPTION:
+
+       This is a wrapper function that converts the data in
+       an instance of the toastMesh class into the mesh structure
+       of ValoMC.
+
+ INPUT:
+
+       toastmesh   - toastMesh class
+
+ OUTPUT:
+
+       vmcmesh     - vmcmesh structure
+
+ This function is provided with ValoMC
+</pre>
+</div>
+    </div>
+</div>
+</font>
+  </div>
+
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
+<br>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
+

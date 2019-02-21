@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import codecs
 
-with codecs.open('../distribution/helppages/html/documentation.html','r',encoding='utf8') as file:
-	file = open('../distribution/helppages/html/documentation.html', 'r')
+with codecs.open('tmp.html','r',encoding='utf8') as file:
+	file = open('tmp.html', 'r')
 	str = file.read()
 	file.close();
 

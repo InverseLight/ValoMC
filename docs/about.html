@@ -4,6 +4,7 @@
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125261808-1"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -18,9 +19,24 @@ body {
         margin-top: 5vw;
         margin-left: 10vw;
         margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
+       	padding: 0;
+        font-size: 100%;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+#introduction {
+   text-align: justify;
+}
+
+
+table.maintable {
+   table-layout: fixed;
+   border: 0px solid black;
+}
+
+table.maintable td {
+   padding-right: 2vw;
+   padding-left: 0.2vw;
 }
 
 
@@ -29,18 +45,18 @@ body {
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 5vw;
    }
 
 
   ol li {
      list-style-type: decimal;
-     margin-left: -10px;
+     margin-left: 0px;
    }
 
 a {
@@ -48,9 +64,9 @@ a {
 }
 
    ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
+     margin: 1vw;
+     padding: 0 5vw;
+     line-height: 5vw;
      color: #369;
    }
 
@@ -64,7 +80,7 @@ ul.topnav {
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
 }
 
@@ -76,9 +92,12 @@ ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 8.5vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
+
 
 ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
 ul.topnav li a:hover {color: white}
@@ -86,13 +105,13 @@ ul.topnav li a:hover {color: white}
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
 
-img.logo {max-width: 300px;}
+img.logo {max-width: 25vw;}
 
-pre, code { font-size:12px; background:#eeeeee; margin:20px 0px 20px; }
-tt { font-size: 1.2em; }
-pre { margin:0px 30px 20px; white-space: pre-wrap;}
-pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:20px 0px 20px; color:#4c4c4c; }
+pre, code { font-size:100%; background:#eeeeee; margin:5vw 0px 5vw; }
+tt { font-size: 0.5cm; }
+pre { margin:0px 1vw 1vw; white-space: pre-wrap;}
+pre.codeinput { padding:5vw; border:0.1vw margin:5vw 0px 5vw; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:5vw; 5vw; margin:5vw 0px 5vw; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -103,7 +122,7 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer {  width: 100%;  padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer {  width: 100%;  padding:5vw 0px; margin:5vw 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
@@ -115,6 +134,14 @@ span.syscmd { color:#B28C00 }
      padding: 0;
    }
 
+   ul {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+     margin-left: 2vw;
+   }
+
+
 
    ul.tree a:hover {
     background: lightgray;
@@ -124,9 +151,9 @@ span.syscmd { color:#B28C00 }
    }
 
 
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
-table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+table th { padding:1.2vw 1vw; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:1.2vw 1vw; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:1.2vw 1vw;  align:center; vertical-align:middle;  border:0px solid #d6d4d4; }
 ul {
     list-style-type: circle;
 }
@@ -155,27 +182,43 @@ ul.tree a {
   <li class="right"><a class="active" href="about.html">About</a></li>
 </font>
 </ul>
-<div style="padding:0 16px; ">
+<div style="padding:0 1vw; ">
   <h2></h2>
   <p></p>
   <p></p>
-  <div class="document" id="information">
-<h1 class="title">Information</h1>
+  <div class="document">
 <div class="section" id="authors">
 <h1>Authors</h1>
+<p>ValoMC is being developed by Aleksi Leino, Aki Pulkkinen, Tuomas
+Lunttila and Tanja Tarvainen at University of Eastern Finland, Kuopio,
+Finland.</p>
 <p>The homepage is maintained by Aleksi Leino.</p>
 <p>The MATLAB interface is written by Aleksi Leino, Aki Pulkkinen, Tanja Tarvainen.</p>
 <p>The C++ simulation code is written by Aki Pulkkinen, Aleksi Leino, Tanja Tarvainen.</p>
+<div class="section" id="examples-of-works-where-valomc-has-been-utilised">
+<h2>Examples of works where ValoMC has been utilised</h2>
+<ul class="simple">
+<li>N. Hänninen, A. Pulkkinen and T. Tarvainen, Image reconstruction with reliability assessment in quantitative photoacoustic tomography, Journal of Imaging, 4:148, 2018.</li>
+<li>O. Lehtikangas, T. Tarvainen, A.D. Kim and S.R. Arridge, Finite element approximation of the radiative transport equation in a medium with piece-wise constant refractive index, Journal of Computational Physics, 282:345-359, 2015.</li>
+<li>A. Pulkkinen, V. Kolehmainen, J.P. Kaipio, B.T. Cox, S.R. Arridge and T. Tarvainen, Approximate marginalization of unknown scattering in quantitative photoacoustic tomography, Inverse Problems and Imaging, 8(3): 811-829, 2014.</li>
+<li>P.S. Mohan, T. Tarvainen, M. Schweiger, A. Pulkkinen and S.R. Arridge, Variable order spherical harmonics expansion scheme for the radiative transport equation using finite elements, Journal of Computational Physics, 230:7364–7383, 2011.</li>
+<li>T. Tarvainen, V. Kolehmainen, A. Pulkkinen, M. Vauhkonen, M. Schweiger, S.R. Arridge and J.P. Kaipio, An approximation error approach for compensating for modelling errors between the radiative transfer equation and diffusion approximation in diffuse optical tomography, Inverse Problems, 26:015005(18pp), 2010.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="how-to-cite">
+<h1>How to cite</h1>
+<p>If you use ValoMC in your work, please reference it with the following
+citation:</p>
+<p>A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: A Monte Carlo
+software and MATLAB toolbox for simulating light transport in
+biological tissue, OSA Continuum, Accepted for publication, 2019.</p>
 </div>
 <div class="section" id="how-to-contact-us">
 <h1>How to contact us</h1>
 <p>We appreciate feedback that help us develop the software. Comments, feature requests etc. can be sent to</p>
 <img alt="contact.png" src="contact.png"/>
 <p>Note that you can also <a class="reference external" href="https://github.com/InverseLight/ValoMC/issues">report an issue on GitHub</a>.</p>
-</div>
-<div class="section" id="how-to-cite">
-<h1>How to cite</h1>
-<p>These details will be provided later.</p>
 </div>
 <div class="section" id="licensing-information">
 <h1>Licensing information</h1>
@@ -239,4 +282,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <br>
 </div>
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
+<script>
+document.body.style.fontSize = (screen.width*0.008).toString() + "px";
+</script>
+

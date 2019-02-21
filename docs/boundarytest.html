@@ -15,13 +15,14 @@
 <style>
 
 body {
-        margin-top: 5vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
-        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
+
 
    ul.tree a {
     color: back;
@@ -49,12 +50,19 @@ img.logo {max-width: 300px;}
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 0.1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
    }
 
 
@@ -62,47 +70,38 @@ a {
     color: black;
 }
 
-   ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
-     color: #369;
-   }
 
    ul.tree li.last {
      background: #fff url(images/lastnode.png) no-repeat;
    }
 
-ul.topnav {
+   ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
-    width: 80vw;
-    min-width: 1200px;
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {float: left;
+     list-style-type: none;
+}
 
 ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
-
-
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 ul.topnav li.right {float: right;}
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+
 
 pre, code { font-size:12px; }
 tt { font-size: 1.2em; }
@@ -127,6 +126,45 @@ span.syscmd { color:#B28C00 }
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -143,51 +181,100 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px; width: auto;">
+<div style="padding:0 0vw; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
 <font size="4">
-<div style="width: 100%;">
-    <div style="width: 300px; float: left;">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
 <br> 
-<li><a>Documentation</a></li>
-<ul class="tree">
-<li><a href="gettingstarted.html">Getting started</a></li>
-<li><a>2D</a></li>
-<ul class="tree">
-<li><a href="simpletest.html">Simple example</a></li>
-<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
-<li><a href="directingls.html">Directing light sources</a></li>
-<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
-<li><a href="frequency.html">Frequency domain calculation</a></li>
-<li><a href="netgentest.html">Working with NetGen</a></li>
-<li><a href="generatingc.html">Generating input for the external executable</a></li>
-<li><a href="pixeltest.html">Working with pixel format data</a></li>
-<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures.html">List of structures</a></li>
-<li><a href="findingelements.html">Finding elements</a></li>
-<li><a href="findingboundaries.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a>3D</a></li>
-<ul class="tree">
-<li><a href="voxeltest.html">Working with voxel format data</a></li>
-<li><a href="netgentest3d.html">Working with NetGen</a></li>
-<li><a href="threedmodel.html">Digimouse example</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures3d.html">List of structures</a></li>
-<li><a href="findingelements3d.html">Finding elements</a></li>
-<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a href="literature.html">Literature</a></li>
-<li><a href="functionreference.html">Alphabetical function listing</a></li>
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
 </ul>
     </div>
-    <div style="margin-left: 350px; padding: 5px;"> 
-<div class="content"><h1>Setting boundary conditions and visualising the boundary solution: boundarytest.m</h1><!--introduction--><p>This example demonstrates how to set the exterior refractive index outside the mesh and how to plot the fluence and the exitance on the boundary.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialisation</a></li><li><a href="#2">Find boundary elements on segment(s) of the boundary</a></li><li><a href="#4">Create the boundary and set boundary conditions</a></li><li><a href="#5">Set up light sources</a></li><li><a href="#6">Run the Monte Carlo simulation</a></li><li><a href="#7">Plot the solution</a></li></ul></div><h2 id="1">Initialisation</h2><pre class="codeinput">xsize =  10;    <span class="comment">% width of the region [mm]</span>
+    <div style="margin-left: 20%; padding: 1vw;"> 
+<div class="content"><h1>Setting boundary conditions and visualising the boundary solution: boundarytest.m</h1><!--introduction--><p>This example demonstrates how to set the refractive index as a boundary condition and how to plot the fluence and the exitance on the boundary.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialisation</a></li><li><a href="#2">Find boundary elements</a></li><li><a href="#3">Create the boundary and set boundary conditions</a></li><li><a href="#4">Set up light sources</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Plot the solution</a></li></ul></div><h2 id="1">Initialisation</h2><pre class="codeinput">xsize =  10;    <span class="comment">% width of the region [mm]</span>
 ysize =  10;    <span class="comment">% width of the region [mm]</span>
 dh = 0.1;       <span class="comment">% discretisation size [mm]</span>
 vmcmesh = createRectangularMesh(xsize, ysize, dh); <span class="comment">% create a rectangular mesh</span>
@@ -197,38 +284,26 @@ vmcmedium.absorption_coefficient = 0.15;     <span class="comment">% absorption 
 vmcmedium.scattering_coefficient = 0.1;      <span class="comment">% scattering coefficient [1/mm]</span>
 vmcmedium.scattering_anisotropy = 0.0;       <span class="comment">% scattering anisotropy parameter [unitless]</span>
 vmcmedium.refractive_index = 1.3;            <span class="comment">% refractive index [unitless]</span>
-</pre><h2 id="2">Find boundary elements on segment(s) of the boundary</h2><pre class="codeinput"><span class="comment">% The arrays define four lines, drawn in the figure below, that are used</span>
-<span class="comment">% to obtain indices of the boundary elements. The first three are used to</span>
-<span class="comment">% set up light sources. The fourth line is used to set up a region with</span>
-<span class="comment">% a custom exterior refractive index.</span>
+</pre><h2 id="2">Find boundary elements</h2><pre class="codeinput">line1_start = [-10 0];
+line2_start = [-10 0];
+line3_start = [-10 0];
 
-radius = xsize/2.0;
-
-line1_start = [0 5];
-line2_start = [5 0];
-line3_start = [0 -5];
-
-line1_end = [-5 2.5];
-line2_end = [-5 0];
-line3_end = [-5 -2.5];
+line1_end = [-2.5 3.75];
+line2_end = [-2.5 0];
+line3_end = [-2.5 -3.75];
 
 line_width = 1.0;
 
 boundary1 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line1_start, line1_end, line_width);
 boundary2 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line2_start, line2_end, line_width);
 boundary3 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line3_start, line3_end, line_width);
-boundary4 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line1_end, line1_start, line_width);
-</pre><p><img alt="" hspace="5" src="linesegments_boundary.png" vspace="5"/> </p><h2 id="4">Create the boundary and set boundary conditions</h2><pre class="codeinput"><span class="comment">% 'createBoundary' forms the boundary structure of the mesh.</span>
-<span class="comment">% If the medium is given as a third argument, 'createBoundary' will build</span>
-<span class="comment">% an array 'exterior_refractive_index' with no change in the refractive index</span>
-<span class="comment">% when the photon packets encounter a boundary (i.e. a boundary condition</span>
-<span class="comment">% with a matching reafractive index).</span>
-
-vmcboundary = createBoundary(vmcmesh, vmcmedium);
+boundary4 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, line1_end, [2.5 6.25], line_width);
+</pre><h2 id="3">Create the boundary and set boundary conditions</h2><p>'createBoundary' creates a boundary condition structure for a given mesh. If the medium is given as the second argument, 'createBoundary' will build an array 'exterior_refractive_index' with no change in the refractive index when the photon packets encounter a boundary (i.e. a boundary condition with a matching reafractive index).</p><pre class="codeinput">vmcboundary = createBoundary(vmcmesh, vmcmedium);
 
 <span class="comment">% Set the exterior refractive index at the third boundary segment to be higher than elsewhere</span>
+<span class="comment">% so that light will be reflected from it</span>
 vmcboundary.exterior_refractive_index(boundary4) = 1.8;
-</pre><h2 id="5">Set up light sources</h2><pre class="codeinput"><span class="comment">% Set up three light sources at the boundary to the locations</span>
+</pre><h2 id="4">Set up light sources</h2><pre class="codeinput"><span class="comment">% Set up three light sources at the boundary to the locations</span>
 <span class="comment">% returned by 'findBoundaries'.</span>
 
 vmcboundary.lightsource(boundary1) = {<span class="string">'direct'</span>};
@@ -236,11 +311,11 @@ vmcboundary.lightsource(boundary2) = {<span class="string">'direct'</span>};
 vmcboundary.lightsource(boundary3) = {<span class="string">'direct'</span>};
 
 <span class="comment">% Calculate and normalise a direction vector for two of the lightsources</span>
-<span class="comment">% from the lines.</span>
-dir1 = (line1_start - line1_end);
-dir2 = (line3_start - line3_end);
-dir1 = dir1/norm(dir1);
-dir2 = dir2/norm(dir2);
+dir1 = (line1_end - line1_start);
+dir2 = (line3_end - line3_start);
+dir1 = dir1 / norm(dir1);
+dir2 = dir2 / norm(dir2);
+
 
 <span class="comment">% Use the line to set the direction vectors of the lines</span>
 vmcboundary.lightsource_direction(boundary1,1) = dir1(1);
@@ -268,13 +343,20 @@ vmcboundary.lightsource_irradiance(boundary3) = dot(dir2, [1 0]);
 <span class="comment">% Notice that now the first light source is directed towards the third</span>
 <span class="comment">% boundary segment. Due to the refractive index mismatch, a total internal</span>
 <span class="comment">% refection will occur at the boundary.</span>
-</pre><h2 id="6">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
-</pre><pre class="codeoutput">Initializing MC2D using 16 threads...
+</pre><h2 id="5">Run the Monte Carlo simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
+</pre><pre class="codeoutput">                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-</pre><h2 id="7">Plot the solution</h2><pre class="codeinput">hold <span class="string">on</span>;
+</pre><h2 id="6">Plot the solution</h2><pre class="codeinput">hold <span class="string">on</span>;
 
 <span class="comment">% The boundary solution is given as a constant fluence and extitance values</span>
 <span class="comment">% at each boundary element.</span>
@@ -305,9 +387,46 @@ hold <span class="string">off</span>
     </div>
 </div>
 </font>
-
   </div>
 
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
 

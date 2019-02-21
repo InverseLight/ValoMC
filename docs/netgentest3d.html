@@ -15,13 +15,14 @@
 <style>
 
 body {
-        margin-top: 5vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
-        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
+
 
    ul.tree a {
     color: back;
@@ -49,12 +50,19 @@ img.logo {max-width: 300px;}
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 0.1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
    }
 
 
@@ -62,47 +70,38 @@ a {
     color: black;
 }
 
-   ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
-     color: #369;
-   }
 
    ul.tree li.last {
      background: #fff url(images/lastnode.png) no-repeat;
    }
 
-ul.topnav {
+   ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
-    width: 80vw;
-    min-width: 1200px;
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {float: left;
+     list-style-type: none;
+}
 
 ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
-
-
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 ul.topnav li.right {float: right;}
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+
 
 pre, code { font-size:12px; }
 tt { font-size: 1.2em; }
@@ -127,6 +126,45 @@ span.syscmd { color:#B28C00 }
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -143,105 +181,158 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px; width: auto;">
+<div style="padding:0 0vw; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
 <font size="4">
-<div style="width: 100%;">
-    <div style="width: 300px; float: left;">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
 <br> 
-<li><a>Documentation</a></li>
-<ul class="tree">
-<li><a href="gettingstarted.html">Getting started</a></li>
-<li><a>2D</a></li>
-<ul class="tree">
-<li><a href="simpletest.html">Simple example</a></li>
-<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
-<li><a href="directingls.html">Directing light sources</a></li>
-<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
-<li><a href="frequency.html">Frequency domain calculation</a></li>
-<li><a href="netgentest.html">Working with NetGen</a></li>
-<li><a href="generatingc.html">Generating input for the external executable</a></li>
-<li><a href="pixeltest.html">Working with pixel format data</a></li>
-<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures.html">List of structures</a></li>
-<li><a href="findingelements.html">Finding elements</a></li>
-<li><a href="findingboundaries.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a>3D</a></li>
-<ul class="tree">
-<li><a href="voxeltest.html">Working with voxel format data</a></li>
-<li><a href="netgentest3d.html">Working with NetGen</a></li>
-<li><a href="threedmodel.html">Digimouse example</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures3d.html">List of structures</a></li>
-<li><a href="findingelements3d.html">Finding elements</a></li>
-<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a href="literature.html">Literature</a></li>
-<li><a href="functionreference.html">Alphabetical function listing</a></li>
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
 </ul>
     </div>
-    <div style="margin-left: 350px; padding: 5px;"> 
-<div class="content"><h1>Netgen 3D example</h1><!--introduction--><p>This example demonstrates how to setup a 3D simulation on a geometry built with Netgen and run it. The geometry is a sphere within a cube. The sphere has a different refractive index than the cube. The mesh is created so that there is a circular domain within one surface of the cube.  You can view the Netgen Python source code <a href="netgen_box_with_sphere.py">here</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Import the NetGen file</a></li><li><a href="#2">Remove incompatible boundaries from the mesh</a></li><li><a href="#3">Set constant background coefficients</a></li><li><a href="#4">Find boundary elements from Netgen file</a></li><li><a href="#5">Plot the Netgen mesh</a></li><li><a href="#6">Setup lightsources and optical coefficients</a></li><li><a href="#7">Run the simulation</a></li><li><a href="#8">Visualize the solution</a></li></ul></div><h2 id="1">Import the NetGen file</h2><pre class="codeinput">clear <span class="string">all</span>;
+    <div style="margin-left: 20%; padding: 1vw;"> 
+<div class="content"><h1>Netgen 3D example</h1><!--introduction--><p>This example demonstrates how to setup a 3D simulation on a geometry built with Netgen and run it. The geometry is a sphere within a cube. The sphere has a different refractive index than the cube. The mesh is created so that there is a circular domain within one surface of the cube.  You can view the Netgen Python source code <a href="netgen_sphere_in_box.py">here</a></p><p>Note: This is example requires a powerful computer to run.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Import the NetGen file</a></li><li><a href="#2">Find indices from the file</a></li><li><a href="#3">Set optical coefficients</a></li><li><a href="#4">Find boundary elements</a></li><li><a href="#5">Plot the mesh</a></li><li><a href="#6">Run the simulation</a></li><li><a href="#7">Visualize the solution</a></li></ul></div><h2 id="1">Import the NetGen file</h2><pre class="codeinput">clear <span class="string">all</span>;
 
-<span class="keyword">if</span>(exist(<span class="string">'box_with_sphere.vol'</span>, <span class="string">'file'</span>) ~= 2)
-    error(<span class="string">'Could not find the mesh data file. Please run netgen netgen_box_with_sphere.py'</span>);
+<span class="keyword">if</span>(exist(<span class="string">'sphere_in_box.vol'</span>, <span class="string">'file'</span>) ~= 2)
+    error(<span class="string">'Could not find the mesh data file. Please run netgen netgen_sphere_in_box.py'</span>);
 <span class="keyword">end</span>
 
-[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(<span class="string">'box_with_sphere.vol'</span>);
-</pre><h2 id="2">Remove incompatible boundaries from the mesh</h2><p>Note that boundary 7 (sphere surface) is located within the medium, so it must be removed (see Netgen example in 2d). However, before removing it, the sphere surface  can be used to find the elements within the sphere</p><pre class="codeinput">elements_of_the_sphere = findElements(vmcmesh, <span class="string">'region'</span>, vmcmesh.BH(cell2mat(boundaries(7)))); <span class="comment">% store the indices of the elements within the sphere surface</span>
-vmcmesh.BH(cell2mat(boundaries(7)),:) = [];
-boundaries(7) = [];
+[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(<span class="string">'sphere_in_box.vol'</span>, false);
+</pre><h2 id="2">Find indices from the file</h2><pre class="codeinput">background = cell2mat(regions(find(strcmp(region_names,<span class="string">'background'</span>))));
+sphere = cell2mat(regions(find(strcmp(region_names,<span class="string">'sphere'</span>))));
+</pre><h2 id="3">Set optical coefficients</h2><pre class="codeinput">vmcmedium.absorption_coefficient(:) = 0.01;
+vmcmedium.scattering_coefficient(:) = 0.01;
+vmcmedium.scattering_anisotropy(:) = 0.9;
+vmcmedium.refractive_index(:) = 1.0;
 
-<span class="comment">% 0.1 is to make the search area slightly larger than the cylinder</span>
-<span class="comment">% that was used to create the lightsource (c.f. fincyl in the Netgen</span>
-<span class="comment">% source) to make sure all the boundary elements are contained.</span>
-</pre><h2 id="3">Set constant background coefficients</h2><pre class="codeinput">vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
-vmcmedium.scattering_coefficient = 0.01;     <span class="comment">% scattering coefficient [1/mm]</span>
-vmcmedium.scattering_anisotropy = 0.9;       <span class="comment">% anisotropy parameter g of</span>
-                                             <span class="comment">% the Heneye-Greenstein scattering</span>
-                                             <span class="comment">% phase function [unitless]</span>
-vmcmedium.refractive_index = 1.0;            <span class="comment">% refractive index [unitless]</span>
-vmcmedium = createMedium(vmcmesh, vmcmedium);
-</pre><h2 id="4">Find boundary elements from Netgen file</h2><p>Note that surfaces part of a planar region cannot be currently given separate boundary condition in netgen. However, we can use findBoundaries to find the place for the light source from the mesh.</p><pre class="codeinput">startpoint = [0 0 0 ]; <span class="comment">% note that these are exactly the same</span>
-waypoint = [-5 0 0];   <span class="comment">% coordinates as in the netgen source file</span>
-radius = 1.0;          <span class="comment">% that are used to define a cylinder that creates a domain in the plane</span>
-elements_of_the_lightsource = findBoundaries(vmcmesh, <span class="string">'direction'</span>, startpoint, waypoint, radius+0.1);
-</pre><h2 id="5">Plot the Netgen mesh</h2><pre class="codeinput">figure
+<span class="comment">% Use the indices</span>
+vmcmedium.absorption_coefficient(background) = 0.01;
+vmcmedium.scattering_coefficient(background) = 0.3;
+vmcmedium.scattering_anisotropy(background) = 0.9;
+vmcmedium.refractive_index(background) = 1.0;
 
-trimesh(vmcmesh.BH(cell2mat(boundaries(:)),:),vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
-hold
+vmcmedium.absorption_coefficient(sphere) = 0.01;
+vmcmedium.scattering_coefficient(sphere) = 0.3;
+vmcmedium.scattering_anisotropy(sphere) = 0.9;
+vmcmedium.refractive_index(sphere) = 1.7;
+</pre><h2 id="4">Find boundary elements</h2><p>A circular domain for the light source was meshed (circle r = 1.0 at the face of the cube whose normal points to [-1 0 0]) but it is not contained as a separate boundary condition. We can use findBoundaries to find it manually.</p><pre class="codeinput">lightsource1 = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0 0 0 ], [-5 0 0], 1.1);
+vmcboundary.lightsource(lightsource1) = {<span class="string">'direct'</span>};
+</pre><h2 id="5">Plot the mesh</h2><pre class="codeinput">figure
+hold <span class="string">on</span>
+
+trimesh(vmcmesh.BH,vmcmesh.r(:,1),vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'r'</span>,<span class="string">'FaceAlpha'</span>,0.2);
 
 <span class="comment">% Highlight the location for the lightsource for the plot</span>
-trimesh(vmcmesh.BH(elements_of_the_lightsource,:),vmcmesh.r(:,1), <span class="keyword">...</span>
-        vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'b'</span>);
-
+trimesh(vmcmesh.BH(lightsource1,:),vmcmesh.r(:,1), vmcmesh.r(:,2),vmcmesh.r(:,3),<span class="string">'facecolor'</span>, <span class="string">'b'</span>);
 <span class="comment">% Show the sphere</span>
-tetramesh(vmcmesh.H(elements_of_the_sphere,:), vmcmesh.r);
-
+tetramesh(vmcmesh.H(sphere,:), vmcmesh.r);
 
 xlabel(<span class="string">'x [mm]'</span>);
 ylabel(<span class="string">'y [mm]'</span>);
 zlabel(<span class="string">'z [mm]'</span>);
+view(-36,16);
+
 hold <span class="string">off</span>
-</pre><pre class="codeoutput">Current plot held
-</pre><img alt="" hspace="5" src="netgentest3d_01.png" vspace="5"/> <h2 id="6">Setup lightsources and optical coefficients</h2><p>the elements within the sphere are used to set up region of higher refractive index</p><pre class="codeinput">vmcmedium.refractive_index(elements_of_the_sphere) = 1.7;
-vmcboundary = createBoundary(vmcmesh, vmcmedium);
-vmcboundary.lightsource(elements_of_the_lightsource) = {<span class="string">'direct'</span>};
-</pre><h2 id="7">Run the simulation</h2><pre class="codeinput">solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
-</pre><pre class="codeoutput">Initializing MC3D...
-Computation uses 16 threads
+</pre><img alt="" hspace="5" src="netgentest3d_01.png" vspace="5"/> <h2 id="6">Run the simulation</h2><pre class="codeinput">options.photon_count=1e8;
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary,options);
+</pre><pre class="codeoutput">                 ValoMC-3D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC3D...
 Computing... 
 ...done
 
 Done
-</pre><h2 id="8">Visualize the solution</h2><p>Note how sphere acts as a lens</p><pre class="codeinput">halfspace_elements = findElements(vmcmesh, <span class="string">'halfspace'</span>, [0 0 0], [0 1 0]);
-figure
+</pre><h2 id="7">Visualize the solution</h2><p>Visualizing large tetrahedral meshes is often cumbersome. Alternative, less power consuming option is to use exportX3D to export solution to X3D format and view the file using e.g. meshlab. See 'help exportX3D' for more details.</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+halfspace_elements = findElements(vmcmesh, <span class="string">'halfspace'</span>, [0 0 0], [0 1 0]);
 tetramesh(vmcmesh.H(halfspace_elements,:), vmcmesh.r, solution.element_fluence(halfspace_elements));
 view(-10,10);
 <span class="comment">%</span>
@@ -249,13 +340,53 @@ view(-10,10);
 xlabel(<span class="string">'x [mm]'</span>);
 ylabel(<span class="string">'y [mm]'</span>);
 zlabel(<span class="string">'z [mm]'</span>);
+
+c = colorbar;
+c.Label.String = <span class="string">'Fluence [(W/mm^2)]'</span>;
 </pre><img alt="" hspace="5" src="netgentest3d_02.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
     </div>
 </div>
 </font>
-
   </div>
 
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
 

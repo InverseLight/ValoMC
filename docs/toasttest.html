@@ -1,19 +1,28 @@
 <!DOCTYPE html>
+<meta charset="UTF-8"> 
 <html>
 <head>
-<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125261808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-125261808-1');
+</script>
+<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
 <style>
 
 body {
-	margin-top: 1cm;
-	margin-left: 4cm;
-	margin-right: 4cm;
-	padding: 0;
-        font-size: 15px;
-        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
+
 
    ul.tree a {
     color: back;
@@ -27,6 +36,7 @@ body {
     display: inline-block;
     width: 100%;
    }
+img.logo {max-width: 300px;}
 
    li {
      list-style-type: none;
@@ -40,12 +50,19 @@ body {
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 0.1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
    }
 
 
@@ -53,45 +70,38 @@ a {
     color: black;
 }
 
-   ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
-     color: #369;
-   }
 
    ul.tree li.last {
      background: #fff url(images/lastnode.png) no-repeat;
    }
 
-ul.topnav {
+   ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
 }
 
-ul.topnav li {float: left;}
-
-img.logo {max-width: 350px;}
+ul.topnav li {float: left;
+     list-style-type: none;
+}
 
 ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 ul.topnav li.right {float: right;}
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+
 
 pre, code { font-size:12px; }
 tt { font-size: 1.2em; }
@@ -117,6 +127,44 @@ span.syscmd { color:#B28C00 }
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
 
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -133,242 +181,419 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px;">
+<div style="padding:0 0vw; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
 <font size="4">
-<div style="width: 100%;">
-    <div style="width: 300px; float: left;">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
 <br> 
-<li><a>Documentation</a></li>
-<ul class="tree">
-<li><a href="gettingstarted.html">Getting started</a></li>
-<li><a>2D</a></li>
-<ul class="tree">
-<li><a href="simpletest.html">Simple example</a></li>
-<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
-<li><a href="directingls.html">Directing light sources</a></li>
-<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
-<li><a href="frequency.html">Frequency domain calculation</a></li>
-<li><a href="toasttest.html">Working with Toast</a></li>
-<li><a href="netgentest.html">Working with NetGen</a></li>
-<li><a href="generatingc.html">Generating input for the external executable</a></li>
-<li><a href="pixeltest.html">Working with pixel format data</a></li>
-<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures.html">List of structures</a></li>
-<li><a href="findingelements.html">Finding elements</a></li>
-<li><a href="findingboundaries.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a>3D</a></li>
-<ul class="tree">
-<li><a href="voxeltest.html">Working with voxel format data</a></li>
-<li><a href="netgentest3d.html">Working with NetGen</a></li>
-<li><a href="threedmodel.html">Digimouse example</a></li>
-<li><a href="kwavetest3d.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures3d.html">List of structures</a></li>
-<li><a href="findingelements3d.html">Finding elements</a></li>
-<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a href="literature.html">Literature</a></li>
-<li><a href="functionreference.html">Alphabetical function listing</a></li>
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
 </ul>
     </div>
-    <div style="margin-left: 350px; padding: 5px;"> 
-<div class="content"><h1>Working with Toast++: toastest.m</h1><!--introduction--><p>This example is based on a simple Toast usage example found on the Toast web site. See <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html">http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html</a>. It simulates a steady state diffuse optical tomogarphy (DOT) measurement in a circular geometry that has 16 detectors and 16 light sources located on the baoundary of the object. Each source is used to illuminate light into the domain and the amount of light is measured at all detectors. This is repated for all source locations. In the example, the measurement matrix (photon fluence at detectors) is simulated both with Toast (as in the original example) and with PhotonMC. Note that the results are not equal since Toast uses diffusion approximation (DA) as the model for light propagation. The DA can be regarded as a good approximation for photon transport in a highly scattering medium with distances further than a few scattering lengths from the source.</p><p>Toast++ is a software for image reconstruction in diffuse optical tomography. It contains a forward solver module using the finite element method for simulating the propagation of light in highly scattering, inhomogeneous biological tissues. The inverse solver module uses an iterative, model-based approach to reconstruct the unknown distributions of absorption and scattering coefficients in the volume of interest from boundary measurements of transmitted light.</p><p>Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge (University College London) and the copyright of the original code belongs to them.</p><p>Toast homepage: <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/index.html">http://web4.cs.ucl.ac.uk/research/vis/toast/index.html</a>. M. Schweiger and S. R. Arridge, "The Toast++ software suite for forward and inverse modeling in optical tomography", Journal of Biomedical Optics, 19(4):040801, 2014.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create meshes</a></li><li><a href="#2">Set the optical coefficients</a></li><li><a href="#3">Create the source and detector positions for Toast</a></li><li><a href="#4">Create the source and detector positions for PhotonMC</a></li><li><a href="#5">Plot the source/detector arrangement</a></li><li><a href="#6">Create the source and boundary projection vectors for Toast</a></li><li><a href="#7">Solve the FEM system with Toast</a></li><li><a href="#8">Solve the photon transport problem with PhotonMC</a></li><li><a href="#9">Plot the solutions</a></li><li><a href="#10">Plot the measurement profile as a function of source-detector separation</a></li></ul></div><h2 id="1">Create meshes</h2><p>A circular mesh is created as in the original example and imported to PhotonMC.</p><pre class="codeinput">rad = 25;
-nsect = 6;
-nring = 32;
+    <div style="margin-left: 20%; padding: 1vw;"> 
+<div class="content"><h1>Working with Toast++: toastest.m</h1><!--introduction--><p>This example is based on a simple Toast++ usage example found on the Toast++ web site. The original example can be found from <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html">http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html</a>. It simulates a steady state diffuse optical tomography (DOT) measurement in a circular geometry that has 16 detectors and 16 light sources located on the boundary of the object.</p><p>Each source is used to illuminate light into the domain and the amount of light is measured at all detectors. This is repeated for all source locations. In the example, the measurement matrix (signal intensity at each detector) is simulated both with Toast (as in the original example) and with ValoMC. Note that the results are not equal since Toast uses DA as the model for light propagation. DA can be regarded as a good approximation for photon transport in a highly scattering medium with distances further than a few scattering lengths from the source.</p><p>Toast++ is a software for image reconstruction in diffuse optical tomography. It contains a forward solver module using the finite element method for simulating the propagation of light in highly scattering, inhomogeneous biological tissues. The inverse solver module uses an iterative, regularized least-squares approach to reconstruct the unknown distributions of absorption and scattering coefficients in the volume of interest from boundary measurements of transmitted light.</p><p>Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge (University College London) and the copyright of the original code belongs to them.</p><p>Toast homepage: <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/index.html">http://web4.cs.ucl.ac.uk/research/vis/toast/index.html</a>. M. Schweiger and S. R. Arridge, "The Toast++ software suite for forwards and inverse modeling in optical tomography", Journal of Biomedical Optics, 19(4):040801, 2014.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create the geometry</a></li><li><a href="#2">Set the optical coefficients</a></li><li><a href="#3">Create the source and detector positions</a></li><li><a href="#4">Plot the source/detector arrangement</a></li><li><a href="#5">Solve the FEM system with Toast</a></li><li><a href="#6">Solve the photon transport problem with ValoMC</a></li><li><a href="#7">Plot the solutions</a></li><li><a href="#8">Plot the measurement profile as a function of source-detector separation</a></li></ul></div><h2 id="1">Create the geometry</h2><p>Create a circular mesh using Toast++ and import it to ValoMC</p><pre class="codeinput">rad = 25;
+nsect = 8;
+nring = 34;
 nbnd = 2;
+
+
 [vtx,idx,eltp] = mkcircle(rad,nsect,nring,nbnd);
-toast_mesh = toastMesh(vtx,idx,eltp);
 
-<span class="comment">% Use a convenience function provided by PhotonMC to import the Toast</span>
-<span class="comment">% finite element mesh.</span>
-photonmc_mesh = importToastMesh(toast_mesh);
-</pre><h2 id="2">Set the optical coefficients</h2><pre class="codeinput">mua_bkg = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
-mus_bkg = 1.0;      <span class="comment">% reduced scattering coefficient [1/mm]</span>
-ref_bkg = 1.4;      <span class="comment">% refractive index [unitless]</span>
+toastmesh = toastMesh(vtx,idx,eltp);
+vmcmesh = importToastMesh(toastmesh);
+</pre><h2 id="2">Set the optical coefficients</h2><p>Note that the optical coefficients are given for each node in Toast, whereas in ValoMC they are uniform values for each element.</p><pre class="codeinput"><span class="comment">% absorption coefficient [1/mm]</span>
+mua_bkg = 0.01;
+<span class="comment">% scattering coefficient [1/mm]</span>
+mus_bkg = 1.0;
+<span class="comment">% scattering anisotropy parameter [unitless]</span>
+scattering_anisotropy_bkg = 0.0;
+<span class="comment">% reduced scattering coefficient [1/mm]</span>
+mus_reduced = mus_bkg*(1-scattering_anisotropy_bkg);
 
-<span class="comment">% In Toast, the optical coefficients are defined for each node</span>
-nnd = toast_mesh.NodeCount;
+<span class="comment">% Set optical coefficients for Toast.</span>
+
+nnd = toastmesh.NodeCount;
 toast_mua = ones(nnd,1) * mua_bkg;  <span class="comment">% absorption coefficient [1/mm]</span>
-toast_mus = ones(nnd,1) * mus_bkg;  <span class="comment">% reduced scattering coefficient [1/mm]</span>
-toast_ref = ones(nnd,1) * ref_bkg;  <span class="comment">% refractive index [unitless]</span>
+toast_mus = ones(nnd,1) * mus_reduced; <span class="comment">% reduced scattering coefficient [1/mm]</span>
 
-<span class="comment">% For PhotonMC, the optical coefficients are for each element</span>
-nne = size(photonmc_mesh.H,1); <span class="comment">% number of elements</span>
-photonmc_medium.absorption_coefficient = ones(nne,1)*mua_bkg; <span class="comment">% absorption coefficient [1/mm]</span>
-photonmc_medium.scattering_coefficient = ones(nne,1)*mus_bkg; <span class="comment">% scattering coefficient [1/mm]</span>
-photonmc_medium.refractive_index = ones(nne,1)*ref_bkg;       <span class="comment">% refractive index [unitless]</span>
+<span class="comment">% Set optical coefficients for ValoMC. The refractive index is set but it</span>
+<span class="comment">% does not affect the solution as there is no mismatch on the boundary.</span>
 
-<span class="comment">% The scattering anisotropy parameter g of the Henyey-Greenstein scattering</span>
-<span class="comment">% phase function is set to zero so that the scattering coefficient (used by</span>
-<span class="comment">% PhotonMC) and the reduced scattering coefficient (used by Toast) are equal</span>
-photonmc_medium.scattering_anisotropy = ones(nne,1)*0.0;      <span class="comment">% scattering anisotropy parameter [unitless]</span>
-</pre><h2 id="3">Create the source and detector positions for Toast</h2><pre class="codeinput"><span class="comment">% Sources and detectors are attached to nodes</span>
+nne = size(vmcmesh.H,1); <span class="comment">% number of elements</span>
+
+<span class="comment">% absorption coefficient [1/mm]</span>
+vmcmedium.absorption_coefficient = ones(nne,1)*mua_bkg;
+ <span class="comment">% scattering coefficient [1/mm]</span>
+vmcmedium.scattering_coefficient = ones(nne,1)*mus_bkg;
+ <span class="comment">% refractive index [unitless]</span>
+vmcmedium.refractive_index = ones(nne,1)*1;
+<span class="comment">% scattering anisotropy parameter [unitless]</span>
+vmcmedium.scattering_anisotropy = ones(nne,1)*scattering_anisotropy_bkg;
+
+<span class="comment">% Create the boundary so that there is no mismatch</span>
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+</pre><h2 id="3">Create the source and detector positions</h2><p>A collimated lightsoure (pencil beam) can be approximated in DA by placing an isotropic source at a distance 1/mus' from the surface, where mus' is the reduced scattering coefficient.</p><pre class="codeinput"><span class="comment">% Build source/detector locations for Toast</span>
+
 nq = 16;
 <span class="keyword">for</span> ii=1:nq
-  phi_q = 2*pi*(ii-1)/nq;
-  Q(ii,:) = rad * [cos(phi_q) sin(phi_q)];
-  phi_m = 2*pi*(ii-0.5)/nq;
-  M(ii,:) = rad * [cos(phi_m) sin(phi_m)];
+  phi_q = 2*pi*(ii-1)/nq + pi / 256;
+  Q(ii,:) = (rad - 1/mus_reduced) * [cos(phi_q) sin(phi_q)]; <span class="comment">% source position</span>
+  phi_m = 2*pi*(ii-0.5)/nq + pi / 256;
+  M(ii,:) = rad * [cos(phi_m) sin(phi_m)]; <span class="comment">% detector position</span>
 <span class="keyword">end</span>
-toast_mesh.SetQM(Q,M);
-</pre><h2 id="4">Create the source and detector positions for PhotonMC</h2><pre class="codeinput"><span class="comment">% The sources and detectors are attached to boundary elements.</span>
-<span class="comment">% Keyword 'location' can be used to find the elements that</span>
-<span class="comment">% are nearest to the corresponding location vector.</span>
-photonmc_source_indices = findBoundaries(photonmc_mesh, <span class="string">'location'</span>, Q);
-photonmc_detector_indices = findBoundaries(photonmc_mesh, <span class="string">'location'</span>, M);
-photonmc_boundary = createBoundary(photonmc_mesh, photonmc_medium);
-</pre><h2 id="5">Plot the source/detector arrangement</h2><pre class="codeinput"><span class="comment">% Note that while the figures resemble closely each other, the sources/detectors</span>
-<span class="comment">% in PhotonMC are represented by boundary elements, whereas in Toast setup</span>
-<span class="comment">% they are element vertices. The difference becomes smaller with a finer mesh.</span>
 
-figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
-h = subplot(1,2,1);
+toastmesh.SetQM(Q,M);
+
+
+<span class="comment">% Build source/detector locations for ValoMC</span>
+
+<span class="comment">% Sources and detectors are placed to the nearest boundary elements</span>
+
+source_boundary_elements = findBoundaries(vmcmesh, <span class="string">'location'</span>, Q);
+detector_boundary_elements = findBoundaries(vmcmesh, <span class="string">'location'</span>, M);
+</pre><h2 id="4">Plot the source/detector arrangement</h2><p>Note that the lightsources have a finite width in ValoMC, which introduces a small discretisation error in the comparison.</p><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1000 1000])
 hold <span class="string">on</span>
-toast_mesh.Display;
-h1 = plot(Q(:,1),Q(:,2),<span class="string">'ro'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>);
-h2 = plot(M(:,1),M(:,2),<span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>);
-legend([h1 h2], {<span class="string">'Sources'</span>, <span class="string">'Detectors'</span>});
-title(<span class="string">'Toast source/detector setup'</span>);
+patch(<span class="string">'Faces'</span>, vmcmesh.H, <span class="string">'Vertices'</span>,vmcmesh.r, <span class="string">'FaceVertexCData'</span>, 0, <span class="string">'FaceColor'</span>, <span class="string">'flat'</span>, <span class="string">'LineWidth'</span>, 0.1);
 
-hold <span class="string">off</span>
-subplot(1,2,2)
-hold <span class="string">on</span>
-toast_mesh.Display;
-<span class="keyword">for</span> ii=1:16 <span class="comment">% size(photonmc_source_indices,1)</span>
-    h3=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),1), <span class="keyword">...</span>
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_source_indices(ii),:),2), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>,4.0);
-    h4=plot(photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),1), <span class="keyword">...</span>
-            photonmc_mesh.r(photonmc_mesh.BH(photonmc_detector_indices(ii),:),2), <span class="string">'b'</span>, <span class="string">'LineWidth'</span>,4.0);
-<span class="keyword">end</span>
-legend([h3 h4], {<span class="string">'Sources'</span>, <span class="string">'Detectors'</span>});
-title(<span class="string">'PhotonMC source/detector setup'</span>);
-hold <span class="string">off</span>
-</pre><img alt="" hspace="5" src="toasttest_01.png" vspace="5"/> <h2 id="6">Create the source and boundary projection vectors for Toast</h2><pre class="codeinput">gaussian_width = 2;
-
-qvec = toast_mesh.Qvec(<span class="string">'Neumann'</span>, <span class="string">'Gaussian'</span>, gaussian_width);
-mvec = toast_mesh.Mvec(<span class="string">'Gaussian'</span>, gaussian_width,toast_ref);
-</pre><h2 id="7">Solve the FEM system with Toast</h2><pre class="codeinput">K = dotSysmat (toast_mesh,toast_mua,toast_mus,toast_ref,0);
-Phi = K\(2*qvec);
-Y = mvec.' * Phi;
-</pre><h2 id="8">Solve the photon transport problem with PhotonMC</h2><p>The source is relocated 16 times to simulate photon transport for each source</p><pre class="codeinput">Y2 = ones(nq,nq);
 <span class="keyword">for</span> ii=1:nq
+    h1=plot(vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),1), <span class="keyword">...</span>
+            vmcmesh.r(vmcmesh.BH(source_boundary_elements(ii),:),2), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>,4.0);
+    h2=plot(vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),1), <span class="keyword">...</span>
+            vmcmesh.r(vmcmesh.BH(detector_boundary_elements(ii),:),2), <span class="string">'b'</span>, <span class="string">'LineWidth'</span>,4.0);
+<span class="keyword">end</span>
+
+h3 = plot(Q(:, 1),Q(:,2),<span class="string">'ro'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>);
+h4 = plot(M(:, 1),M(:,2),<span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>);
+
+title(<span class="string">'Source/detector setup'</span>);
+legend([h1 h2 h3 h4], {<span class="string">'ValoMC source'</span>, <span class="string">'ValoMC detector'</span>, <span class="string">'Toast source'</span>, <span class="string">'Toast detector'</span>});
+hold <span class="string">off</span>
+</pre><img alt="" hspace="5" src="toasttest_01.png" vspace="5"/> <h2 id="5">Solve the FEM system with Toast</h2><p>The system matrix is constructed manually using 2D coefficients (by default, Toast uses formulas derived from the radiative transfer equation for 3D geometry). For more detailed information about 2D and 3D coefficients, see e.g. T. Tarvainen: Computational Methods for Light Transport in Optical Tomography, PhD thesis, University of Kuopio, 2006.</p><pre class="codeinput"><span class="comment">% Create isotropic sources</span>
+qvec = toastmesh.Qvec(<span class="string">'Isotropic'</span>,<span class="string">'Point'</span>);
+
+<span class="comment">% To obtain comparable results, the measurement vectors have a sharp</span>
+<span class="comment">% Gaussian profile (a narrow detector). Conversion factor between fluence</span>
+<span class="comment">% and exitance is 2/pi in 2D</span>
+mvec = 2/pi*toastmesh.Mvec(<span class="string">'Gaussian'</span>,0.5,0);
+
+<span class="comment">% 2D diffusion coefficient</span>
+toast_kap = 1./(2.*(toast_mua+toast_mus));
+
+S1 = toastmesh.SysmatComponent(<span class="string">'PFF'</span>,toast_mua);
+S2 = toastmesh.SysmatComponent(<span class="string">'PDD'</span>,toast_kap);
+
+<span class="comment">% The boundary term is multiplied by 2/pi in 2D</span>
+S3 = toastmesh.SysmatComponent (<span class="string">'BndPFF'</span>, ones(nnd,1)*2/pi);
+K = S1+S2+S3;
+
+Phi = K\(qvec);                <span class="comment">% solve the fluence</span>
+Y_toast  = mvec.' * Phi;       <span class="comment">% compute the exitance on each detector</span>
+</pre><h2 id="6">Solve the photon transport problem with ValoMC</h2><p>The source is relocated 16 times and the exitance at each 16 detector is stored to build a similar source/detector matrix as in the original example.</p><pre class="codeinput">Y_vmc = ones(nq,nq);
+<span class="keyword">for</span> ii=1:16
    disp([<span class="string">'Starting simulation '</span> num2str(ii) <span class="string">' out of '</span> num2str(nq)]);
-   options.photon_count = 1e6;                  <span class="comment">% number of photon packets</span>
-   photonmc_boundary.lightsource(:) = {<span class="string">'none'</span>}; <span class="comment">% erase all light sources</span>
-   photonmc_boundary.lightsource(photonmc_source_indices(ii)) = {<span class="string">'gaussian'</span>};
-   photonmc_boundary.lightsource_gaussian_sigma(photonmc_source_indices(ii)) = gaussian_width;
-   photonmc_solution = ValoMC(photonmc_mesh, photonmc_medium, photonmc_boundary,options);
+   options.photon_count = 1e8;            <span class="comment">% number of photon packets</span>
+   vmcboundary.lightsource(:) = {<span class="string">'none'</span>}; <span class="comment">% erase all previous light sources</span>
+   <span class="comment">% use a collimated light source</span>
+   vmcboundary.lightsource(source_boundary_elements(ii)) = {<span class="string">'direct'</span>};
+   vmcsolution = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
    <span class="comment">% build the solution matrix column by column</span>
-   <span class="comment">% Factor of two follows from the boundary conditions</span>
-   Y2(:,ii) = photonmc_solution.boundary_fluence(photonmc_detector_indices(:));
+   Y_vmc(:,ii) = vmcsolution.boundary_exitance(detector_boundary_elements(:));
 <span class="keyword">end</span>
 </pre><pre class="codeoutput">Starting simulation 1 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 2 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 3 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 4 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 5 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 6 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 7 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 8 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 9 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 10 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 11 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 12 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 13 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 14 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 15 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
 Starting simulation 16 out of 16
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-</pre><h2 id="9">Plot the solutions</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
+</pre><h2 id="7">Plot the solutions</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
 
 subplot(1,2,1)
-imagesc(log(Y));
+imagesc(log(Y_toast));
 xlabel(<span class="string">'source index q'</span>);
 ylabel(<span class="string">'detector index m'</span>);
 axis <span class="string">equal</span> <span class="string">tight</span>;
@@ -376,49 +601,79 @@ colorbar
 title(<span class="string">'Toast result'</span>);
 
 <span class="comment">% Display boundary profile</span>
+
 subplot(1,2,2)
-imagesc(log(Y2));
+imagesc(log(Y_vmc));
 xlabel(<span class="string">'source index q'</span>);
 ylabel(<span class="string">'detector index m'</span>);
 axis <span class="string">equal</span> <span class="string">tight</span>;
 colorbar
-title(<span class="string">'PhotonMC result'</span>);
-
+title(<span class="string">'ValoMC result'</span>);
 hold <span class="string">off</span>;
-</pre><img alt="" hspace="5" src="toasttest_02.png" vspace="5"/> <h2 id="10">Plot the measurement profile as a function of source-detector separation</h2><pre class="codeinput"><span class="comment">% Note that because of the differences between the diffusion approximation</span>
-<span class="comment">% and photon transport as well as the stochastic nature of the Monte Carlo</span>
-<span class="comment">% simulations, the 16 measurement profiles do not fully coincide.</span>
-
-figure;
+</pre><img alt="" hspace="5" src="toasttest_02.png" vspace="5"/> <h2 id="8">Plot the measurement profile as a function of source-detector separation</h2><p>Note that because of the differences between the diffusion approximation and radiative transport theory, discretization errors as well as the stochastic nature of the Monte Carlo simulations, the 16 measurement profiles do not fully coincide.</p><pre class="codeinput">figure
 hold <span class="string">on</span>
-angle = 360/32:360/16:360;
-<span class="keyword">for</span> ii=1:1
-    ywrap = [Y(ii:end,ii); Y(1:ii-1,ii)];
-    h=plot(angle,log(ywrap),<span class="string">'o-'</span>);
-<span class="keyword">end</span>
-axis([0 360 -15 -2]);
-xlabel(<span class="string">'angular source-detector separation'</span>);
-ylabel(<span class="string">'log intensity'</span>);
 
 angle = 360/32:360/16:360;
-<span class="comment">%for ii=1:size(Y,2)</span>
-<span class="keyword">for</span> ii=1:1
-    ywrap = [Y2(ii:end,ii); Y2(1:ii-1,ii)];
-    h2=plot(angle,log(ywrap),<span class="string">'*-'</span>);
+
+<span class="keyword">for</span> profile_number=1:16
+
+   h1=plot(angle, log(circshift((Y_vmc(:,profile_number)),-(profile_number-1))),<span class="string">'x-'</span>);
+   h2=plot(angle, log(circshift((Y_toast(:,profile_number)),-(profile_number-1))),<span class="string">'o-'</span>);
+
+   axis([10 350 -15 -2]);
+   xlabel(<span class="string">'angular source-detector separation'</span>);
+   ylabel(<span class="string">'exitance log(W/mm)'</span>);
+
 <span class="keyword">end</span>
-axis([0 360 -15 -2]);
-xlabel(<span class="string">'angular source-detector separation'</span>);
-ylabel(<span class="string">'log intensity'</span>);
-legend([h h2], {<span class="string">'Toast'</span>, <span class="string">'PhotonMC'</span>});
+
+legend([h1 h2], {<span class="string">'ValoMC exitance'</span>, <span class="string">'Toast exitance'</span>});
+
 
 hold <span class="string">off</span>
 </pre><img alt="" hspace="5" src="toasttest_03.png" vspace="5"/> <p class="footer"><br/><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2016b</a><br/></p></div>
     </div>
 </div>
 </font>
-
   </div>
 
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Mon May 28 11:28:14 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
 

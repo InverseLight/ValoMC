@@ -12,14 +12,30 @@
   gtag('config', 'UA-125261808-1');
 </script>
 <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+<meta name="viewport" content="width=device-width">
 <style>
 body {
         margin-top: 5vw;
         margin-left: 10vw;
         margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
+       	padding: 0;
+        font-size: 100%;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+#introduction {
+   text-align: justify;
+}
+
+
+table.maintable {
+   table-layout: fixed;
+   border: 0px solid black;
+}
+
+table.maintable td {
+   padding-right: 2vw;
+   padding-left: 0.2vw;
 }
 
 
@@ -28,18 +44,18 @@ body {
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 5vw;
    }
 
 
   ol li {
      list-style-type: decimal;
-     margin-left: -10px;
+     margin-left: 0px;
    }
 
 a {
@@ -47,9 +63,9 @@ a {
 }
 
    ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
+     margin: 1vw;
+     padding: 0 5vw;
+     line-height: 5vw;
      color: #369;
    }
 
@@ -63,7 +79,7 @@ ul.topnav {
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
 }
 
@@ -75,9 +91,12 @@ ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 8.5vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
+
 
 ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
 ul.topnav li a:hover {color: white}
@@ -85,13 +104,13 @@ ul.topnav li a:hover {color: white}
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
 
-img.logo {max-width: 300px;}
+img.logo {max-width: 25vw;}
 
-pre, code { font-size:12px; background:#eeeeee; margin:20px 0px 20px; }
-tt { font-size: 1.2em; }
-pre { margin:0px 30px 20px; white-space: pre-wrap;}
-pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:20px 0px 20px; color:#4c4c4c; }
+pre, code { font-size:100%; background:#eeeeee; margin:5vw 0px 5vw; }
+tt { font-size: 0.5cm; }
+pre { margin:0px 1vw 1vw; white-space: pre-wrap;}
+pre.codeinput { padding:5vw; border:0.1vw margin:5vw 0px 5vw; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:5vw; 5vw; margin:5vw 0px 5vw; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -102,7 +121,7 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer {  width: 100%;  padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer {  width: 100%;  padding:5vw 0px; margin:5vw 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
@@ -114,6 +133,14 @@ span.syscmd { color:#B28C00 }
      padding: 0;
    }
 
+   ul {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+     margin-left: 2vw;
+   }
+
+
 
    ul.tree a:hover {
     background: lightgray;
@@ -123,9 +150,9 @@ span.syscmd { color:#B28C00 }
    }
 
 
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 0px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:0px solid #d6d4d4; }
-table td.lfig { padding:7px 5px; text-align:center; vertical-align:bottom; border:0px solid #d6d4d4; }
+table th { padding:1.2vw 1vw; text-align:left; vertical-align:middle; border: 0px solid #d6d4d4; font-weight:bold; }
+table td { padding:1.2vw 1vw; text-align:left; vertical-align:top; border:0px solid #d6d4d4; }
+table td.lfig { padding:1.2vw 1vw; text-align:left; vertical-align:middle; border:0px solid #d6d4d4; }
 ul {
     list-style-type: circle;
 }
@@ -143,17 +170,39 @@ ul {
   <li class="right"><a href="about.html">About</a></li>
 </font>
 </ul>
-<div style="padding:0px 10px;">
-  <h2></h2>
-  <table>
+<div style="padding:0px 0.5vw;">
+  <table class="maintable" width="100%">
   <tr>
   <td width="60%" valign="top">
   <p style="text-align:justify">
-  <div class="document" id="introduction"> <h1 class="title">Introduction</h1> <p>ValoMC is an open source Monte Carlo code that can simulate the passage of visible and near infrared range photons through matter. The implementation follows the Monte Carlo model by Prahl et al., Proc. SPIE, 5, 102-111 (1989) and later developments. The simulation geometry is defined using triangular or tetrahedral meshes. The model solves for boundary and volumetric data and supports various boundary conditions, types of light sources, as well as intensity modulated light. While the model is capable of simulating complex measurement geometries, attention is given to ease of use and fast problem set up with a MATLAB (TM) interface. The simulation code is written in C++ and parallelized using OpenMP.</p> </div>
+  <div class="document" id="introduction">
+<h1 class="title">Introduction</h1>
+<p>ValoMC is an open source Monte Carlo code that can simulate the
+passage of visible and near infrared range photons through a
+medium. The implementation is based on photon packet method. The
+simulation geometry is defined using unstructured (triangular or
+tetrahedral) mesh. The program solves the photon fluence in the
+computation domain and the exitance at the domain boundary. It is
+capable of simulating complex measurement geometries with spatially
+varying optical parameter distributions and supports several types of
+light sources as well as intensity modulated light. Furthermore,
+attention is given to ease of use and fast problem set up with a
+MATLAB (The MathWorks Inc., Natick, MA) interface. The simulation code
+is written in C++ and parallelized using OpenMP.</p>
+<p>ValoMC is being developed by Aleksi Leino, Aki Pulkkinen, Tuomas
+Lunttila and Tanja Tarvainen at University of Eastern Finland, Kuopio,
+Finland.</p>
+<p>If you use ValoMC in your work, please reference it with the following
+citation:</p>
+<p>A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: A Monte Carlo
+software and MATLAB toolbox for simulating light transport in
+biological tissue, OSA Continuum, Accepted for publication, 2019.</p>
+<p>Click <a class="reference external" href="literature.html">here</a> to see examples of works where ValoMC has been utilised.</p>
+</div>
   </p>
   </td>
-  <td>
-  <img width="450px" src="digimouse2.jpg"> <br>
+  <td class="lfig">
+  <img width="100%" src="digimouse2.jpg"> <br>
   Simulation using the <a href = "https://neuroimage.usc.edu/neuro/Digimouse"> digimouse model</a>.
   Model data is described in B. Dogdas, D. Stout, A. Chatziioannou, RM Leahy, <i>Digimouse: A 3D Whole Body Mouse Atlas from CT and Cryosection Data</i>, Phys. Med. Bio, 52: 577-587, 2007
   </td>
@@ -192,16 +241,22 @@ ul {
 </div>
   </td>
   <td class="lfig">
-  <img width="450px" src="minimalexample.png">
+  <img width="100%" src="minimalexample.png">
   </td>
   </tr>
   <td>
-  <div class="document" id="news"> <h1 class="title">News</h1> <p>28.5.2018:  <strong>Beta-release</strong></p> <blockquote> We are releasing the beta version for test use and feedback. Please note that the functionality might still change and that the code might not be fully forward compatible with later releases.</blockquote> </div>
+  <div class="document" id="news"> <h1 class="title">News</h1> <p>21.2.2019:  <strong>Release candidate</strong></p> <blockquote> Version 1.0rc is now released. A number of fixes has been introduced to the MATLAB interface. From now on, we indent to minimize changes that are backward incompatible to the MATLAB interface.</blockquote> <p>28.5.2018:  <strong>Beta-release</strong></p> <blockquote> We are releasing the beta version for test use and feedback. Please note that the functionality might still change and that the code might not be fully forward compatible with later releases.</blockquote> </div>
   </td>
   <td>
   </td>
 
   </table>
 </div>
+
+<script>
+document.body.style.fontSize = (screen.width*0.008).toString() + "px";
+</script>
+
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>

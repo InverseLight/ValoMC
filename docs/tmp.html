@@ -1,0 +1,59 @@
+<div class="content">
+<pre>
+ Runs a photon transport simulation
+
+ USAGE:
+
+       solution = ValoMC(vmcmesh, vmcmedium, vmcboundary)
+       solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
+
+ DESCRIPTION:
+
+       This main function used to initiate simulations.
+       The input structures are documented in more detail
+       in the homepage (see below).
+
+ INPUT:
+
+       vmcmesh                   - contains the geometry of the system
+         .H                      - element topology
+         .BH                     - boundary element topology
+         .r                      - node coordinates
+       vmcmedium                 - contains the optical properties of the medium
+         .absorption_coefficient   all have same size as size(H,1)
+         .scattering_coefficient
+         .scattering_anisotropy
+         .refractive_index
+       vmcboundary
+         .lightsource            - type of the lightsource (e.g. {'cosinic'}. {'gaussian'})
+         .lightsource_direction  - size(H, Ndim)
+         .lightsource_direction_type  - {'relative'} or {'absolute'}, direction with respect to normal or an absolute direction
+
+ OPTIONAL INPUT:
+
+       vmcoptions
+         .photon_count
+         .disable_progressbar    - true or false
+         .seed                   - random number generator seed
+
+
+ OUTPUT:
+
+       output
+         .element_fluence         - size(H,1)
+         .boundary_exitance       - size(BH,1)
+         .seed_used
+         .simulation_time
+
+ OPTIONAL OUTPUT:
+
+         .grid_fluece             - per pixel/voxel fluence if the mesh was created using createGridMesh
+
+ SEE ALSO:
+
+         https://inverselight.github.io/ValoMC/structures.html
+         https://inverselight.github.io/ValoMC/structures3d.html
+
+ This function is provided with ValoMC
+</pre>
+</div>

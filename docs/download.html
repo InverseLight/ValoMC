@@ -18,9 +18,24 @@ body {
         margin-top: 5vw;
         margin-left: 10vw;
         margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
+       	padding: 0;
+        font-size: 100%;
         font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+}
+
+#introduction {
+   text-align: justify;
+}
+
+
+table.maintable {
+   table-layout: fixed;
+   border: 0px solid black;
+}
+
+table.maintable td {
+   padding-right: 2vw;
+   padding-left: 0.2vw;
 }
 
 
@@ -29,18 +44,18 @@ body {
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 5vw;
    }
 
 
   ol li {
      list-style-type: decimal;
-     margin-left: -10px;
+     margin-left: 0px;
    }
 
 a {
@@ -48,9 +63,9 @@ a {
 }
 
    ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
+     margin: 1vw;
+     padding: 0 5vw;
+     line-height: 5vw;
      color: #369;
    }
 
@@ -64,7 +79,7 @@ ul.topnav {
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
 }
 
@@ -76,9 +91,12 @@ ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 8.5vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
+
 
 ul.topnav li a:hover:not(.active) {background-color: #111;color: white}
 ul.topnav li a:hover {color: white}
@@ -86,13 +104,13 @@ ul.topnav li a:hover {color: white}
 ul.topnav li a.active {background-color: rgb(44, 173, 46);}
 ul.topnav li.right {float: right;}
 
-img.logo {max-width: 300px;}
+img.logo {max-width: 25vw;}
 
-pre, code { font-size:12px; background:#eeeeee; margin:20px 0px 20px; }
-tt { font-size: 1.2em; }
-pre { margin:0px 30px 20px; white-space: pre-wrap;}
-pre.codeinput { padding:10px; border:1px margin:20px 0px 20px; solid #d3d3d3; background:#eeeeee; }
-pre.codeoutput { padding:10px 11px; margin:20px 0px 20px; color:#4c4c4c; }
+pre, code { font-size:100%; background:#eeeeee; margin:5vw 0px 5vw; }
+tt { font-size: 0.5cm; }
+pre { margin:0px 1vw 1vw; white-space: pre-wrap;}
+pre.codeinput { padding:5vw; border:0.1vw margin:5vw 0px 5vw; solid #d3d3d3; background:#eeeeee; }
+pre.codeoutput { padding:5vw; 5vw; margin:5vw 0px 5vw; color:#4c4c4c; }
 pre.error { color:red; }
 
 @media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
@@ -103,7 +121,7 @@ span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
 
-.footer {  width: 100%;  padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer {  width: 100%;  padding:5vw 0px; margin:5vw 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
 .footer a { color:#878787; }
 .footer a:hover { color:#878787; text-decoration:underline; }
@@ -115,6 +133,14 @@ span.syscmd { color:#B28C00 }
      padding: 0;
    }
 
+   ul {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+     margin-left: 2vw;
+   }
+
+
 
    ul.tree a:hover {
     background: lightgray;
@@ -124,9 +150,9 @@ span.syscmd { color:#B28C00 }
    }
 
 
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
-table td.lfig { padding:7px 5px;  align:center; vertical-align:middle; border:0px solid #d6d4d4; }
+table th { padding:1.2vw 1vw; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:1.2vw 1vw; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+table td.lfig { padding:1.2vw 1vw;  align:center; vertical-align:middle;  border:0px solid #d6d4d4; }
 ul {
     list-style-type: circle;
 }
@@ -160,19 +186,13 @@ ul.tree a {
   <div class="document">
 <div class="section" id="download">
 <h1>Download</h1>
-<div class="section" id="stable-versions">
-<h2>Stable versions</h2>
-<p>These will be provided later.</p>
-</div>
-<div class="section" id="pre-release-versions">
-<h2>Pre-release versions</h2>
 <p>We recommend using the latest development version.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="26%"></col>
-<col width="11%"></col>
-<col width="17%"></col>
-<col width="46%"></col>
+<col width="26%"/>
+<col width="11%"/>
+<col width="17%"/>
+<col width="46%"/>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Name</th>
@@ -183,19 +203,21 @@ ul.tree a {
 </thead>
 <tbody valign="top">
 <tr><td>Latest development version</td>
-<td>v1.0b-86</td>
-<td>27 Jul 2018</td>
+<td>v1.0b-132</td>
+<td>21 Feb 2019</td>
 <td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/master.zip">https://github.com/InverseLight/ValoMC/archive/master.zip</a></td>
 </tr>
-<tr><td>First archived version </td>
-<td>1.0b</td>
-<td>27 Jan 2018</td>
-<td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/v1.0b.zip">https://github.com/InverseLight/ValoMC/archive/v1.0b.zip</a></td>
+<tr><td>First release candidate</td>
+<td>1.0rc</td>
+<td>21 Feb 2019</td>
+<td><a class="reference external" href="https://github.com/InverseLight/ValoMC/archive/v1.0rc.zip">https://github.com/InverseLight/ValoMC/archive/v1.0rc.zip</a></td>
+</tr>
+<tr><td colspan="3">Older versions</td>
+<td><a class="reference external" href="https://github.com/InverseLight/ValoMC/releases">https://github.com/InverseLight/ValoMC/releases</a></td>
 </tr>
 </tbody>
 </table>
 <p>After download, please follow the <a class="reference external" href="installation.html">installation instructions</a> to get started.</p>
-</div>
 <div class="section" id="latest-version-from-github">
 <h2>Latest version from GitHub</h2>
 <p>The GitHub repository is located at <a class="reference external" href="https://github.com/InverseLight/ValoMC/">https://github.com/InverseLight/ValoMC/</a> .</p>
@@ -213,9 +235,9 @@ Note that you can also use the GitHub repository to report an issue, create pull
 <p>ValoMC has been tested on the following platforms</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="38%"></col>
-<col width="28%"></col>
-<col width="34%"></col>
+<col width="38%"/>
+<col width="28%"/>
+<col width="34%"/>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head"><strong>Operating system</strong></th>
@@ -241,5 +263,9 @@ Note that you can also use the GitHub repository to report an issue, create pull
 </div>
 </div>
 </div>
+<script>
+document.body.style.fontSize = (screen.width*0.008).toString() + "px";
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>

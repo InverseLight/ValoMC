@@ -15,13 +15,14 @@
 <style>
 
 body {
-        margin-top: 5vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
-        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
+
 
    ul.tree a {
     color: back;
@@ -49,12 +50,19 @@ img.logo {max-width: 300px;}
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 0.1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
    }
 
 
@@ -62,47 +70,38 @@ a {
     color: black;
 }
 
-   ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
-     color: #369;
-   }
 
    ul.tree li.last {
      background: #fff url(images/lastnode.png) no-repeat;
    }
 
-ul.topnav {
+   ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
-    width: 80vw;
-    min-width: 1200px;
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {float: left;
+     list-style-type: none;
+}
 
 ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
-
-
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 ul.topnav li.right {float: right;}
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+
 
 pre, code { font-size:12px; }
 tt { font-size: 1.2em; }
@@ -127,6 +126,45 @@ span.syscmd { color:#B28C00 }
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -143,72 +181,105 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px; width: auto;">
+<div style="padding:0 0vw; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
 <font size="4">
-<div style="width: 100%;">
-    <div style="width: 300px; float: left;">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
 <br> 
-<li><a>Documentation</a></li>
-<ul class="tree">
-<li><a href="gettingstarted.html">Getting started</a></li>
-<li><a>2D</a></li>
-<ul class="tree">
-<li><a href="simpletest.html">Simple example</a></li>
-<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
-<li><a href="directingls.html">Directing light sources</a></li>
-<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
-<li><a href="frequency.html">Frequency domain calculation</a></li>
-<li><a href="netgentest.html">Working with NetGen</a></li>
-<li><a href="generatingc.html">Generating input for the external executable</a></li>
-<li><a href="pixeltest.html">Working with pixel format data</a></li>
-<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures.html">List of structures</a></li>
-<li><a href="findingelements.html">Finding elements</a></li>
-<li><a href="findingboundaries.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a>3D</a></li>
-<ul class="tree">
-<li><a href="voxeltest.html">Working with voxel format data</a></li>
-<li><a href="netgentest3d.html">Working with NetGen</a></li>
-<li><a href="threedmodel.html">Digimouse example</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures3d.html">List of structures</a></li>
-<li><a href="findingelements3d.html">Finding elements</a></li>
-<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a href="literature.html">Literature</a></li>
-<li><a href="functionreference.html">Alphabetical function listing</a></li>
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
 </ul>
     </div>
-    <div style="margin-left: 350px; padding: 5px;"> 
-<div class="content"><h1>Generating input for the external executable: generatingc.m</h1><!--introduction--><p>Calculations with complex geometries are convenient to perform using the external executable that is compiled from C++ code (see installation instructions).  This example shows how the initial conditions can be set up using Matlab and stored to a text file for a parallelized calculation on a computer cluster, for example.  The code is identical to the Netgen example, but the computation is done using the external executable.</p><p><b>For this example to work the external executables must be compiled.</b> <b>See the homepage/installation for instructions how to compile the external executales</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Perform simulation initialization as in the Netgen example</a></li><li><a href="#3">Save the Monte Carlo simulation input</a></li><li><a href="#4">Run the external executable</a></li><li><a href="#5">Load the simulation output using importValoMC</a></li></ul></div><pre class="codeinput">clear <span class="string">all</span>;
-</pre><h2 id="2">Perform simulation initialization as in the Netgen example</h2><p>Import the NetGen file Netgen meshes can be imported using 'importNetGenMesh'. In addition to the mesh structure, it returns the regions in the vol file as cell arrays. Each row in these arrays contains a vector that holds the indices of a region (in the medium or in the boundary). Netgen files may also contain names for the regions. These are returned in 'region_names' and 'boundary_names' and can be used to find the correct indices for each region (see 'Set optical parameters and light sources').</p><pre class="codeinput">[vmcmesh regions region_names boundaries vmcboundary_names] = importNetGenMesh(<span class="string">'square_with_two_circles.vol'</span>);
-
-<span class="comment">% Set optical parameters and light sources</span>
-<span class="comment">% The return values can be used to assign optical coefficients,</span>
-<span class="comment">% lightsources and other conditions.</span>
-
-indices_for_background = cell2mat(regions(1));
-indices_for_circles = cell2mat(regions(2));
-indices_for_outer_boundary = [cell2mat(boundaries(2)); cell2mat(boundaries(1))];
-
-vmcmesh.BH = vmcmesh.BH(indices_for_outer_boundary,:);
-indices_for_lightsource=1:size(cell2mat(boundaries(2)),1);
-
-<span class="comment">% In Matlab 2016b and later it is possible to find indices using</span>
-<span class="comment">%</span>
-<span class="comment">% indices_for_lightsource = cell2mat(boundaries(find(contains(boundary_names,'lightsource'))));</span>
-<span class="comment">% indices_for_circles = cell2mat(regions(find(contains(region_names,'circles'))));</span>
-<span class="comment">%</span>
-<span class="comment">% i.e. strings can be used to extract regions.</span>
-
-vmcmedium.absorption_coefficient(indices_for_background) = 0.01;   <span class="comment">% absorption coefficient [1/mm]</span>
+    <div style="margin-left: 20%; padding: 1vw;"> 
+<div class="content"><h1>Generating input for the external executable: generatingc.m</h1><!--introduction--><p>Calculations with complex geometries are convenient to perform using the external executable that is compiled from C++ code (see installation instructions).  This example shows how the initial conditions can be set up using Matlab and stored to a text file for a parallelized calculation on a computer cluster, for example.  The code is identical to the Netgen example, but the computation is done using the external executable.</p><p><b>For this example to work the external executables must be compiled.</b> <b>See the homepage/installation for instructions how to compile the external executales</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Perform simulation initialization as in the Netgen example</a></li><li><a href="#3">Find indices</a></li><li><a href="#4">Set optical parameters and light sources using the indices</a></li><li><a href="#5">Save the Monte Carlo simulation input</a></li><li><a href="#6">Run the external executable</a></li><li><a href="#7">Load the simulation output using importValoMC</a></li></ul></div><pre class="codeinput">clear <span class="string">all</span>;
+</pre><h2 id="2">Perform simulation initialization as in the Netgen example</h2><pre class="codeinput">[vmcmesh regions region_names boundaries boundary_names] = importNetGenMesh(<span class="string">'square_with_two_circles.vol'</span>, false);
+</pre><h2 id="3">Find indices</h2><pre class="codeinput">indices_for_background = cell2mat(regions(find(strcmp(region_names,<span class="string">'background'</span>))));
+indices_for_circles = cell2mat(regions(find(strcmp(region_names,<span class="string">'circles'</span>))));
+indices_for_lightsource = cell2mat(boundaries(find(strcmp(boundary_names,<span class="string">'lightsource'</span>))));
+</pre><h2 id="4">Set optical parameters and light sources using the indices</h2><pre class="codeinput">vmcmedium.absorption_coefficient(indices_for_background) = 0.01;   <span class="comment">% absorption coefficient [1/mm]</span>
 vmcmedium.scattering_coefficient(indices_for_background) = 1.3;    <span class="comment">% scattering coefficient [1/mm]</span>
 vmcmedium.scattering_anisotropy(indices_for_background) = 0.9;     <span class="comment">% scattering anisotropy parameter [unitless]</span>
 vmcmedium.refractive_index(indices_for_background) = 1.3;          <span class="comment">% refractive index [unitless]</span>
@@ -218,42 +289,47 @@ vmcmedium.scattering_coefficient(indices_for_circles) = 1.3;
 vmcmedium.scattering_anisotropy(indices_for_circles) = 0.5;
 vmcmedium.refractive_index(indices_for_circles) = 1.5;
 
-vmcboundary.lightsource(indices_for_lightsource) = {<span class="string">'cosinic'</span>};    <span class="comment">% cosine directed light profile</span>
+vmcboundary.lightsource(indices_for_lightsource) = {<span class="string">'cosinic'</span>};
+
 
 vmcoptions.photon_count = 2e6; <span class="comment">% set the desired photon count</span>
-</pre><h2 id="3">Save the Monte Carlo simulation input</h2><pre class="codeinput"><span class="comment">% Export the input file 'netgen_test_input.txt'</span>
+</pre><h2 id="5">Save the Monte Carlo simulation input</h2><pre class="codeinput"><span class="comment">% Export the input file 'netgen_test_input.txt'</span>
 exportValoMC(<span class="string">'netgen_test_input.txt'</span>,vmcmesh, vmcmedium, vmcboundary, vmcoptions);
-</pre><h2 id="4">Run the external executable</h2><p>The input file is used to launch an external executable using the ! operator in Matlab. Note that the calculation could be done on a computing cluster aswell and no Matlab is needed.</p><pre class="codeinput"><span class="comment">% This assumes the c++ code has been compiled.</span>
+</pre><h2 id="6">Run the external executable</h2><p>The input file is used to launch an external executable using the ! operator in Matlab. Note that the calculation could be done on a computing cluster aswell and no Matlab is needed.</p><pre class="codeinput"><span class="comment">% This assumes the c++ code has been compiled.</span>
 <span class="comment">% In Windows, MC2D.a should be replaced with MC2D.exe</span>
 
-<span class="syscmd">!./MC2D.a netgen_test_input.txt netgen_test_output.txt</span>
-</pre><pre class="codeoutput">-----ValoMC-2D-----
----Version v1.0b --
----Revision  282---
---OpenMP version --
--------------------
-
-Using 32 threads
-Loading problem netgen_test_input.txt
-Loaded:
-         H   (21855 x 3)
-        BH   (405 x 2)
-         r   (11131 x 2)
-    BCType   (405)
-       BCn   (405)
- BCLNormal   (405 x 2)
-       mua   (21855)
-       mus   (21855)
-         g   (21855)
-         n   (21855)
+<span class="syscmd">!../MC2D netgen_test_input.txt netgen_test_output.txt</span>
+</pre><pre class="codeoutput">                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 32 threads
+--------------------------------------------
 Constants:
-         f        (0.000000e+00)
-         phase0   (0.000000e+00)
+           f   (0.000000e+00)
+      phase0   (0.000000e+00)
+          Ne   (21597)
+          Nb   (405)
+          Nr   (11002)
+     Nphoton   (2000000)
+        seed   (1550753068)
+Arrays:
+           H   (21597x3)
+          BH   (405x2)
+           r   (11002x2)
+         mua   (21597x1)
+         mus   (21597x1)
+           g   (21597x1)
+           n   (21597x1)
+      BCType   (405x1)
+         BCn   (405x1)
+BCLightDirection   (405x2)
 Initializing MC2D
 Computing...
-  0.300000 %  1.500000 %  2.950000 %  4.200000 %  5.700000 %  6.950000 %  8.400000 %  9.700000 %  10.900000 %  12.350000 %  13.700000 %  15.150000 %  16.250000 %  18.200000 %  20.150000 %  21.450000 %  23.250000 %  24.900000 %  26.500000 %  28.000000 %  29.950000 %  31.300000 %  33.850000 %  36.700000 %  38.400000 %  41.150000 %  42.650000 %  44.050000 %  45.550000 %  46.850000 %  48.950000 %  50.250000 %  51.850000 %  54.050000 %  55.350000 %  56.600000 %  58.000000 %  59.450000 %  61.200000 %  62.550000 %  63.750000 %  65.150000 %  66.550000 %  67.750000 %  69.050000 %  70.400000 %  71.850000 %  73.100000 %  74.550000 %  75.900000 %  77.300000 %  78.600000 %  79.750000 %  81.000000 %  82.300000 %  83.400000 %  84.550000 %  85.850000 %  87.050000 %  88.150000 %  89.350000 %  90.550000 %  100.000000 %Saving problem netgen_test_output.txt
-Computation took 7 seconds
-</pre><h2 id="5">Load the simulation output using importValoMC</h2><p>importValoMC can be used to retrieve the problem definition and the simulation output from the external executable</p><pre class="codeinput">[vmcmesh, vmcmedium, vmcboundary, options, solution] = importValoMC(<span class="string">'netgen_test_input.txt'</span>, <span class="string">'netgen_test_output.txt'</span>);
+  1.529150 %  3.166450 %  4.769950 %  6.449250 %  7.465300 %  8.312700 %  9.192650 %  10.052900 %  10.911950 %  11.782750 %  12.659400 %  13.510950 %  14.404700 %  15.300500 %  16.189450 %  17.064500 %  17.945950 %  18.816350 %  19.687750 %  20.572000 %  21.490600 %  22.376350 %  23.232150 %  24.106050 %  25.144700 %  26.022550 %  26.969950 %  27.997750 %  28.884950 %  29.778650 %  30.664100 %  31.560050 %  32.458400 %  33.371300 %  34.246050 %  35.133050 %  36.042450 %  37.073800 %  37.985750 %  38.998100 %  39.904000 %  40.826900 %  41.738900 %  42.630200 %  43.549950 %  44.508550 %  45.434100 %  46.335300 %  47.433650 %  48.328600 %  49.250300 %  50.232100 %  51.150300 %  52.042050 %  52.944500 %  53.879200 %  54.807500 %  55.695750 %  56.554850 %  57.416500 %  58.282850 %  59.146400 %  100.000000 %Saving problem
+Computation took 5 seconds
+</pre><h2 id="7">Load the simulation output using importValoMC</h2><p>importValoMC can be used to retrieve the problem definition and the simulation output from the external executable</p><pre class="codeinput">[vmcmesh, vmcmedium, vmcboundary, options, solution] = importValoMC(<span class="string">'netgen_test_input.txt'</span>, <span class="string">'netgen_test_output.txt'</span>);
 
 <span class="comment">% Plot the solution</span>
 
@@ -268,9 +344,46 @@ hold <span class="string">off</span>
     </div>
 </div>
 </font>
-
   </div>
 
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
 

@@ -15,13 +15,14 @@
 <style>
 
 body {
-        margin-top: 5vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
-	padding: 0;
-        font-size: 15px;
-        font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
+  margin-top: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+   padding: 0;
+  font-size: 100%;
+  font-family: 'Roboto Condensed', 'Tahoma', 'Arial', sans-serif;
 }
+
 
    ul.tree a {
     color: back;
@@ -49,12 +50,19 @@ img.logo {max-width: 300px;}
      background:  repeat-y;
      margin: 0;
      padding: 0;
-     margin: 5px;
+     margin: 0.1vw;
    }
 
    ul.tree ul {
      list-style-type: none;
-     margin-left: 10px;
+     margin-left: 0.1vw;
+   }
+
+ul.tree li {
+     margin: 0.1vw;
+     padding: 0.1vw 1vw;
+     line-height: 100%;
+     color: #369;
    }
 
 
@@ -62,47 +70,38 @@ a {
     color: black;
 }
 
-   ul.tree li {
-     margin: 5px;
-     padding: 0 12px;
-     line-height: 20px;
-     color: #369;
-   }
 
    ul.tree li.last {
      background: #fff url(images/lastnode.png) no-repeat;
    }
 
-ul.topnav {
+   ul.topnav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: #333;
-    font-size: 15px;
+    font-size: 1.5vw;
     text-align: center;
-    width: 80vw;
-    min-width: 1200px;
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {float: left;
+     list-style-type: none;
+}
 
 ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px 27px;
+    padding: 0.2vw 0.0cm;
+    width: 7.8vw;
     text-decoration: none;
+    font-size: 1.2vw;
 }
-
-
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 ul.topnav li.right {float: right;}
-@media screen and (max-width: 600px){
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-}
+
 
 pre, code { font-size:12px; }
 tt { font-size: 1.2em; }
@@ -127,6 +126,45 @@ span.syscmd { color:#B28C00 }
 
 table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
 table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+img.logo {max-width: 25vw;}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+ ul.tree a:hover {
+    background: lightgray;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+   }
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -143,50 +181,99 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </font>
 </ul>
 
-<div style="padding:0 16px; width: auto;">
+<div style="padding:0 0vw; width: auto;">
   <h2></h2>
   <p></p>
   <p></p>
 <font size="4">
-<div style="width: 100%;">
-    <div style="width: 300px; float: left;">
+<div class="bottomhalf" style="width: 100%;">
+    <div style="width: 20%; float: left;">
 <br> 
-<li><a>Documentation</a></li>
-<ul class="tree">
-<li><a href="gettingstarted.html">Getting started</a></li>
-<li><a>2D</a></li>
-<ul class="tree">
-<li><a href="simpletest.html">Simple example</a></li>
-<li><a href="inhomogeneous.html">Creating an inhomogeneous medium</a></li>
-<li><a href="directingls.html">Directing light sources</a></li>
-<li><a href="boundarytest.html">Setting boundary conditions and visualising the boundary solution</a></li>
-<li><a href="frequency.html">Frequency domain calculation</a></li>
-<li><a href="netgentest.html">Working with NetGen</a></li>
-<li><a href="generatingc.html">Generating input for the external executable</a></li>
-<li><a href="pixeltest.html">Working with pixel format data</a></li>
-<li><a href="kwavetest.html">Simulating the photoacoustic effect using K-Wave</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures.html">List of structures</a></li>
-<li><a href="findingelements.html">Finding elements</a></li>
-<li><a href="findingboundaries.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a>3D</a></li>
-<ul class="tree">
-<li><a href="voxeltest.html">Working with voxel format data</a></li>
-<li><a href="netgentest3d.html">Working with NetGen</a></li>
-<li><a href="threedmodel.html">Digimouse example</a></li>
-<li><a>Code documentation</a></li>
-<ul class="tree">
-<li><a href="structures3d.html">List of structures</a></li>
-<li><a href="findingelements3d.html">Finding elements</a></li>
-<li><a href="findingboundaries3d.html">Finding boundaries</a></li>
-</ul></ul>
-<li><a href="literature.html">Literature</a></li>
-<li><a href="functionreference.html">Alphabetical function listing</a></li>
+<ul style="padding: 0 0px" class="tree">
+<li>
+<span class="caret"> Documentation</span>
+<ul class="nested">
+<li>
+<a href="gettingstarted.html"> Getting started</a>
+</li>
+<li>
+<span class="caret"> 2D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 2D Examples</span>
+<ul class="nested">
+<li>
+<a href="simpletest.html"> Simple example</a>
+</li>
+<li>
+<a href="inhomogeneous.html"> Creating an inhomogeneous medium</a>
+</li>
+<li>
+<a href="directingls.html"> Directing light sources</a>
+</li>
+<li>
+<a href="boundarytest.html"> Setting boundary conditions and visualising the boundary solution</a>
+</li>
+<li>
+<a href="frequency.html"> Frequency domain calculation</a>
+</li>
+<li>
+<a href="netgentest.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="generatingc.html"> Generating input for the external executable</a>
+</li>
+<li>
+<a href="pixeltest.html"> Working with pixel format data</a>
+</li>
+<li>
+<a href="toasttest.html"> Working with Toast++</a>
+</li>
+<li>
+<a href="kwavetest.html"> Simulating the photoacoustic effect using K-Wave</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Code documentation</span>
+<ul class="nested">
+<li>
+<a href="structures3d.html"> List of structures</a>
+</li>
+<li>
+<a href="findingelements3d.html"> Finding elements</a>
+</li>
+<li>
+<a href="findingboundaries3d.html"> Finding boundaries</a>
+</li></ul>
+<li>
+<span class="caret"> 3D Examples</span>
+<ul class="nested">
+<li>
+<a href="voxeltest.html"> Working with voxel format data</a>
+</li>
+<li>
+<a href="netgentest3d.html"> Working with NetGen</a>
+</li>
+<li>
+<a href="threedmodel.html"> Digimouse example</a>
+</li></ul>
+<li>
+<a href="functionreference.html"> Alphabetical function listing</a>
+</li></ul>
+<li>
+<a href="literature.html"> Literature</a>
+</li>
 </ul>
     </div>
-    <div style="margin-left: 350px; padding: 5px;"> 
+    <div style="margin-left: 20%; padding: 1vw;"> 
 <div class="content"><h1>Frequency domain calculation: frequency.m</h1><!--introduction--><p>This example demonstrates how to simulate sinusoidal irradiance-modulated light and resembles that given in the book by [Wang], p. 259. Two light sources, 180 degree out of phase, are set up at the x-axis at equal distance from the origin. Due to the symmetry of the problem, the photon packets have an opposite phase at the y axis and the photon density has a minimum.</p><p>[Wang] Biomedical Optics Principles and Imaging, Wiley, 2007</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Setup the simulation domain</a></li><li><a href="#2">Run the simulations</a></li><li><a href="#3">Plot the results</a></li></ul></div><h2 id="1">Setup the simulation domain</h2><pre class="codeinput">clear <span class="string">all</span>;
 
 xsize =  60;	<span class="comment">% width of the region [mm]</span>
@@ -199,8 +286,8 @@ lightsource1 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [
 lightsource2 = findBoundaries(vmcmesh, <span class="string">'location'</span>, [10  -15]);
 
 <span class="comment">% Obtain the indices of the opposite wall for plotting the results</span>
-opposite_wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 60], 60);
-wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 -60], 60);
+opposite_wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 60], 59);
+wall = findBoundaries(vmcmesh, <span class="string">'direction'</span>, [0  0], [0 -60], 59);
 
 vmcboundary = createBoundary(vmcmesh);
 vmcmedium.absorption_coefficient = 0.01;     <span class="comment">% absorption coefficient [1/mm]</span>
@@ -212,7 +299,7 @@ vmcmedium.refractive_index = 1.37;           <span class="comment">% refractive 
 
 <span class="comment">% Increase the default photon count to get reasonable statistics</span>
 <span class="comment">% at the detector</span>
-options.photon_count = 1e8;
+options.photon_count = 3e7;
 </pre><h2 id="2">Run the simulations</h2><p>Two simulations are used to simulate two modified lightsources. The solutions are added together to form the complete solution.</p><pre class="codeinput">options.frequency = 200e6;
 options.phase0=-pi/2;
 vmcboundary.lightsource(lightsource1) = {<span class="string">'cosinic'</span>};
@@ -222,13 +309,27 @@ options.phase0=pi/2; <span class="comment">% put the second light 180 degree out
 vmcboundary.lightsource(lightsource1) = {<span class="string">'none'</span>}; <span class="comment">% shut down the first lightsource</span>
 vmcboundary.lightsource(lightsource2) = {<span class="string">'cosinic'</span>};
 solution2 = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
-</pre><pre class="codeoutput">Transformed negative phase0 to positive 4.712389
-Initializing MC2D using 16 threads...
+</pre><pre class="codeoutput">                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Transformed negative phase0 to positive 4.712389
+Initializing MC2D...
 Computing... 
 ...done
 
 Done
-Initializing MC2D using 16 threads...
+                 ValoMC-2D
+--------------------------------------------
+  Version:  v1.0b-118-g853f111
+  Revision: 131
+  OpenMP enabled                     
+  Using 16 threads
+--------------------------------------------
+Initializing MC2D...
 Computing... 
 ...done
 
@@ -260,9 +361,46 @@ ylabel(<span class="string">'Angle [deg]'</span>);
     </div>
 </div>
 </font>
-
   </div>
 
+<script>
+
+
+document.body.style.fontSize = (screen.width*0.01).toString() + "px";
+
+document.getElementsByClassName("bottomhalf")[0].style.fontSize = (screen.width*0.01).toString() + "px"
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+toggler[0].parentElement.querySelector(".nested").classList.toggle("active");
+toggler[0].classList.toggle("caret-down");
+
+for (i = 1; i < toggler.length; i++) {
+  
+    if (localStorage.getItem("vmenutoggler" + i.toString())) {
+        myvalue = localStorage.getItem("vmenutoggler" + i.toString());
+        if(myvalue) {
+          toggler[i].parentElement.querySelector(".nested").classList.toggle("active");
+          toggler[i].classList.toggle("caret-down");
+         }
+    }
+}
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].mynumber = i;
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    if(this.classList.toggle("caret-down")) {
+       localStorage.setItem("vmenutoggler" + this.mynumber.toString(), "true");
+    } else {
+       localStorage.removeItem("vmenutoggler" + this.mynumber.toString());
+    }
+  });
+}
+
+</script>
+
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Sep  6 18:35:36 EEST 2018 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:00:42 EET 2019 by aleksle</p></footer> </body> </html>
 

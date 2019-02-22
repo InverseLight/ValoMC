@@ -1,0 +1,11 @@
+<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="optional">
+    <?xml-stylesheet type="text/xsl"href="optional"?>
+
+    <matlabrelease>R2016b</matlabrelease>
+    <name>ValoMC</name>
+    <type>toolbox</type>
+    <icon></icon>
+    <help_location>helppages</help_location>
+
+</productinfo>

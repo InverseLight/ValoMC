@@ -165,6 +165,14 @@ img.logo {max-width: 25vw;}
     width: 100%;
    }
 
+
+   ul.simple li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -273,7 +281,7 @@ img.logo {max-width: 25vw;}
 </li>
 </ul>
     </div>
-    <div style="margin-left: 20%; padding: 1vw;"> 
+    <div style="margin-left: 20%; padding: 1vw;" class="maintext"> 
 <div class="content"><h1>Working with Toast++: toastest.m</h1><!--introduction--><p>This example is based on a simple Toast++ usage example found on the Toast++ web site. The original example can be found from <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html">http://web4.cs.ucl.ac.uk/research/vis/toast/demo_matlab_fwd1.html</a>. It simulates a steady state diffuse optical tomography (DOT) measurement in a circular geometry that has 16 detectors and 16 light sources located on the boundary of the object.</p><p>Each source is used to illuminate light into the domain and the amount of light is measured at all detectors. This is repeated for all source locations. In the example, the measurement matrix (signal intensity at each detector) is simulated both with Toast (as in the original example) and with ValoMC. Note that the results are not equal since Toast uses DA as the model for light propagation. DA can be regarded as a good approximation for photon transport in a highly scattering medium with distances further than a few scattering lengths from the source.</p><p>Toast++ is a software for image reconstruction in diffuse optical tomography. It contains a forward solver module using the finite element method for simulating the propagation of light in highly scattering, inhomogeneous biological tissues. The inverse solver module uses an iterative, regularized least-squares approach to reconstruct the unknown distributions of absorption and scattering coefficients in the volume of interest from boundary measurements of transmitted light.</p><p>Toast++ toolbox is being developed by Martin Schweiger and Simon Arridge (University College London) and the copyright of the original code belongs to them.</p><p>Toast homepage: <a href="http://web4.cs.ucl.ac.uk/research/vis/toast/index.html">http://web4.cs.ucl.ac.uk/research/vis/toast/index.html</a>. M. Schweiger and S. R. Arridge, "The Toast++ software suite for forwards and inverse modeling in optical tomography", Journal of Biomedical Optics, 19(4):040801, 2014.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create the geometry</a></li><li><a href="#2">Set the optical coefficients</a></li><li><a href="#3">Create the source and detector positions</a></li><li><a href="#4">Plot the source/detector arrangement</a></li><li><a href="#5">Solve the FEM system with Toast</a></li><li><a href="#6">Solve the photon transport problem with ValoMC</a></li><li><a href="#7">Plot the solutions</a></li><li><a href="#8">Plot the measurement profile as a function of source-detector separation</a></li></ul></div><h2 id="1">Create the geometry</h2><p>Create a circular mesh using Toast++ and import it to ValoMC</p><pre class="codeinput">rad = 25;
 nsect = 8;
 nring = 34;
@@ -675,5 +683,5 @@ for (i = 0; i < toggler.length; i++) {
 </script>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:35:26 EET 2019 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Tue Feb 26 10:37:00 EET 2019 by aleksle</p></footer> </body> </html>
 

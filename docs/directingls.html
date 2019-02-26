@@ -165,6 +165,14 @@ img.logo {max-width: 25vw;}
     width: 100%;
    }
 
+
+   ul.simple li {
+     list-style-type: square;
+     background:  repeat-y;
+     padding: 0;
+   }
+
+
 </style>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 </head>
@@ -273,7 +281,7 @@ img.logo {max-width: 25vw;}
 </li>
 </ul>
     </div>
-    <div style="margin-left: 20%; padding: 1vw;"> 
+    <div style="margin-left: 20%; padding: 1vw;" class="maintext"> 
 <div class="content"><h1>Directing light sources: directingls.m</h1><!--introduction--><p>This example demonstrates how to give custom directions to the light sources and how to use different built-in directivity patterns.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Set up the mesh and the medium</a></li><li><a href="#2">Set up the boundary and create light sources</a></li><li><a href="#4">Create and direct lightsources using different directivity patterns</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Plot the solution</a></li></ul></div><h2 id="1">Set up the mesh and the medium</h2><pre class="codeinput"><span class="comment">% Create a rectangular mesh</span>
 xsize =  10;    <span class="comment">% width of the region [mm]</span>
 ysize =  10;    <span class="comment">% width of the region [mm]</span>
@@ -462,5 +470,5 @@ for (i = 0; i < toggler.length; i++) {
 </script>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Thu Feb 21 22:35:26 EET 2019 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Tue Feb 26 10:37:00 EET 2019 by aleksle</p></footer> </body> </html>
 

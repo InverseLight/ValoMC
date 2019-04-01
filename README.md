@@ -8,7 +8,7 @@ Introduction
 
 ValoMC is an open source Monte Carlo code that can simulate the
 passage of visible and near infrared range photons through a
-medium. The implementation is based on photon packet method. The
+medium. The implementation is based on the photon packet method. The
 simulation geometry is defined using unstructured (triangular or
 tetrahedral) mesh. The program solves the photon fluence in the
 computation domain and the exitance at the domain boundary. It is
@@ -26,10 +26,9 @@ Finland.
 If you use ValoMC in your work, please reference it with the following
 citation:
 
-A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: A Monte Carlo
+A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: a Monte Carlo
 software and MATLAB toolbox for simulating light transport in
-biological tissue, OSA Continuum, Accepted for publication, 2019.
-
+biological tissue, OSA Continuum 2, 957-972 (2019)
 
 
 Minimal example
@@ -46,7 +45,7 @@ The following MATLAB code snippet sets up and runs a Monte Carlo simulation in a
 	%    - Set a light source from boundary elements 4 to 7 
 	%    - Photons are launched at a random angle so that all angles have a cosinic distribution 
 	vmcboundary.lightsource(4:7) = {'cosinic'};
-
+ 
 	% Give optical parameters
 	%    - Constant optical parameters are set troughout the medium.
 	%    - Alternatively, optical parameters can set be for each element using indexing 

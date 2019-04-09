@@ -26,9 +26,9 @@ Finland.
 If you use ValoMC in your work, please reference it with the following
 citation:
 
-A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: a Monte Carlo
+[A.A. Leino, A. Pulkkinen and T. Tarvainen, ValoMC: a Monte Carlo
 software and MATLAB toolbox for simulating light transport in
-biological tissue, OSA Continuum 2, 957-972 (2019)
+biological tissue, OSA Continuum 2, 957-972 (2019)](https://doi.org/10.1364/OSAC.2.000957)
 
 
 Minimal example

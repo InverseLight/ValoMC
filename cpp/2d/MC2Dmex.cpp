@@ -115,7 +115,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Array<int_fast64_t> Nphoton;
   Array<double> GaussianSigma;
   Array<int_fast64_t> disable_pbar;
-  Array<int_fast64_t> rndseed;
+  Array<uint_fast64_t> rndseed;
 
   Convert_mxArray(prhs[0], H);
   Convert_mxArray(prhs[1], HN);
@@ -214,9 +214,9 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   time(&now);
   *mxGetPr(plhs[3])=(double) difftime(now,starting_time);
 
-  const size_t dim = 1;
-  plhs[4]=mxCreateNumericArray(1, &dim, mxINT32_CLASS, mxREAL); // [AL]
-  *mxGetPr(plhs[4])= MC.seed;
+  const mwSize dims[] = {1,1};
+  plhs[4] = mxCreateNumericMatrix(1, 1, mxUINT64_CLASS, mxREAL);
+  *((unsigned long*) mxGetData(plhs[4])) = MC.seed;
 
   long ii;
   for(ii = 0; ii < MC.ER.N; ii++){

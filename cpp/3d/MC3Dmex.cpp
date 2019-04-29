@@ -117,7 +117,7 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   Array<int_fast64_t> Nphoton;
   Array<double> GaussianSigma;
   Array<int_fast64_t> disable_pbar;
-  Array<int_fast64_t> rndseed;
+  Array<uint_fast64_t> rndseed;
 
   Convert_mxArray(prhs[0], H);
   Convert_mxArray(prhs[1], HN);
@@ -230,12 +230,9 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
     dbsoli[ii] = MC.DEBI[ii];
   }
 
-  plhs[4]=mxCreateNumericMatrix(0, 0, mxINT64_CLASS, mxREAL); // [AL]
-  int_fast64_t *dynamicData = (int_fast64_t*) mxCalloc(1, sizeof(int_fast64_t));
-  dynamicData[0] = MC.seed;
-  mxSetData(plhs[4], dynamicData);
-  mxSetM(plhs[4], 1);
-  mxSetN(plhs[4], 1);
+  const mwSize dims[] = {1,1};
+  plhs[4] = mxCreateNumericMatrix(1, 1, mxUINT64_CLASS, mxREAL);
+  *((unsigned long*) mxGetData(plhs[4])) = MC.seed;
 
   // Copy topology neighbourhood
   if(nlhs == 6){

@@ -55,8 +55,8 @@ template <typename T> void Convert_mxArray(const mxArray *inp, Array<T> &outp, A
   else if( (id == mxUINT16_CLASS) && (typeid(T) == typeid(unsigned short)) ) idok++;
   else if( (id == mxINT32_CLASS) && (typeid(T) == typeid(int)) ) idok++;
   else if( (id == mxUINT32_CLASS) && (typeid(T) == typeid(unsigned int)) ) idok++;
-  else if( (id == mxINT64_CLASS) && (typeid(T) == typeid(long)) ) idok++;
-  else if( (id == mxUINT64_CLASS) && (typeid(T) == typeid(unsigned long)) ) idok++;
+  else if( (id == mxINT64_CLASS) && (typeid(T) == typeid(int_fast64_t)) ) idok++;
+  else if( (id == mxUINT64_CLASS) && (typeid(T) == typeid(uint_fast64_t)) ) idok++;
   if(!idok) mexErrMsgTxt("mxArray type error! Incorrect type received!\n");
 
   // Check that the mxArray is of supported size
@@ -94,8 +94,8 @@ template <typename T> void Convert_mxArray(mxArray **mx, Array<T> &arr, long Nx,
   else if( typeid(T) == typeid(unsigned short) ) id = mxUINT16_CLASS;
   else if( typeid(T) == typeid(int) ) id = mxINT32_CLASS;
   else if( typeid(T) == typeid(unsigned int) ) id = mxUINT32_CLASS;
-  else if( typeid(T) == typeid(long) ) id = mxINT64_CLASS;
-  else if( typeid(T) == typeid(unsigned long) ) id = mxUINT64_CLASS;
+  else if( typeid(T) == typeid(int_fast64_t) ) id = mxINT64_CLASS;
+  else if( typeid(T) == typeid(uint_fast64_t) ) id = mxUINT64_CLASS;
   else mexErrMsgTxt("Trying to initialize mxArray with unsupported type!\n");
   
   // Create array
@@ -128,8 +128,8 @@ template <typename T> void Convert_mxArray(mxArray **mx, Array<T> &arr, Array<T>
   else if( typeid(T) == typeid(unsigned short) ) id = mxUINT16_CLASS;
   else if( typeid(T) == typeid(int) ) id = mxINT32_CLASS;
   else if( typeid(T) == typeid(unsigned int) ) id = mxUINT32_CLASS;
-  else if( typeid(T) == typeid(long) ) id = mxINT64_CLASS;
-  else if( typeid(T) == typeid(unsigned long) ) id = mxUINT64_CLASS;
+  else if( typeid(T) == typeid(int_fast64_t) ) id = mxINT64_CLASS;
+  else if( typeid(T) == typeid(uint_fast64_t) ) id = mxUINT64_CLASS;
   else mexErrMsgTxt("Trying to initialize mxArray with unsupported type!\n");
 
   // Create array

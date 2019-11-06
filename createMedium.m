@@ -60,7 +60,7 @@ function vmcmedium_out = createMedium(vmcmesh, vmcmedium)
          vmcmedium.absorption_coefficient = 0.0;
     end;
     if(~isfield(vmcmedium, 'scattering_anisotropy'))
-         vmcmedium.absorption_coefficient = 0.0; 
+         vmcmedium.scattering_anisotropy = 0.0; 
     end;
     
     % check if the optical coefficients are given as multidimensional arrays

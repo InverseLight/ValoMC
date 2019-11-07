@@ -48,7 +48,7 @@ static const char *errorstring(mcerror error) {
         case INCONSISTENT_MESH:
             return "Ill defined mesh - cannot find nodes. Check Mesh.";  
         case INCONSISTENT_MESH_DUPLICATE_NEIGHBORS:
-            return "Ill defined mesh - there are duplicate neighbors. Check Mesh.";  
+            return "Ill defined mesh - some boundary elements are trapped between two elements. A boundary element must belong to a single element. Check Mesh.";  
         case MISSING_BOUNDARY:
             return "Ill defined mesh - a complete boundary cannot be constructed. Check Mesh.";                        
         case NO_GAUSSIAN_SIGMA:

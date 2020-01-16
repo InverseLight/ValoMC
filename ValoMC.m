@@ -223,24 +223,34 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
             fprintf(fp, '%c\n', BCType);
 
             if exist('BCn')
-                fprintf(fp, 'BCn\n');
-                fprintf(fp, '%e\n', BCn);
+                if(length(BCn) > 1)
+	                fprintf(fp, 'BCn\n');
+        	        fprintf(fp, '%e\n', BCn);
+                end
             end
             if exist('BCLightDirection')
-                fprintf(fp, 'BCLightDirection\n');
-                fprintf(fp, '%e %e\n', BCLightDirection');
+                if(length(BCLightDirection) > 1)
+                	fprintf(fp, 'BCLightDirection\n');
+                	fprintf(fp, '%e %e\n', BCLightDirection');
+		end
             end
             if exist('BCLightDirectionType')
-                fprintf(fp, 'BCLightDirectionType\n');
-                fprintf(fp, '%c\n', BCLightDirectionType');
+                if(length(BCLightDirectionType) > 1)
+                	fprintf(fp, 'BCLightDirectionType\n');
+                	fprintf(fp, '%c\n', BCLightDirectionType');
+		end
             end
             if exist('BCLIntensity')
-                fprintf(fp, 'BCLIntesity\n');
-                fprintf(fp, '%e\n', BCLIntensity');
+                if(length(BCLIntensity) > 1)
+	                fprintf(fp, 'BCLIntesity\n');
+        	        fprintf(fp, '%e\n', BCLIntensity');
+		end
             end
             if exist('GaussianSigma')
-                fprintf(fp, 'GaussianSigma\n');
-                fprintf(fp, '%e\n', GaussianSigma');
+                if(length(GaussianSigma) > 1)
+                	fprintf(fp, 'GaussianSigma\n');
+                	fprintf(fp, '%e\n', GaussianSigma');
+		end
             end
 
             fclose(fp);

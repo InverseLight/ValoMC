@@ -199,7 +199,7 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
 
         if(isfield(vmcoptions,'export_filename'))
             fp = fopen(vmcoptions.export_filename, 'w');
-            fprintf(fp, '%d %d %d %d %d %d\n', size(H, 1), size(BH, 1), size(r, ...
+            fprintf(fp, '%d %d %d %d\n', size(H, 1), size(BH, 1), size(r, ...
                                                               1), Nphoton);
             fprintf(fp, '%e %e %d %d\n', f, phase0, rnseed(1), rnseed(2));
 

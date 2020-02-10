@@ -16,7 +16,7 @@ void readAndResize(FILE *file, int height, int width, bool halt, std::vector<Arr
   bool should_rewind = false;
   
   if(fgets(line, 5011, file) == 0) {
-       exit(1);
+       return;
   };
 
   std::stringstream linestream;

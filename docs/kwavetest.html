@@ -282,7 +282,10 @@ img.logo {max-width: 25vw;}
 </ul>
     </div>
     <div style="margin-left: 20%; padding: 1vw;" class="maintext"> 
-<div class="content"><h1>Simulating the photoacoustic effect using k-Wave: kwavetest.m</h1><!--introduction--><p>This example demonstrates simulation of a pressure field generated through the absorption of an externally introduced light pulse. The light propagation is simulated using ValoMC and the propagation and detection of pressure wavefield is simulated using k-Wave, see <a href="http://www.k-wave.org/documentation/k-wave_initial_value_problems.php">http://www.k-wave.org/documentation/k-wave_initial_value_problems.php</a>. The example also shows how the computation grid of k-Wave and mesh of ValoMC can be made compatible. Note that k-Wave uses SI units (e.g. [m]) and ValoMC works in millimetre-scale (e.g. [mm]).</p><p>k-Wave is an open source acoustics toolbox for MATLAB and C++ developed by Bradley Treeby and Ben Cox (University College London) and Jiri Jaros (Brno University of Technology). The software is designed for time domain acoustic and ultrasound simulations in complex and tissue-realistic media.</p><p>k-Wave homepage: <a href="http://www.k-wave.org/">http://www.k-wave.org/</a>. B. E. Treeby and B. T. Cox: "k-Wave: MATLAB toolbox for the simulation and reconstruction of photoacoustic wave-fields", Journal of Biomedical Optics, 15(2):021314, 2010.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">k-Wave initialisation</a></li><li><a href="#2">Create a ValoMC mesh</a></li><li><a href="#3">Define optical coefficients</a></li><li><a href="#4">Create a light source</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Compute the initial pressure from the photon fluence</a></li><li><a href="#7">Define the k-Wave sensor mask</a></li><li><a href="#8">Move the perfectly matched layer (PML) outside of the computation domain and run the acoustic simulation</a></li><li><a href="#9">Plot the solution</a></li></ul></div><h2 id="1">k-Wave initialisation</h2><p>The initialisation is done as normal in k-Wave. Care must be taken at the initialization ValoMC, to make a matching computational simulation area for (see ValoMC initialization) the photon propagation simulation.</p><pre class="codeinput">clear <span class="string">all</span>;
+<div class="content"><h1>Simulating the photoacoustic effect using k-Wave: kwavetest.m</h1><!--introduction--><p>This example demonstrates simulation of a pressure field generated through the absorption of an externally introduced light pulse. The light propagation is simulated using ValoMC and the propagation and detection of pressure wavefield is simulated using k-Wave, see <a href="http://www.k-wave.org/documentation/k-wave_initial_value_problems.php">http://www.k-wave.org/documentation/k-wave_initial_value_problems.php</a>. The example also shows how the computation grid of k-Wave and mesh of ValoMC can be made compatible. Note that k-Wave uses SI units (e.g. [m]) and ValoMC works in millimetre-scale (e.g. [mm]).</p><p>k-Wave is an open source acoustics toolbox for MATLAB and C++ developed by Bradley Treeby and Ben Cox (University College London) and Jiri Jaros (Brno University of Technology). The software is designed for time domain acoustic and ultrasound simulations in complex and tissue-realistic media.</p><p>k-Wave homepage: <a href="http://www.k-wave.org/">http://www.k-wave.org/</a>. B. E. Treeby and B. T. Cox: "k-Wave: MATLAB toolbox for the simulation and reconstruction of photoacoustic wave-fields", Journal of Biomedical Optics, 15(2):021314, 2010.</p><p>
+<font color="red">Note: there was an incorrectly explained unit conversion earlier in this example.
+See the text shown in red. </font>
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">k-Wave initialisation</a></li><li><a href="#2">Create a ValoMC mesh</a></li><li><a href="#3">Define optical coefficients</a></li><li><a href="#4">Create a light source</a></li><li><a href="#5">Run the Monte Carlo simulation</a></li><li><a href="#6">Compute the initial pressure from the photon fluence</a></li><li><a href="#7">Define the k-Wave sensor mask</a></li><li><a href="#8">Move the perfectly matched layer (PML) outside of the computation domain and run the acoustic simulation</a></li><li><a href="#9">Plot the solution</a></li></ul></div><h2 id="1">k-Wave initialisation</h2><p>The initialisation is done as normal in k-Wave. Care must be taken at the initialization ValoMC, to make a matching computational simulation area for (see ValoMC initialization) the photon propagation simulation.</p><pre class="codeinput">clear <span class="string">all</span>;
 
 <span class="comment">% Create the k-Wave grid</span>
 Nx = 150;           <span class="comment">% number of grid points in the x (row) direction</span>
@@ -340,11 +343,13 @@ Computing...
 ...done
 
 Done
-</pre><h2 id="6">Compute the initial pressure from the photon fluence</h2><pre class="codeinput"><span class="comment">% Note that since the medium was defined as two dimensional arrays,</span>
-<span class="comment">% the output is also given as a two-dimensional array.</span>
-
-<span class="comment">% Compute the absorbed optical energy density</span>
-<span class="comment">% 1e3 converts [J/mm^2] to [J/m^2]</span>
+</pre><h2 id="6">Compute the initial pressure from the photon fluence</h2><p>Note that since the medium was defined as two dimensional arrays, the output is also given as a two-dimensional array.</p><p>
+<font color="red">Corrected explanation</font>
+</p><pre class="codeinput"><span class="comment">% Compute the absorbed optical energy density.</span>
+<span class="comment">% multiply by</span>
+<span class="comment">% 1e6   to convert [J/mm^2] to [J/m^2]</span>
+<span class="comment">% 1e-3  to set the total energy in the pulse to 1 mJ</span>
+<span class="comment">%</span>
 vmcmedium.absorbed_energy = vmcmedium.absorption_coefficient .* solution.grid_fluence*1e3; <span class="comment">% [J/m3]</span>
 
 <span class="comment">% Compute the initial pressure distribution</span>
@@ -356,7 +361,7 @@ num_sensor_points = 50;     <span class="comment">% number of sensor points</spa
 sensor.mask = makeCartCircle(sensor_radius, num_sensor_points);
 </pre><h2 id="8">Move the perfectly matched layer (PML) outside of the computation domain and run the acoustic simulation</h2><p>The PML is a layer that absorbs waves for simulating free regions and is normally contained within the computation  region of k-Wave. For a more straightforward mapping between the computation region of k-Wave and ValoMC, the PML is moved outside of the computation region.</p><pre class="codeinput">sensor_data = kspaceFirstOrder2D(kgrid, medium, source, sensor, <span class="string">'PMLInside'</span>, false);
 </pre><pre class="codeoutput">Running k-Wave simulation...
-  start time: 21-Feb-2019 16:00:15
+  start time: 11-Feb-2020 17:43:38
   reference sound speed: 1800m/s
   WARNING: visualisation plot scale may not be optimal for given source.
   dt: 16.6667ns, t_end: 14.1333us, time steps: 849
@@ -368,11 +373,11 @@ sensor.mask = makeCartCircle(sensor_radius, num_sensor_points);
   WARNING: Highest prime factors in each dimension are 19  19
            Use dimension sizes with lower prime factors to improve speed
   calculating Delaunay triangulation...
-  precomputation completed in 0.83927s
+  precomputation completed in 0.6779s
   starting time loop...
-  estimated simulation time 8.8132s...
-  simulation completed in 8.2956s
-  total computation time 9.2363s
+  estimated simulation time 8.6441s...
+  simulation completed in 8.3875s
+  total computation time 9.1863s
 </pre><h2 id="9">Plot the solution</h2><pre class="codeinput">figure(<span class="string">'rend'</span>,<span class="string">'painters'</span>,<span class="string">'pos'</span>,[10 10 1200 400])
 
 <span class="comment">% plot the initial pressure and sensor distribution</span>
@@ -461,5 +466,5 @@ for (i = 0; i < toggler.length; i++) {
 </script>
 
 <br>
-<br> </div><footer> <hr> <p>Last updated: Tue Apr  9 11:54:30 EEST 2019 by aleksle</p></footer> </body> </html>
+<br> </div><footer> <hr> <p>Last updated: Fri Jun  7 17:50:28 EEST 2019 by aleksle</p></footer> </body> </html>
 

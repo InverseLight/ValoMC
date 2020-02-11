@@ -14,11 +14,17 @@
 % (Brno University of Technology). The software is designed for time domain 
 % acoustic and ultrasound simulations in complex and tissue-realistic media. 
 %
-% k-Wave homepage: http://www.k-wave.org/. 
+% k-Wave homepage: http://www.k-wave.org/.
 % B. E. Treeby and B. T. Cox: "k-Wave: MATLAB toolbox for the simulation
 % and reconstruction of photoacoustic wave-fields", Journal of Biomedical 
 % Optics, 15(2):021314, 2010.
-
+%
+%
+% <html>
+% <font color="red">Note: there was an incorrectly explained unit conversion earlier in this example.
+% See the text shown in red. </font>
+% </html>
+%
 
 %% k-Wave initialisation
 % The initialisation is done as normal in k-Wave.
@@ -100,12 +106,19 @@ vmcboundary.lightsource(boundary_with_lightsource) = {'cosinic'};
 solution = ValoMC(vmcmesh, vmcmedium, vmcboundary);
 
 %% Compute the initial pressure from the photon fluence
-
+%
 % Note that since the medium was defined as two dimensional arrays,
 % the output is also given as a two-dimensional array.
+%
+% <html>
+% <font color="red">Corrected explanation</font>
+% </html>
 
-% Compute the absorbed optical energy density
-% 1e3 converts [J/mm^2] to [J/m^2]
+% Compute the absorbed optical energy density.
+% multiply by
+% 1e6   to convert [J/mm^2] to [J/m^2]
+% 1e-3  to set the total energy in the pulse to 1 mJ
+% 
 vmcmedium.absorbed_energy = vmcmedium.absorption_coefficient .* solution.grid_fluence*1e3; % [J/m3]
 
 % Compute the initial pressure distribution

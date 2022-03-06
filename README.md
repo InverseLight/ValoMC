@@ -217,6 +217,6 @@ and use (from MATLAB prompt, at 'ValoMC/'):
 Changelog
 =========
 
-6.3.2022: A potentially important error was spotted in the 3d code and fixed. Please see this [issue](https://github.com/InverseLight/ValoMC/issues/17) and the news section in the [frontpage](https://inverselight.github.io/ValoMC/)
+6.3.2022: A potentially important error was spotted in the 3d code and fixed. Please see this [issue](https://github.com/InverseLight/ValoMC/issues/17) and the news section in the [frontpage.](https://inverselight.github.io/ValoMC/)
 
 

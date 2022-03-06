@@ -30,6 +30,7 @@ citation:
 software and MATLAB toolbox for simulating light transport in
 biological tissue, OSA Continuum 2, 957-972 (2019)](https://doi.org/10.1364/OSAC.2.000957)
 
+**NEW: Please see the end of this README file for a list of recent changes.**
 
 Minimal example
 ===============
@@ -212,3 +213,10 @@ you can install it by
 and use (from MATLAB prompt, at 'ValoMC/'):
 	
 	mex  -v GCC='/usr/bin/gcc-4.9' -DUSE_OMP cpp/2d/MC2Dmex.cpp COMPFLAGS='\$COMPFLAGS -fopenmp' CXXFLAGS='\$CXXFLAGS -fopenmp' LDFLAGS='\$LDFLAGS -fopenmp'
+
+Changelog
+=========
+
+6.3.2022: A potentially important error was spotted in the 3d code and fixed. Please see this [issue](https://github.com/InverseLight/ValoMC/issues/17) and the news section in the [frontpage](https://inverselight.github.io/ValoMC/);
+
+

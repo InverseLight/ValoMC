@@ -1084,11 +1084,10 @@ void MC3D::CreatePhoton(Photon *phot)
     phot->curface = -1;
 
   // Initial photon position uniformly distributed on the boundary element
-  double w0 = UnifOpen(), w1 = UnifOpen(), w2 = UnifOpen();
-  phot->pos[0] = (w0 * r(BH(ib, 0), 0) + w1 * r(BH(ib, 1), 0) + w2 * r(BH(ib, 2), 0)) / (w0 + w1 + w2);
-  phot->pos[1] = (w0 * r(BH(ib, 0), 1) + w1 * r(BH(ib, 1), 1) + w2 * r(BH(ib, 2), 1)) / (w0 + w1 + w2);
-  phot->pos[2] = (w0 * r(BH(ib, 0), 2) + w1 * r(BH(ib, 1), 2) + w2 * r(BH(ib, 2), 2)) / (w0 + w1 + w2);
-
+  double r1 = UnifOpen(), r2 = UnifOpen();
+  phot->pos[0] = (1.0 - sqrt(r1)) * r(BH(ib, 0), 0) + sqrt(r1) * (1.0 - r2) * r(BH(ib, 1), 0) + sqrt(r1) * r2 * r(BH(ib, 2), 0);
+  phot->pos[1] = (1.0 - sqrt(r1)) * r(BH(ib, 0), 1) + sqrt(r1) * (1.0 - r2) * r(BH(ib, 1), 1) + sqrt(r1) * r2 * r(BH(ib, 2), 1);
+  phot->pos[2] = (1.0 - sqrt(r1)) * r(BH(ib, 0), 2) + sqrt(r1) * (1.0 - r2) * r(BH(ib, 1), 2) + sqrt(r1) * r2 * r(BH(ib, 2), 2);
   // Face normal
   Normal(ib, n);
 

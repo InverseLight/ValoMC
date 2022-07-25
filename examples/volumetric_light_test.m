@@ -26,14 +26,14 @@ vmcmedium.absorption_coefficient(:) = 0.01;
 vmcmedium.scattering_coefficient(:) = 0.01;  
 vmcmedium.scattering_anisotropy(:) = 0.9;                            
 vmcmedium.refractive_index(:) = 1.0;           
-vmcmedium.volumetric_light_source(:) = 0.0; % set all light sources as non-emitting at first
+vmcmedium.volumetric_light_source(:) = 0.0;  % volumetric light source: set all light sources as non-emitting at first
 
 % Use the indices
 vmcmedium.absorption_coefficient(background) = 0.1;   
 vmcmedium.scattering_coefficient(background) = 0.01;  
 vmcmedium.scattering_anisotropy(background) = 0.9;                            
 vmcmedium.refractive_index(background) = 1.0; 
-vmcmedium.volumetric_light_source(background) = 0; 
+vmcmedium.volumetric_light_source(background) = 0; % volumetric light source:
 
 vmcmedium.absorption_coefficient(sphere) = 0.1;   
 vmcmedium.scattering_coefficient(sphere) = 0.01;  
@@ -42,13 +42,13 @@ vmcmedium.refractive_index(sphere) = 1.0;
 
 % Set a volumetric light source to each element of the sphere
 % Magnitude of this number does not affect the results currently.
-% Onecd means the element emits photons
+% One means the element emits photons, zero that it doesn't.
 vmcmedium.volumetric_light_source(sphere) = 1; 
 
-% Give total power of 0.6 units to the light source (say e.g. 1 W)
 % This means 60 percent of the photons will be emitted from volumetric
-% light sources
-options.volumetric_light_source_fraction = 1.0;
+% light sources, i.e. using the convention that the total power is 1 W,
+% volumetric light sources will emit 0.6 W
+options.volumetric_light_source_fraction = 0.6;
 
 %% Find boundary elements
 % A circular domain for the light source was meshed (circle r = 1.0 at the

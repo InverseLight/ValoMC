@@ -2,6 +2,13 @@
 
 Please see the full documentation at https://inverselight.github.io/ValoMC/
 
+Branch information
+==================
+
+This branch aims to implement volumetric light sources.
+Example is given in examples/volumetric_light_test.m. 
+The code has *not* yet been tested. Only 3D implementation exists.
+
 
 Introduction
 ============

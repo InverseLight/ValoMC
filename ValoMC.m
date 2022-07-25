@@ -23,6 +23,7 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
 %         .scattering_coefficient
 %         .scattering_anisotropy
 %         .refractive_index
+%         .volumetric_light_source
 %       vmcboundary
 %         .lightsource            - type of the lightsource (e.g. {'cosinic'}. {'gaussian'})
 %         .lightsource_direction  - size(H, Ndim)
@@ -335,7 +336,27 @@ function solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, vmcoptions)
             fclose(fp);
             return
         else
-            [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time, solution.seed_used] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton,disable_pbar, uint64(rnseed));
+            if(isfield(vmcmedium,'volumetric_light_source'))
+               
+               if(size(vmcmedium.volumetric_light_source,2) > size(vmcmedium.volumetric_light_source,1))
+                   vol_lights = vmcmedium.volumetric_light_source';
+               else
+                   vol_lights = vmcmedium.volumetric_light_source;                   
+               end
+               
+               if(~isfield(vmcoptions,'volumetric_light_source_fraction'))
+                  error('Volumetric light source requested but vmcoptions.volumetric_light_source_fraction is not set');
+               end
+               volfrac=vmcoptions.volumetric_light_source_fraction;
+               
+               if(size(vmcmesh.H,1) ~= size(vol_lights,1))
+                  error('Volumetric light source requested but vmcmedium.volumetric_light_source is not correctly set up. It has incorrect number of entries.')
+               end
+               
+               [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time, solution.seed_used] = MC3D_vol_lights_mex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton,disable_pbar, uint64(rnseed), double(vol_lights),volfrac);
+            else
+               [solution.element_fluence, solution.boundary_exitance, solution.boundary_fluence, solution.simulation_time, solution.seed_used] = MC3Dmex(H, HN, BH, r, BCType, BCIntensity, BCLightDirectionType, BCLightDirection, BCn, mua, mus, g, n, f, phase0, Nphoton,disable_pbar, uint64(rnseed));
+            end
         end
         if(isfield(vmcmedium,'nx') && isfield(vmcmedium,'ny') && isfield(vmcmedium,'nz'))
             % Three dimensional input

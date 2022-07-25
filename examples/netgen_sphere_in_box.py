@@ -8,7 +8,7 @@ geo = CSGeometry()
 brick = OrthoBrick(Pnt(-5,-5,-5),Pnt(5,5,5))
 brick.mat("background");
 # Add a sphere into the middle
-sphere = Sphere(Pnt(0,0,0),2).maxh(0.4)
+sphere = Sphere(Pnt(0,0,0),2).maxh(3)
 sphere.mat("sphere")
 
 # Remesh a face of the cube so that it contains
@@ -30,6 +30,6 @@ cylinder = (plane1*plane2*infcylinder);
 geo.Add(cylinder+brick-sphere);
 geo.Add(sphere);
 
-ngmesh = geo.GenerateMesh(maxh=0.4)
+ngmesh = geo.GenerateMesh(maxh=3)
 ngmesh.Save("sphere_in_box.vol")
 

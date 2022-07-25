@@ -1,2 +1,2 @@
-const char * build_version = "v1.0rc";
+const char * build_version = "Special build with volumetric lights - work in progress!";
 const char * build_revision = "1";

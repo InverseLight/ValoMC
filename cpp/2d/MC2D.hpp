@@ -1442,6 +1442,8 @@ void MC2D::PropagatePhoton(Photon *phot)
       }
 
       // Test transmission from vacuum -> scattering media
+      // The regular update of remaining scattering length is skipped in this case, otherwise the scattering length
+      // is zeroed and immediate scattering occurs
       if ((mus[phot->curel] <= 0.0) && (mus[phot->nextel] > 0.0))
       {
         // Draw new propagation distance -- otherwise photon might travel without scattering

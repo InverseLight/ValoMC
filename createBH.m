@@ -29,13 +29,13 @@ function [BH, BMother] = createBH(H, HN);
 % This function is provided with ValoMC
 
 if(size(H,2) > 3)
-    if(exist('createBH3') == 0)
+    if(exist('createBH3mex') == 0)
         error('Cannot find mex function createBH3. It is located at cpp/3d/createBH3mex.cpp. See installation instructions how to compile it');
     end
     if(nargout > 1)
         error('Cannot create BMother for 3d meshes yet.');
     end
-    BH = createBH3(int64(H));
+    BH = createBH3mex(int64(H));
 
 else
 

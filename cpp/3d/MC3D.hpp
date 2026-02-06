@@ -1568,19 +1568,40 @@ void MC3D::PropagatePhoton(Photon *phot)
       }
 
       // Test transmission from vacuum -> scattering media
+      // The regular update of remaining scattering length is skipped in this case, otherwise the scattering length
+      // is zeroed and immediate scattering occurs
       if ((mus[phot->curel] <= 0.0) && (mus[phot->nextel] > 0.0))
       {
         // Draw new propagation distance -- otherwise photon might travel without scattering
         prop = -log(UnifOpen()) / mus[phot->nextel];
-      }
+        // Test for surival of the photon via roulette
+        if (phot->weight < weight0)
+        {
+          if (UnifClosed() > chance) {
+           //mexPrintf("Photon was absorbed \n");
+           return;
+         }
+         phot->weight /= chance;
+       }
 
-      // Test for surival of the photon via roulette
-      if (phot->weight < weight0)
-      {
-        if (UnifClosed() > chance)
-          return;
-        phot->weight /= chance;
-      }
+        // Fresnel transmission/reflection
+        if (n[phot->curel] != n[phot->nextel])
+        {
+          if (FresnelPhoton(phot))
+            continue;
+       }
+       }else{
+     
+
+       // Test for surival of the photon via roulette
+       if (phot->weight < weight0)
+       {
+         if (UnifClosed() > chance) {
+           //mexPrintf("Photon was absorbed \n");
+           return;
+         }
+         phot->weight /= chance;
+       }
 
       // Fresnel transmission/reflection
       if (n[phot->curel] != n[phot->nextel])
@@ -1588,12 +1609,9 @@ void MC3D::PropagatePhoton(Photon *phot)
         if (FresnelPhoton(phot))
           continue;
       }
-
       // Upgrade remaining photon propagation lenght in case it is transmitted to different mus domain
       prop *= mus[phot->curel] / mus[phot->nextel];
-
-
-
+      }
       // Update current face of the photon to that face which it will be on in the next element
       if (HN(phot->nextel, 0) == phot->curel)
         phot->curface = 0;

@@ -1448,16 +1448,34 @@ void MC2D::PropagatePhoton(Photon *phot)
       {
         // Draw new propagation distance -- otherwise photon might travel without scattering
         prop = -log(UnifOpen()) / mus[phot->nextel];
-      }
+        // Test for surival of the photon via roulette
+        if (phot->weight < weight0)
+        {
+          if (UnifClosed() > chance) {
+           //mexPrintf("Photon was absorbed \n");
+           return;
+         }
+         phot->weight /= chance;
+       }
 
-      // Test for surival of the photon via roulette
-      if (phot->weight < weight0)
-      {
-        if (UnifClosed() > chance) {
-          return;
-        }
-        phot->weight /= chance;
-      }
+        // Fresnel transmission/reflection
+        if (n[phot->curel] != n[phot->nextel])
+        {
+          if (FresnelPhoton(phot))
+            continue;
+       }
+       }else{
+     
+
+       // Test for surival of the photon via roulette
+       if (phot->weight < weight0)
+       {
+         if (UnifClosed() > chance) {
+           //mexPrintf("Photon was absorbed \n");
+           return;
+         }
+         phot->weight /= chance;
+       }
 
       // Fresnel transmission/reflection
       if (n[phot->curel] != n[phot->nextel])
@@ -1468,7 +1486,7 @@ void MC2D::PropagatePhoton(Photon *phot)
 
       // Upgrade remaining photon propagation lenght in case it is transmitted to different mus domain
       prop *= mus[phot->curel] / mus[phot->nextel];
-
+      }      
       // Update current face of the photon to that face which it will be on in the next element
       if (HN(phot->nextel, 0) == phot->curel)
         phot->curface = 0;

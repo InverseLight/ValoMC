@@ -6,6 +6,7 @@
 #include <limits>
 #include <inttypes.h>
 #include <time.h>
+#include <chrono>
 
 #include "mex.h"
 #include "Array.hpp"
@@ -167,7 +168,12 @@ void mexFunction(int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs)
   if(rndseed[1]) {
      MC.seed = rndseed[0];
   } else {
-     MC.seed = (unsigned long) time(NULL);
+    uint64_t random_value =   
+        static_cast<uint64_t>(
+        std::chrono::high_resolution_clock::now().time_since_epoch().count()
+        );       
+    MC.seed = random_value;    
+   //MC.seed = (unsigned long) time(NULL);
   }
   // Initialize
   mexPrintf("Initializing MC2D...\n");

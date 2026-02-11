@@ -9,7 +9,7 @@
 #include <sstream>
 #include <utility>
 #include <iomanip>
-
+#include <chrono>
 
 
 
@@ -64,8 +64,12 @@ int main(int argc, char **argv)
     if(param.compare("-s") == 0) suppress_progressbar = true;
   }
 
-
-  MC.seed = (unsigned long)time(NULL);
+  uint64_t random_value =   
+        static_cast<uint64_t>(
+        std::chrono::high_resolution_clock::now().time_since_epoch().count()
+        );       
+  MC.seed = random_value;        
+  //MC.seed = (unsigned long)time(NULL);
 
   char *fin = argv[1];
   char *fout = argv[2];
@@ -156,7 +160,12 @@ int LoadProblem_TXT(char *fin)
   if(sd2) {
      MC.seed = sd1;
   } else {
-     MC.seed = (unsigned long) time(NULL);
+      uint64_t random_value =   
+        static_cast<uint64_t>(
+        std::chrono::high_resolution_clock::now().time_since_epoch().count()
+        );       
+     MC.seed = random_value;    
+     //MC.seed = (unsigned long) time(NULL);
   }
 
 
@@ -167,7 +176,8 @@ int LoadProblem_TXT(char *fin)
   printf("  %10s   (%li)\n", "Nb", Nb);
   printf("  %10s   (%li)\n", "Nr", Nr);
   printf("  %10s   (%li)\n", "Nphoton", MC.Nphoton);
-  printf("  %10s   (%li)\n", "seed", MC.seed);
+  //printf("  %10s   (%li)\n", "seed", MC.seed);
+  std::cout << "seed " << MC.seed << std::endl;
   printf("Arrays:\n");
 
   // make negative phase0 positive by adding a multiple of 2*pi
